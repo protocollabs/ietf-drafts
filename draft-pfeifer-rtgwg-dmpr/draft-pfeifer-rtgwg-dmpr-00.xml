@@ -49,8 +49,7 @@
    <!-- The abbreviated title is used in the page header - it is only necessary if the 
         full title is longer than 39 characters -->
 
-   <title abbrev="Abbreviated Title">Put Your Internet Draft Title
-   Here</title>
+   <title abbrev="DMPR">Dynamic MultiPath Routing Protocol</title>
 
    <!-- add 'role="editor"' below for the editors if appropriate -->
 
@@ -117,6 +116,72 @@
  </front>
 
  <middle>
+   <section title="Introduction">
+     <t>this is dmpr</t>
+     <section title="Why">
+       <t>why dmpr</t>
+     </section>
+     <section title="Terminology">
+       <t>whats a policy, metric, link, link attribute, router, network</t>
+     </section>
+     <section title="Overview">
+       <t>how does it work from a bird's eye perspective</t>
+     </section>
+     <section title="Distinction from other routing protocols">
+       <t>why not extend other protocols?</t>
+     </section>
+   </section>
+   <section title="Behavior">
+     <section title="Neighbor detection">
+       <t>how do we find neighbors</t>
+     </section>
+     <section title="Message handling">
+       <t>how do we process the messages from neighbors</t>
+     </section>
+     <section title="Policies">
+       <t>how do the policies come into the play</t>
+     </section>
+     <section title="Route selection">
+       <t>how do we select the best route</t>
+     </section>
+     <section title="Network retraction">
+       <t>what happens with retracted networks</t>
+     </section>
+     <section title="Other">
+       <t>TODO: how does the network handle: different network conditions,
+       disappearing and reappearing nodes,</t>
+     </section>
+   </section>
+   <section title="Message format">
+     <section title="Header">
+       <t>The binary header description</t>
+     </section>
+     <section title="Message types">
+       <section title="General Fields">
+         <t>All fields which are required in every message</t>
+       </section>
+       <section title="Full Update">
+         <t>fields and description of a full update</t>
+       </section>
+       <section title="Partial Update">
+         <t>fields and description of a partial update</t>
+       </section>
+     </section>
+     <section title="Requests">
+       <t>fields and description of full-update requests</t>
+     </section>
+     <section title="Reflections">
+       <t>fields and description of reflections</t>
+     </section>
+   </section>
+   <section title="Optional Features">
+     <section title="Asymmetric Link detection">
+       <t>How should asymmetric link detection work/how can it be implemented</t>
+     </section>
+     <section title="Full only mode">
+       <t>when/how to switch the mode</t>
+     </section>
+   </section>
    <section title="Introduction">
      <t>The original specification of xml2rfc format is in <xref
      target="RFC2629">RFC&nbsp;2629</xref>.</t>
@@ -397,6 +462,20 @@ main(int argc, char *argv[])
        </front>
      </reference>
    </references>
+
+   <section title="Policies">
+     <t>many exchangeable policies</t>
+     <section title="Low Loss Policy">
+       <t>use path with lowest overall loss</t>
+     </section>
+     <section title="High Bandwidth Policy">
+       <t>use path with highest bandwidth</t>
+     </section>
+   </section>
+   <section title="Tuneables">
+     <t>The different magic values and what they affect, how they could/should be
+     set</t>
+   </section>
 
    <section anchor="app-additional" title="Additional Stuff">
      <t>This becomes an Appendix.</t>
