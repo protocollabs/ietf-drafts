@@ -12,19 +12,18 @@
 <!ENTITY RFC5226 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5226.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
-<!-- used by XSLT processors -->
-<!-- For a complete list and description of processing instructions (PIs), 
-    please see http://xml.resource.org/authoring/README.html. -->
-<!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
-    (Here they are set differently than their defaults in xml2rfc v1.32) -->
+
 <?rfc strict="yes" ?>
 <!-- give errors regarding ID-nits and DTD validation -->
 <!-- control the table of contents (ToC) -->
+
 <?rfc toc="yes"?>
 <!-- generate a ToC -->
+
 <?rfc tocdepth="4"?>
 <!-- the number of levels of subsections in ToC. default: 3 -->
 <!-- control references -->
+
 <?rfc symrefs="yes"?>
 <!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
 <?rfc sortrefs="yes" ?>
@@ -46,39 +45,40 @@
  <!-- ***** FRONT MATTER ***** -->
 
  <front>
-   <!-- The abbreviated title is used in the page header - it is only necessary if the 
-        full title is longer than 39 characters -->
+   <title abbrev="Dynamic MultiPath Routing">Dynamic MultiPath Routing Protocol</title>
 
-   <title abbrev="DMPR">Dynamic MultiPath Routing Protocol</title>
+   <author fullname="Hagen Paul Pfeifer" initials="H.P.P" role="editor"
+           surname="Pfeifer">
+     <organization>ProtocolLabs</organization>
 
-   <!-- add 'role="editor"' below for the editors if appropriate -->
+     <address>
+       <postal>
+         <street>Agnes Bernauer Str. 84</street>
+         <city>Munich</city>
+         <code>80687</code>
+         <country>DE</country>
+       </postal>
+       <phone>+49 174 54 55 209</phone>
 
-   <!-- Another author who claims to be an editor -->
+			 <email>hagen@jauu.net</email>
+			 <uri>http://www.jauu.net/</uri>
+     </address>
+	 </author>
 
-   <author fullname="Elwyn Davies" initials="E.B." role="editor"
-           surname="Davies">
-     <organization>Folly Consulting</organization>
+
+   <author fullname="Joshua Schueler" initials="J.S." surname="Schueler">
+     <organization></organization>
 
      <address>
        <postal>
          <street></street>
-
-         <!-- Reorder these if your country does things differently -->
-
-         <city>Soham</city>
-
-         <region></region>
-
+         <city></city>
          <code></code>
-
-         <country>UK</country>
+         <country></country>
        </postal>
+       <phone></phone>
 
-       <phone>+44 7889 488 335</phone>
-
-       <email>elwynd@dial.pipex.com</email>
-
-       <!-- uri and facsimile elements may also be added -->
+			 <email></email>
      </address>
    </author>
 
@@ -93,7 +93,7 @@
 
    <!-- Meta-data Declarations -->
 
-   <area>General</area>
+   <area>IETF</area>
 
    <workgroup>Internet Engineering Task Force</workgroup>
 

@@ -2,10 +2,10 @@
 
 
 
-Internet Engineering Task Force                           E. Davies, Ed.
-Internet-Draft                                          Folly Consulting
-Intended status: Informational                        September 14, 2017
-Expires: March 18, 2018
+Internet Engineering Task Force                          H. Pfeifer, Ed.
+Internet-Draft                                              ProtocolLabs
+Intended status: Informational                               J. Schueler
+Expires: March 18, 2018                               September 14, 2017
 
 
                    Dynamic MultiPath Routing Protocol
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Davies                   Expires March 18, 2018                 [Page 1]
+Pfeifer & Schueler       Expires March 18, 2018                 [Page 1]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Davies                   Expires March 18, 2018                 [Page 2]
+Pfeifer & Schueler       Expires March 18, 2018                 [Page 2]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
      15.2.  Informative References . . . . . . . . . . . . . . . . .  11
@@ -121,7 +121,7 @@ Internet-Draft                    DMPR                    September 2017
    Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  12
    Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  12
    Appendix D.  Additional Stuff . . . . . . . . . . . . . . . . . .  12
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  12
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
 
@@ -165,9 +165,9 @@ Internet-Draft                    DMPR                    September 2017
 
 
 
-Davies                   Expires March 18, 2018                 [Page 3]
+Pfeifer & Schueler       Expires March 18, 2018                 [Page 3]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 2.4.  Policies
@@ -221,9 +221,9 @@ Internet-Draft                    DMPR                    September 2017
 
 
 
-Davies                   Expires March 18, 2018                 [Page 4]
+Pfeifer & Schueler       Expires March 18, 2018                 [Page 4]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 3.1.2.  Extension Header
@@ -277,9 +277,9 @@ Internet-Draft                    DMPR                    September 2017
 
 
 
-Davies                   Expires March 18, 2018                 [Page 5]
+Pfeifer & Schueler       Expires March 18, 2018                 [Page 5]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
     0                   1                   2                   3
@@ -333,9 +333,9 @@ Internet-Draft                    DMPR                    September 2017
 
 
 
-Davies                   Expires March 18, 2018                 [Page 6]
+Pfeifer & Schueler       Expires March 18, 2018                 [Page 6]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 3.4.  Reflections
@@ -389,9 +389,9 @@ Internet-Draft                    DMPR                    September 2017
 
 
 
-Davies                   Expires March 18, 2018                 [Page 7]
+Pfeifer & Schueler       Expires March 18, 2018                 [Page 7]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
                  Preamble text - can be omitted or empty.
@@ -445,9 +445,9 @@ Internet-Draft                    DMPR                    September 2017
 
 
 
-Davies                   Expires March 18, 2018                 [Page 8]
+Pfeifer & Schueler       Expires March 18, 2018                 [Page 8]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
    fantastically long label  With a label longer than the hangIndent.
@@ -501,9 +501,9 @@ Internet-Draft                    DMPR                    September 2017
 
 
 
-Davies                   Expires March 18, 2018                 [Page 9]
+Pfeifer & Schueler       Expires March 18, 2018                 [Page 9]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
    R7  #7
@@ -557,9 +557,9 @@ Internet-Draft                    DMPR                    September 2017
 
 
 
-Davies                   Expires March 18, 2018                [Page 10]
+Pfeifer & Schueler       Expires March 18, 2018                [Page 10]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 12.  Acknowledgements
@@ -613,9 +613,9 @@ Internet-Draft                    DMPR                    September 2017
 
 
 
-Davies                   Expires March 18, 2018                [Page 11]
+Pfeifer & Schueler       Expires March 18, 2018                [Page 11]
 
-Internet-Draft                    DMPR                    September 2017
+Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
    [RFC3552]  Rescorla, E. and B. Korver, "Guidelines for Writing RFC
@@ -653,20 +653,76 @@ Appendix D.  Additional Stuff
 
    This becomes an Appendix.
 
-Author's Address
+Authors' Addresses
 
-   Elwyn Davies (editor)
-   Folly Consulting
-   Soham
-   UK
+   Hagen Paul Pfeifer (editor)
+   ProtocolLabs
+   Agnes Bernauer Str. 84
+   Munich  80687
+   DE
 
-   Phone: +44 7889 488 335
-   Email: elwynd@dial.pipex.com
-
-
-
-
+   Phone: +49 174 54 55 209
+   Email: hagen@jauu.net
+   URI:   http://www.jauu.net/
 
 
 
-Davies                   Expires March 18, 2018                [Page 12]
+
+
+Pfeifer & Schueler       Expires March 18, 2018                [Page 12]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
+
+   Joshua Schueler
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pfeifer & Schueler       Expires March 18, 2018                [Page 13]
