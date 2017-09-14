@@ -160,7 +160,104 @@
    </section>
    <section title="Message Format">
      <section title="Header">
-       <t>The binary header description</t>
+       <section title="Preamble">
+       <t>The preamble of a DMPR packet is as follows</t>
+       <!-- Magic:3,Reserved:5,NextType:8,Payload:80 -->
+       <figure align="center">
+       <artwork align="left"><![CDATA[
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|Magic| Reserved|    NextType   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+         <postamble>The preamble of a packet</postamble>
+     </figure>
+       <t>
+         <list style="hanging">
+           <t hangText="Magic"><vspace blankLines="0" />
+             A 3-bit Magic: 0b010</t>
+           <t hangText="Reserved"><vspace blankLines="0" />
+             Reserved for future use</t>
+           <t hangText="NextType"><vspace blankLines="0" />
+             8-bit unsigned integer. Defines the type of the immediately
+             following data. For a NextType of &lt; 128 this data consists
+             an Extension Header.
+             For a NextType of &ge; 128 the rest of the packet is payload, the
+             processing is further specified by NextType.
+           </t>
+         </list>
+       </t>
+         </section>
+       <section title="Extension Header">
+       <t>An Extension Header consists of a length specifier, a Data field and
+         a specifier for the type of the immediately following data.
+       </t>
+       <!-- Length:8,Data:80,NextType:8 -->
+       <figure align="center">
+       <artwork align="left"><![CDATA[
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|     Length    |                                               |
++-+-+-+-+-+-+-+-+                                               +
+|                              Data                             |
++                                               +-+-+-+-+-+-+-+-+
+|                                               |    NextType   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+         <postamble>The payload when NextType &lt; 128</postamble>
+     </figure>
+       <t>
+         <list style="hanging">
+           <t hangText="Length"><vspace blankLines="0" />
+             8-bit unsigned integer: The length of the Data
+             field in 2-octets </t>
+           <t hangText="Data"><vspace blankLines="0" />
+             The type-specific data.</t>
+           <t hangText="NextType"><vspace blankLines="0" />
+             The type of the immediately following data
+             (as specified in the packet preamble description)</t>
+         </list>
+       </t>
+         </section>
+       <section title="Payload">
+         <section title="Compressed JSON">
+           <t>Type: 128</t>
+           <t>LZMA-compressed standard-compliant JSON data (TODO RFC 7159)</t>
+         </section>
+         <section title="Fragmentation Payload">
+           <t>Type: 129</t>
+           <t>TODO define, idea below</t>
+           <!-- Identifier:8,Last:1,Packet offset:7,Payload:48 -->
+       <figure align="center">
+       <artwork align="left"><![CDATA[
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Identifier  |L|Packet offset|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+|                            Payload                            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+         <postamble>TODO: The fragmentation header</postamble>
+     </figure>
+           <t>
+         <list style="hanging">
+           <t hangText="Identifier"><vspace blankLines="0" />
+             Identifies possibly concurrent fragmented
+             packets. Implementations SHOULD use an increasing counter to
+           practically eliminate the possibility of a collision.</t>
+           <t hangText="L(ength)"><vspace blankLines="0" />
+             Last, 1 if this packet has the highest packet offset
+           in this fragmentation collection.</t>
+           <t hangText="Packet offset"><vspace blankLines="0" />
+             7-bit unsigned integer. TODO name. To sort the packets
+           </t>
+         </list>
+       </t>
+         </section>
+       </section>
      </section>
      <section title="Message Types">
        <section title="General Fields">
