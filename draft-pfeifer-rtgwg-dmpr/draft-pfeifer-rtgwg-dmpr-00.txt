@@ -61,51 +61,51 @@ Internet-Draft                    DMPR                    September 2017
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-     1.1.  Why . . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+     1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
      1.3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   3
-     1.4.  Distinction from other routing protocols  . . . . . . . .   3
+     1.4.  Distinction from other Routing Protocols  . . . . . . . .   3
    2.  Behavior  . . . . . . . . . . . . . . . . . . . . . . . . . .   3
-     2.1.  Neighbor detection  . . . . . . . . . . . . . . . . . . .   3
-     2.2.  Message handling  . . . . . . . . . . . . . . . . . . . .   3
-     2.3.  Policies  . . . . . . . . . . . . . . . . . . . . . . . .   3
-     2.4.  Route selection . . . . . . . . . . . . . . . . . . . . .   3
-     2.5.  Network retraction  . . . . . . . . . . . . . . . . . . .   3
-     2.6.  Other . . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Message format  . . . . . . . . . . . . . . . . . . . . . . .   4
+     2.1.  Neighbor Detection  . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Interface Handling  . . . . . . . . . . . . . . . . . . .   3
+     2.3.  Message Handling  . . . . . . . . . . . . . . . . . . . .   3
+     2.4.  Policies  . . . . . . . . . . . . . . . . . . . . . . . .   3
+     2.5.  Route Selection . . . . . . . . . . . . . . . . . . . . .   4
+     2.6.  Network Retraction  . . . . . . . . . . . . . . . . . . .   4
+     2.7.  Other...  . . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  Message Format  . . . . . . . . . . . . . . . . . . . . . . .   4
      3.1.  Header  . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     3.2.  Message types . . . . . . . . . . . . . . . . . . . . . .   4
+     3.2.  Message Types . . . . . . . . . . . . . . . . . . . . . .   4
        3.2.1.  General Fields  . . . . . . . . . . . . . . . . . . .   4
        3.2.2.  Full Update . . . . . . . . . . . . . . . . . . . . .   4
        3.2.3.  Partial Update  . . . . . . . . . . . . . . . . . . .   4
+       3.2.4.  Keep Alive  . . . . . . . . . . . . . . . . . . . . .   4
      3.3.  Requests  . . . . . . . . . . . . . . . . . . . . . . . .   4
      3.4.  Reflections . . . . . . . . . . . . . . . . . . . . . . .   4
-   4.  Optional Features . . . . . . . . . . . . . . . . . . . . . .   4
-     4.1.  Asymmetric Link detection . . . . . . . . . . . . . . . .   4
-     4.2.  Full only mode  . . . . . . . . . . . . . . . . . . . . .   4
-   5.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   4
-     5.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
-   6.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   7.  Figures . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   8.  Subsections and Tables  . . . . . . . . . . . . . . . . . . .   5
-     8.1.  A Subsection  . . . . . . . . . . . . . . . . . . . . . .   5
-     8.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   9.  More about Lists  . . . . . . . . . . . . . . . . . . . . . .   6
-     9.1.  Numbering Lists across Lists and Sections . . . . . . . .   6
-     9.2.  Where the List Numbering Continues  . . . . . . . . . . .   7
-   10. Example of Code or MIB Module To Be Extracted . . . . . . . .   7
-   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
-   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
-   13. Security Considerations . . . . . . . . . . . . . . . . . . .   9
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .   9
-     14.2.  Informative References . . . . . . . . . . . . . . . . .   9
-   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .   9
+   4.  Data Structures . . . . . . . . . . . . . . . . . . . . . . .   5
+   5.  Optional Features . . . . . . . . . . . . . . . . . . . . . .   5
+     5.1.  Asymmetric Link Detection . . . . . . . . . . . . . . . .   5
+     5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .   5
+   6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   5
+   7.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .   5
+   8.  Figures . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+   9.  Subsections and Tables  . . . . . . . . . . . . . . . . . . .   6
+     9.1.  A Subsection  . . . . . . . . . . . . . . . . . . . . . .   6
+     9.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . . . .   6
+   10. More about Lists  . . . . . . . . . . . . . . . . . . . . . .   6
+     10.1.  Numbering Lists across Lists and Sections  . . . . . . .   7
+     10.2.  Where the List Numbering Continues . . . . . . . . . . .   7
+   11. Example of Code or MIB Module To Be Extracted . . . . . . . .   8
+   12. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
+   13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
+   14. Security Considerations . . . . . . . . . . . . . . . . . . .   9
+   15. References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
+     15.1.  Normative References . . . . . . . . . . . . . . . . . .   9
+     15.2.  Informative References . . . . . . . . . . . . . . . . .   9
+   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  10
      A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  10
      A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  10
    Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  10
-   Appendix C.  Additional Stuff . . . . . . . . . . . . . . . . . .  10
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
 
 
 
@@ -114,13 +114,19 @@ Davies                   Expires March 18, 2018                 [Page 2]
 Internet-Draft                    DMPR                    September 2017
 
 
+   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  10
+   Appendix D.  Additional Stuff . . . . . . . . . . . . . . . . . .  10
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
+
 1.  Introduction
 
-   this is dmpr
+   this is dmpr, why we built it and what it can be used for
 
-1.1.  Why
+1.1.  Requirements Language
 
-   why dmpr
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in RFC 2119 [RFC2119].
 
 1.2.  Terminology
 
@@ -130,36 +136,30 @@ Internet-Draft                    DMPR                    September 2017
 
    how does it work from a bird's eye perspective
 
-1.4.  Distinction from other routing protocols
+1.4.  Distinction from other Routing Protocols
 
-   why not extend other protocols?
+   why this protocol?
 
 2.  Behavior
 
-2.1.  Neighbor detection
+2.1.  Neighbor Detection
 
    how do we find neighbors
 
-2.2.  Message handling
+2.2.  Interface Handling
+
+   How do we handle multiple interfaces
+
+2.3.  Message Handling
 
    how do we process the messages from neighbors
 
-2.3.  Policies
+2.4.  Policies
 
    how do the policies come into the play
 
-2.4.  Route selection
 
-   how do we select the best route
 
-2.5.  Network retraction
-
-   what happens with retracted networks
-
-2.6.  Other
-
-   TODO: how does the network handle: different network conditions,
-   disappearing and reappearing nodes,
 
 
 
@@ -170,13 +170,26 @@ Davies                   Expires March 18, 2018                 [Page 3]
 Internet-Draft                    DMPR                    September 2017
 
 
-3.  Message format
+2.5.  Route Selection
+
+   how do we select the best route
+
+2.6.  Network Retraction
+
+   what happens with retracted networks
+
+2.7.  Other...
+
+   TODO: how does the network handle: different network conditions,
+   disappearing and reappearing nodes,
+
+3.  Message Format
 
 3.1.  Header
 
    The binary header description
 
-3.2.  Message types
+3.2.  Message Types
 
 3.2.1.  General Fields
 
@@ -190,6 +203,10 @@ Internet-Draft                    DMPR                    September 2017
 
    fields and description of a partial update
 
+3.2.4.  Keep Alive
+
+   keepalive
+
 3.3.  Requests
 
    fields and description of full-update requests
@@ -198,26 +215,9 @@ Internet-Draft                    DMPR                    September 2017
 
    fields and description of reflections
 
-4.  Optional Features
 
-4.1.  Asymmetric Link detection
 
-   How should asymmetric link detection work/how can it be implemented
 
-4.2.  Full only mode
-
-   when/how to switch the mode
-
-5.  Introduction
-
-   The original specification of xml2rfc format is in RFC 2629
-   [RFC2629].
-
-5.1.  Requirements Language
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in RFC 2119 [RFC2119].
 
 
 
@@ -226,7 +226,27 @@ Davies                   Expires March 18, 2018                 [Page 4]
 Internet-Draft                    DMPR                    September 2017
 
 
-6.  Simple List
+4.  Data Structures
+
+   Every router uses these data structures as Routing and Forward
+   Information Base
+
+5.  Optional Features
+
+5.1.  Asymmetric Link Detection
+
+   How should asymmetric link detection work/how can it be implemented
+
+5.2.  Full Only Mode
+
+   when/how to switch the mode
+
+6.  Introduction
+
+   The original specification of xml2rfc format is in RFC 2629
+   [RFC2629].
+
+7.  Simple List
 
    List styles: 'empty', 'symbols', 'letters', 'numbers', 'hanging',
    'format'.
@@ -237,7 +257,7 @@ Internet-Draft                    DMPR                    September 2017
 
    You can write text here as well.
 
-7.  Figures
+8.  Figures
 
    Figures should not exceed 69 characters wide to allow for the indent
    of sections.
@@ -254,26 +274,6 @@ Internet-Draft                    DMPR                    September 2017
 
    The CDATA means you don't need to escape meta-characters (especially
    < (&lt;) and & (&amp;)) but is not essential.  Figures may also have
-   a title attribute but it won't be displayed unless there is also an
-   anchor.  White space, both horizontal and vertical, is significant in
-   figures even if you don't use CDATA.
-
-8.  Subsections and Tables
-
-8.1.  A Subsection
-
-   By default 3 levels of nesting show in table of contents but that can
-   be adjusted with the value of the "tocdepth" processing instruction.
-
-8.2.  Tables
-
-   .. are very similar to figures:
-
-
-
-
-
-
 
 
 
@@ -281,6 +281,21 @@ Davies                   Expires March 18, 2018                 [Page 5]
 
 Internet-Draft                    DMPR                    September 2017
 
+
+   a title attribute but it won't be displayed unless there is also an
+   anchor.  White space, both horizontal and vertical, is significant in
+   figures even if you don't use CDATA.
+
+9.  Subsections and Tables
+
+9.1.  A Subsection
+
+   By default 3 levels of nesting show in table of contents but that can
+   be adjusted with the value of the "tocdepth" processing instruction.
+
+9.2.  Tables
+
+   .. are very similar to figures:
 
      Tables use ttcol to define column headers and widths.  Every cell
                   then has a "c" element for its content.
@@ -297,7 +312,7 @@ Internet-Draft                    DMPR                    September 2017
 
                        Table 1: A Very Simple Table
 
-9.  More about Lists
+10.  More about Lists
 
    Lists with 'hanging labels': the list item is indented the amount of
    the hangIndent:
@@ -308,6 +323,20 @@ Internet-Draft                    DMPR                    September 2017
 
    vspace_trick
            Forces the new item to start on a new line.
+
+
+
+
+
+
+
+
+
+
+Davies                   Expires March 18, 2018                 [Page 6]
+
+Internet-Draft                    DMPR                    September 2017
+
 
    Simulating more than one paragraph in a list item using <vspace>:
 
@@ -322,21 +351,13 @@ Internet-Draft                    DMPR                    September 2017
       The quick, brown fox jumped over the lazy dog and lived to fool
       many another hunter in the great wood in the west.
 
-9.1.  Numbering Lists across Lists and Sections
+10.1.  Numbering Lists across Lists and Sections
 
    Numbering items continuously although they are in separate <list>
    elements, maybe in separate sections using the "format" style and a
    "counter" variable.
 
    First list:
-
-
-
-
-Davies                   Expires March 18, 2018                 [Page 6]
-
-Internet-Draft                    DMPR                    September 2017
-
 
    R1  #1
 
@@ -354,7 +375,7 @@ Internet-Draft                    DMPR                    September 2017
 
    R6  #6
 
-9.2.  Where the List Numbering Continues
+10.2.  Where the List Numbering Continues
 
    List continues here.
 
@@ -366,33 +387,18 @@ Internet-Draft                    DMPR                    September 2017
 
    R9  #9
 
-   R10 #10
-
-   The end of the list.
-
-10.  Example of Code or MIB Module To Be Extracted
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Davies                   Expires March 18, 2018                 [Page 7]
 
 Internet-Draft                    DMPR                    September 2017
 
+
+   R10 #10
+
+   The end of the list.
+
+11.  Example of Code or MIB Module To Be Extracted
 
    The <artwork> element has a number of extra attributes that can be
    used to substitute a more aesthetically pleasing rendition into HTML
@@ -428,7 +434,7 @@ Internet-Draft                    DMPR                    September 2017
    /* end of file */
 
 
-11.  Acknowledgements
+12.  Acknowledgements
 
    This template was derived from an initial version written by Pekka
    Savola and contributed by him to the xml2rfc project.
@@ -436,12 +442,6 @@ Internet-Draft                    DMPR                    September 2017
    This document is part of a plan to make xml2rfc indispensable
    [DOMINATION].
 
-12.  IANA Considerations
-
-   This memo includes no request to IANA.
-
-   All drafts are required to have an IANA considerations section (see
-   Guidelines for Writing an IANA Considerations Section in RFCs
 
 
 
@@ -450,19 +450,25 @@ Davies                   Expires March 18, 2018                 [Page 8]
 Internet-Draft                    DMPR                    September 2017
 
 
+13.  IANA Considerations
+
+   This memo includes no request to IANA.
+
+   All drafts are required to have an IANA considerations section (see
+   Guidelines for Writing an IANA Considerations Section in RFCs
    [RFC5226] for a guide).  If the draft does not require IANA to do
    anything, the section contains an explicit statement that this is the
    case (as above).  If there are no requirements for IANA, the section
    will be removed during conversion into an RFC by the RFC Editor.
 
-13.  Security Considerations
+14.  Security Considerations
 
    All drafts are required to have a security considerations section.
    See RFC 3552 [RFC3552] for a guide.
 
-14.  References
+15.  References
 
-14.1.  Normative References
+15.1.  Normative References
 
    [min_ref]  authSurName, authInitials., "Minimal Reference", 2006.
 
@@ -471,7 +477,7 @@ Internet-Draft                    DMPR                    September 2017
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-14.2.  Informative References
+15.2.  Informative References
 
    [DOMINATION]
               Mad Dominators, Inc., "Ultimate Plan for Taking Over the
@@ -491,12 +497,6 @@ Internet-Draft                    DMPR                    September 2017
               DOI 10.17487/RFC5226, May 2008,
               <https://www.rfc-editor.org/info/rfc5226>.
 
-Appendix A.  Policies
-
-   many exchangeable policies
-
-
-
 
 
 
@@ -505,6 +505,10 @@ Davies                   Expires March 18, 2018                 [Page 9]
 
 Internet-Draft                    DMPR                    September 2017
 
+
+Appendix A.  Policies
+
+   many exchangeable policies
 
 A.1.  Low Loss Policy
 
@@ -519,7 +523,11 @@ Appendix B.  Tuneables
    The different magic values and what they affect, how they could/
    should be set
 
-Appendix C.  Additional Stuff
+Appendix C.  Examples
+
+   Examples
+
+Appendix D.  Additional Stuff
 
    This becomes an Appendix.
 
@@ -532,14 +540,6 @@ Author's Address
 
    Phone: +44 7889 488 335
    Email: elwynd@dial.pipex.com
-
-
-
-
-
-
-
-
 
 
 

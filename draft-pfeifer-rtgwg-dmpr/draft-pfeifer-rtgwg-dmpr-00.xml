@@ -117,9 +117,12 @@
 
  <middle>
    <section title="Introduction">
-     <t>this is dmpr</t>
-     <section title="Why">
-       <t>why dmpr</t>
+     <t>this is dmpr, why we built it and what it can be used for</t>
+     <section title="Requirements Language">
+       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+       "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+       document are to be interpreted as described in <xref
+       target="RFC2119">RFC 2119</xref>.</t>
      </section>
      <section title="Terminology">
        <t>whats a policy, metric, link, link attribute, router, network</t>
@@ -127,36 +130,39 @@
      <section title="Overview">
        <t>how does it work from a bird's eye perspective</t>
      </section>
-     <section title="Distinction from other routing protocols">
-       <t>why not extend other protocols?</t>
+     <section title="Distinction from other Routing Protocols">
+       <t>why this protocol?</t>
      </section>
    </section>
    <section title="Behavior">
-     <section title="Neighbor detection">
+     <section title="Neighbor Detection">
        <t>how do we find neighbors</t>
      </section>
-     <section title="Message handling">
+     <section title="Interface Handling">
+       <t>How do we handle multiple interfaces</t>
+     </section>
+     <section title="Message Handling">
        <t>how do we process the messages from neighbors</t>
      </section>
      <section title="Policies">
        <t>how do the policies come into the play</t>
      </section>
-     <section title="Route selection">
+     <section title="Route Selection">
        <t>how do we select the best route</t>
      </section>
-     <section title="Network retraction">
+     <section title="Network Retraction">
        <t>what happens with retracted networks</t>
      </section>
-     <section title="Other">
+     <section title="Other...">
        <t>TODO: how does the network handle: different network conditions,
        disappearing and reappearing nodes,</t>
      </section>
    </section>
-   <section title="Message format">
+   <section title="Message Format">
      <section title="Header">
        <t>The binary header description</t>
      </section>
-     <section title="Message types">
+     <section title="Message Types">
        <section title="General Fields">
          <t>All fields which are required in every message</t>
        </section>
@@ -166,6 +172,9 @@
        <section title="Partial Update">
          <t>fields and description of a partial update</t>
        </section>
+       <section title="Keep Alive">
+         <t>keepalive</t>
+       </section>
      </section>
      <section title="Requests">
        <t>fields and description of full-update requests</t>
@@ -174,24 +183,21 @@
        <t>fields and description of reflections</t>
      </section>
    </section>
+   <section title="Data Structures">
+     <t>Every router uses these data structures as Routing and Forward
+       Information Base</t>
+   </section>
    <section title="Optional Features">
-     <section title="Asymmetric Link detection">
+     <section title="Asymmetric Link Detection">
        <t>How should asymmetric link detection work/how can it be implemented</t>
      </section>
-     <section title="Full only mode">
+     <section title="Full Only Mode">
        <t>when/how to switch the mode</t>
      </section>
    </section>
    <section title="Introduction">
      <t>The original specification of xml2rfc format is in <xref
      target="RFC2629">RFC&nbsp;2629</xref>.</t>
-
-     <section title="Requirements Language">
-       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-       "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-       document are to be interpreted as described in <xref
-       target="RFC2119">RFC 2119</xref>.</t>
-     </section>
    </section>
 
    <section anchor="simple_list" title="Simple List">
@@ -476,7 +482,9 @@ main(int argc, char *argv[])
      <t>The different magic values and what they affect, how they could/should be
      set</t>
    </section>
-
+   <section title="Examples">
+     <t>Examples</t>
+   </section>
    <section anchor="app-additional" title="Additional Stuff">
      <t>This becomes an Appendix.</t>
    </section>
