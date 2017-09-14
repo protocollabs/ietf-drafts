@@ -1,0 +1,560 @@
+
+
+
+
+Internet Engineering Task Force                           E. Davies, Ed.
+Internet-Draft                                          Folly Consulting
+Intended status: Informational                        September 14, 2017
+Expires: March 18, 2018
+
+
+                   Dynamic MultiPath Routing Protocol
+                      draft-pfeifer-rtgwg-dmpr-00
+
+Abstract
+
+   Insert an abstract: MANDATORY.  This template is for creating an
+   Internet Draft.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on March 18, 2018.
+
+Copyright Notice
+
+   Copyright (c) 2017 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+
+
+
+
+
+Davies                   Expires March 18, 2018                 [Page 1]
+
+Internet-Draft                    DMPR                    September 2017
+
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+     1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
+     1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
+     1.3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   3
+     1.4.  Distinction from other Routing Protocols  . . . . . . . .   3
+   2.  Behavior  . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+     2.1.  Neighbor Detection  . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Interface Handling  . . . . . . . . . . . . . . . . . . .   3
+     2.3.  Message Handling  . . . . . . . . . . . . . . . . . . . .   3
+     2.4.  Policies  . . . . . . . . . . . . . . . . . . . . . . . .   3
+     2.5.  Route Selection . . . . . . . . . . . . . . . . . . . . .   4
+     2.6.  Network Retraction  . . . . . . . . . . . . . . . . . . .   4
+     2.7.  Other...  . . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  Message Format  . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.1.  Header  . . . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.2.  Message Types . . . . . . . . . . . . . . . . . . . . . .   4
+       3.2.1.  General Fields  . . . . . . . . . . . . . . . . . . .   4
+       3.2.2.  Full Update . . . . . . . . . . . . . . . . . . . . .   4
+       3.2.3.  Partial Update  . . . . . . . . . . . . . . . . . . .   4
+       3.2.4.  Keep Alive  . . . . . . . . . . . . . . . . . . . . .   4
+     3.3.  Requests  . . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.4.  Reflections . . . . . . . . . . . . . . . . . . . . . . .   4
+   4.  Data Structures . . . . . . . . . . . . . . . . . . . . . . .   5
+   5.  Optional Features . . . . . . . . . . . . . . . . . . . . . .   5
+     5.1.  Asymmetric Link Detection . . . . . . . . . . . . . . . .   5
+     5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .   5
+   6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   5
+   7.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .   5
+   8.  Figures . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+   9.  Subsections and Tables  . . . . . . . . . . . . . . . . . . .   6
+     9.1.  A Subsection  . . . . . . . . . . . . . . . . . . . . . .   6
+     9.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . . . .   6
+   10. More about Lists  . . . . . . . . . . . . . . . . . . . . . .   6
+     10.1.  Numbering Lists across Lists and Sections  . . . . . . .   7
+     10.2.  Where the List Numbering Continues . . . . . . . . . . .   7
+   11. Example of Code or MIB Module To Be Extracted . . . . . . . .   8
+   12. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
+   13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
+   14. Security Considerations . . . . . . . . . . . . . . . . . . .   9
+   15. References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
+     15.1.  Normative References . . . . . . . . . . . . . . . . . .   9
+     15.2.  Informative References . . . . . . . . . . . . . . . . .   9
+   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  10
+     A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  10
+     A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  10
+   Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  10
+
+
+
+Davies                   Expires March 18, 2018                 [Page 2]
+
+Internet-Draft                    DMPR                    September 2017
+
+
+   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  10
+   Appendix D.  Additional Stuff . . . . . . . . . . . . . . . . . .  10
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
+
+1.  Introduction
+
+   this is dmpr, why we built it and what it can be used for
+
+1.1.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in RFC 2119 [RFC2119].
+
+1.2.  Terminology
+
+   whats a policy, metric, link, link attribute, router, network
+
+1.3.  Overview
+
+   how does it work from a bird's eye perspective
+
+1.4.  Distinction from other Routing Protocols
+
+   why this protocol?
+
+2.  Behavior
+
+2.1.  Neighbor Detection
+
+   how do we find neighbors
+
+2.2.  Interface Handling
+
+   How do we handle multiple interfaces
+
+2.3.  Message Handling
+
+   how do we process the messages from neighbors
+
+2.4.  Policies
+
+   how do the policies come into the play
+
+
+
+
+
+
+
+
+Davies                   Expires March 18, 2018                 [Page 3]
+
+Internet-Draft                    DMPR                    September 2017
+
+
+2.5.  Route Selection
+
+   how do we select the best route
+
+2.6.  Network Retraction
+
+   what happens with retracted networks
+
+2.7.  Other...
+
+   TODO: how does the network handle: different network conditions,
+   disappearing and reappearing nodes,
+
+3.  Message Format
+
+3.1.  Header
+
+   The binary header description
+
+3.2.  Message Types
+
+3.2.1.  General Fields
+
+   All fields which are required in every message
+
+3.2.2.  Full Update
+
+   fields and description of a full update
+
+3.2.3.  Partial Update
+
+   fields and description of a partial update
+
+3.2.4.  Keep Alive
+
+   keepalive
+
+3.3.  Requests
+
+   fields and description of full-update requests
+
+3.4.  Reflections
+
+   fields and description of reflections
+
+
+
+
+
+
+
+Davies                   Expires March 18, 2018                 [Page 4]
+
+Internet-Draft                    DMPR                    September 2017
+
+
+4.  Data Structures
+
+   Every router uses these data structures as Routing and Forward
+   Information Base
+
+5.  Optional Features
+
+5.1.  Asymmetric Link Detection
+
+   How should asymmetric link detection work/how can it be implemented
+
+5.2.  Full Only Mode
+
+   when/how to switch the mode
+
+6.  Introduction
+
+   The original specification of xml2rfc format is in RFC 2629
+   [RFC2629].
+
+7.  Simple List
+
+   List styles: 'empty', 'symbols', 'letters', 'numbers', 'hanging',
+   'format'.
+
+   o  First bullet
+
+   o  Second bullet
+
+   You can write text here as well.
+
+8.  Figures
+
+   Figures should not exceed 69 characters wide to allow for the indent
+   of sections.
+
+                 Preamble text - can be omitted or empty.
+
+   +-----------------------+
+   | Use XML, be Happy :-) |
+   |_______________________|
+
+        Cross-references allowed in pre- and postamble. [min_ref].
+
+                                 Figure 1
+
+   The CDATA means you don't need to escape meta-characters (especially
+   < (&lt;) and & (&amp;)) but is not essential.  Figures may also have
+
+
+
+Davies                   Expires March 18, 2018                 [Page 5]
+
+Internet-Draft                    DMPR                    September 2017
+
+
+   a title attribute but it won't be displayed unless there is also an
+   anchor.  White space, both horizontal and vertical, is significant in
+   figures even if you don't use CDATA.
+
+9.  Subsections and Tables
+
+9.1.  A Subsection
+
+   By default 3 levels of nesting show in table of contents but that can
+   be adjusted with the value of the "tocdepth" processing instruction.
+
+9.2.  Tables
+
+   .. are very similar to figures:
+
+     Tables use ttcol to define column headers and widths.  Every cell
+                  then has a "c" element for its content.
+
+                          +----------+----------+
+                          | ttcol #1 | ttcol #2 |
+                          +----------+----------+
+                          |   c #1   |   c #2   |
+                          |   c #3   |   c #4   |
+                          |   c #5   |   c #6   |
+                          +----------+----------+
+
+                      which is a very simple example.
+
+                       Table 1: A Very Simple Table
+
+10.  More about Lists
+
+   Lists with 'hanging labels': the list item is indented the amount of
+   the hangIndent:
+
+   short   With a label shorter than the hangIndent.
+
+   fantastically long label  With a label longer than the hangIndent.
+
+   vspace_trick
+           Forces the new item to start on a new line.
+
+
+
+
+
+
+
+
+
+
+Davies                   Expires March 18, 2018                 [Page 6]
+
+Internet-Draft                    DMPR                    September 2017
+
+
+   Simulating more than one paragraph in a list item using <vspace>:
+
+   a.  First, a short item.
+
+   b.  Second, a longer list item.
+
+       And something that looks like a separate pararaph..
+
+   Simple indented paragraph using the "empty" style:
+
+      The quick, brown fox jumped over the lazy dog and lived to fool
+      many another hunter in the great wood in the west.
+
+10.1.  Numbering Lists across Lists and Sections
+
+   Numbering items continuously although they are in separate <list>
+   elements, maybe in separate sections using the "format" style and a
+   "counter" variable.
+
+   First list:
+
+   R1  #1
+
+   R2  #2
+
+   R3  #3
+
+   Specify the indent explicitly so that all the items line up nicely.
+
+   Second list:
+
+   R4  #4
+
+   R5  #5
+
+   R6  #6
+
+10.2.  Where the List Numbering Continues
+
+   List continues here.
+
+   Third list:
+
+   R7  #7
+
+   R8  #8
+
+   R9  #9
+
+
+
+Davies                   Expires March 18, 2018                 [Page 7]
+
+Internet-Draft                    DMPR                    September 2017
+
+
+   R10 #10
+
+   The end of the list.
+
+11.  Example of Code or MIB Module To Be Extracted
+
+   The <artwork> element has a number of extra attributes that can be
+   used to substitute a more aesthetically pleasing rendition into HTML
+   output while continuing to use the ASCII art version in the text and
+   nroff outputs (see the xml2rfc README for details).  It also has a
+   "type" attribute.  This is currently ignored except in the case
+   'type="abnf"'.  In this case the "artwork" is expected to contain a
+   piece of valid Augmented Backus-Naur Format (ABNF) grammar.  This
+   will be syntax checked by xml2rfc and any errors will cause a fatal
+   error if the "strict" processing instruction is set to "yes".  The
+   ABNF will also be colorized in HTML output to highlight the syntactic
+   components.  Checking of additional "types" may be provided in future
+   versions of xml2rfc.
+
+
+   /**** an example C program */
+
+   #include <stdio.h>
+
+   void
+   main(int argc, char *argv[])
+   {
+      int i;
+
+      printf("program arguments are:\n");
+      for (i = 0; i < argc; i++) {
+          printf("%d: \"%s\"\n", i, argv[i]);
+      }
+
+      exit(0);
+   } /* main */
+
+   /* end of file */
+
+
+12.  Acknowledgements
+
+   This template was derived from an initial version written by Pekka
+   Savola and contributed by him to the xml2rfc project.
+
+   This document is part of a plan to make xml2rfc indispensable
+   [DOMINATION].
+
+
+
+
+Davies                   Expires March 18, 2018                 [Page 8]
+
+Internet-Draft                    DMPR                    September 2017
+
+
+13.  IANA Considerations
+
+   This memo includes no request to IANA.
+
+   All drafts are required to have an IANA considerations section (see
+   Guidelines for Writing an IANA Considerations Section in RFCs
+   [RFC5226] for a guide).  If the draft does not require IANA to do
+   anything, the section contains an explicit statement that this is the
+   case (as above).  If there are no requirements for IANA, the section
+   will be removed during conversion into an RFC by the RFC Editor.
+
+14.  Security Considerations
+
+   All drafts are required to have a security considerations section.
+   See RFC 3552 [RFC3552] for a guide.
+
+15.  References
+
+15.1.  Normative References
+
+   [min_ref]  authSurName, authInitials., "Minimal Reference", 2006.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+15.2.  Informative References
+
+   [DOMINATION]
+              Mad Dominators, Inc., "Ultimate Plan for Taking Over the
+              World", 1984, <http://www.example.com/dominator.html>.
+
+   [RFC2629]  Rose, M., "Writing I-Ds and RFCs using XML", RFC 2629,
+              DOI 10.17487/RFC2629, June 1999,
+              <https://www.rfc-editor.org/info/rfc2629>.
+
+   [RFC3552]  Rescorla, E. and B. Korver, "Guidelines for Writing RFC
+              Text on Security Considerations", BCP 72, RFC 3552,
+              DOI 10.17487/RFC3552, July 2003,
+              <https://www.rfc-editor.org/info/rfc3552>.
+
+   [RFC5226]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
+              IANA Considerations Section in RFCs", RFC 5226,
+              DOI 10.17487/RFC5226, May 2008,
+              <https://www.rfc-editor.org/info/rfc5226>.
+
+
+
+
+
+Davies                   Expires March 18, 2018                 [Page 9]
+
+Internet-Draft                    DMPR                    September 2017
+
+
+Appendix A.  Policies
+
+   many exchangeable policies
+
+A.1.  Low Loss Policy
+
+   use path with lowest overall loss
+
+A.2.  High Bandwidth Policy
+
+   use path with highest bandwidth
+
+Appendix B.  Tuneables
+
+   The different magic values and what they affect, how they could/
+   should be set
+
+Appendix C.  Examples
+
+   Examples
+
+Appendix D.  Additional Stuff
+
+   This becomes an Appendix.
+
+Author's Address
+
+   Elwyn Davies (editor)
+   Folly Consulting
+   Soham
+   UK
+
+   Phone: +44 7889 488 335
+   Email: elwynd@dial.pipex.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Davies                   Expires March 18, 2018                [Page 10]

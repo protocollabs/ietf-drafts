@@ -1,0 +1,3 @@
+[submodule "protocol-formatter"]
+	path = protocol-formatter
+	url = https://github.com/luismartingarcia/protocol
