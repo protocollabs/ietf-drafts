@@ -308,30 +308,6 @@
        </list> You can write text here as well.</t>
    </section>
 
-   <section title="Figures">
-     <t>Figures should not exceed 69 characters wide to allow for the indent
-     of sections.</t>
-
-     <figure align="center" anchor="xml_happy">
-       <preamble>Preamble text - can be omitted or empty.</preamble>
-
-       <artwork align="left"><![CDATA[
-+-----------------------+
-| Use XML, be Happy :-) |
-|_______________________|
-           ]]></artwork>
-
-       <postamble>Cross-references allowed in pre- and postamble. <xref
-       target="min_ref" />.</postamble>
-     </figure>
-
-     <t>The CDATA means you don't need to escape meta-characters (especially
-     &lt;&nbsp;(&amp;lt;) and &amp;&nbsp;(&amp;amp;)) but is not essential.
-     Figures may also have a title attribute but it won't be displayed unless
-     there is also an anchor. White space, both horizontal and vertical, is
-     significant in figures even if you don't use CDATA.</t>
-   </section>
-
    <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
 
    <?rfc needLines="8" ?>
