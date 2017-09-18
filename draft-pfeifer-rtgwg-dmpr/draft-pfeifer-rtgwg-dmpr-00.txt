@@ -5,7 +5,7 @@
 Internet Engineering Task Force                          H. Pfeifer, Ed.
 Internet-Draft                                              ProtocolLabs
 Intended status: Informational                               J. Schueler
-Expires: March 18, 2018                               September 14, 2017
+Expires: March 22, 2018                               September 18, 2017
 
 
                    Dynamic MultiPath Routing Protocol
@@ -31,7 +31,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 18, 2018.
+   This Internet-Draft will expire on March 22, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Pfeifer & Schueler       Expires March 18, 2018                 [Page 1]
+Pfeifer & Schueler       Expires March 22, 2018                 [Page 1]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -93,29 +93,28 @@ Table of Contents
      5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .   7
    6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   7
    7.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .   7
-   8.  Figures . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
-   9.  Subsections and Tables  . . . . . . . . . . . . . . . . . . .   8
-     9.1.  A Subsection  . . . . . . . . . . . . . . . . . . . . . .   8
-     9.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-   10. More about Lists  . . . . . . . . . . . . . . . . . . . . . .   8
-     10.1.  Numbering Lists across Lists and Sections  . . . . . . .   9
-     10.2.  Where the List Numbering Continues . . . . . . . . . . .   9
-   11. Example of Code or MIB Module To Be Extracted . . . . . . . .  10
-   12. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
-   13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
-   14. Security Considerations . . . . . . . . . . . . . . . . . . .  11
-   15. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
-     15.1.  Normative References . . . . . . . . . . . . . . . . . .  11
+   8.  Subsections and Tables  . . . . . . . . . . . . . . . . . . .   7
+     8.1.  A Subsection  . . . . . . . . . . . . . . . . . . . . . .   7
+     8.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . . . .   7
+   9.  More about Lists  . . . . . . . . . . . . . . . . . . . . . .   8
+     9.1.  Numbering Lists across Lists and Sections . . . . . . . .   8
+     9.2.  Where the List Numbering Continues  . . . . . . . . . . .   9
+   10. Example of Code or MIB Module To Be Extracted . . . . . . . .   9
+   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
+   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   13. Security Considerations . . . . . . . . . . . . . . . . . . .  11
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  11
+     14.2.  Informative References . . . . . . . . . . . . . . . . .  11
 
 
 
-Pfeifer & Schueler       Expires March 18, 2018                 [Page 2]
+Pfeifer & Schueler       Expires March 22, 2018                 [Page 2]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
-     15.2.  Informative References . . . . . . . . . . . . . . . . .  11
-   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  12
+   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  11
      A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  12
      A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  12
    Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  12
@@ -165,7 +164,8 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 18, 2018                 [Page 3]
+
+Pfeifer & Schueler       Expires March 22, 2018                 [Page 3]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -221,7 +221,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 18, 2018                 [Page 4]
+Pfeifer & Schueler       Expires March 22, 2018                 [Page 4]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -234,11 +234,11 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |     Length    |                                               |
-   +-+-+-+-+-+-+-+-+                                               +
-   |                              Data                             |
-   +                                               +-+-+-+-+-+-+-+-+
-   |                                               |    NextType   |
+   |    NextType   |     Length    |                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+   |                                                               |
+   +                              Data                             +
+   |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                       The payload when NextType < 128
@@ -277,7 +277,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 18, 2018                 [Page 5]
+Pfeifer & Schueler       Expires March 22, 2018                 [Page 5]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -333,7 +333,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 18, 2018                 [Page 6]
+Pfeifer & Schueler       Expires March 22, 2018                 [Page 6]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -373,53 +373,26 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
    You can write text here as well.
 
-8.  Figures
+8.  Subsections and Tables
 
-   Figures should not exceed 69 characters wide to allow for the indent
-   of sections.
-
-
-
-
-
-
-
-
-
-
-
-
-Pfeifer & Schueler       Expires March 18, 2018                 [Page 7]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
-
-                 Preamble text - can be omitted or empty.
-
-   +-----------------------+
-   | Use XML, be Happy :-) |
-   |_______________________|
-
-        Cross-references allowed in pre- and postamble. [min_ref].
-
-                                 Figure 1
-
-   The CDATA means you don't need to escape meta-characters (especially
-   < (&lt;) and & (&amp;)) but is not essential.  Figures may also have
-   a title attribute but it won't be displayed unless there is also an
-   anchor.  White space, both horizontal and vertical, is significant in
-   figures even if you don't use CDATA.
-
-9.  Subsections and Tables
-
-9.1.  A Subsection
+8.1.  A Subsection
 
    By default 3 levels of nesting show in table of contents but that can
    be adjusted with the value of the "tocdepth" processing instruction.
 
-9.2.  Tables
+8.2.  Tables
 
    .. are very similar to figures:
+
+
+
+
+
+
+Pfeifer & Schueler       Expires March 22, 2018                 [Page 7]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
 
      Tables use ttcol to define column headers and widths.  Every cell
                   then has a "c" element for its content.
@@ -436,19 +409,12 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
                        Table 1: A Very Simple Table
 
-10.  More about Lists
+9.  More about Lists
 
    Lists with 'hanging labels': the list item is indented the amount of
    the hangIndent:
 
    short   With a label shorter than the hangIndent.
-
-
-
-Pfeifer & Schueler       Expires March 18, 2018                 [Page 8]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
 
    fantastically long label  With a label longer than the hangIndent.
 
@@ -468,13 +434,21 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
       The quick, brown fox jumped over the lazy dog and lived to fool
       many another hunter in the great wood in the west.
 
-10.1.  Numbering Lists across Lists and Sections
+9.1.  Numbering Lists across Lists and Sections
 
    Numbering items continuously although they are in separate <list>
    elements, maybe in separate sections using the "format" style and a
    "counter" variable.
 
    First list:
+
+
+
+
+Pfeifer & Schueler       Expires March 22, 2018                 [Page 8]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
 
    R1  #1
 
@@ -492,19 +466,11 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
    R6  #6
 
-10.2.  Where the List Numbering Continues
+9.2.  Where the List Numbering Continues
 
    List continues here.
 
    Third list:
-
-
-
-
-Pfeifer & Schueler       Expires March 18, 2018                 [Page 9]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
 
    R7  #7
 
@@ -516,7 +482,29 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
    The end of the list.
 
-11.  Example of Code or MIB Module To Be Extracted
+10.  Example of Code or MIB Module To Be Extracted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pfeifer & Schueler       Expires March 22, 2018                 [Page 9]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
 
    The <artwork> element has a number of extra attributes that can be
    used to substitute a more aesthetically pleasing rendition into HTML
@@ -552,17 +540,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    /* end of file */
 
 
-
-
-
-
-
-Pfeifer & Schueler       Expires March 18, 2018                [Page 10]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
-
-12.  Acknowledgements
+11.  Acknowledgements
 
    This template was derived from an initial version written by Pekka
    Savola and contributed by him to the xml2rfc project.
@@ -570,25 +548,33 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    This document is part of a plan to make xml2rfc indispensable
    [DOMINATION].
 
-13.  IANA Considerations
+12.  IANA Considerations
 
    This memo includes no request to IANA.
 
    All drafts are required to have an IANA considerations section (see
    Guidelines for Writing an IANA Considerations Section in RFCs
+
+
+
+Pfeifer & Schueler       Expires March 22, 2018                [Page 10]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
+
    [RFC5226] for a guide).  If the draft does not require IANA to do
    anything, the section contains an explicit statement that this is the
    case (as above).  If there are no requirements for IANA, the section
    will be removed during conversion into an RFC by the RFC Editor.
 
-14.  Security Considerations
+13.  Security Considerations
 
    All drafts are required to have a security considerations section.
    See RFC 3552 [RFC3552] for a guide.
 
-15.  References
+14.  References
 
-15.1.  Normative References
+14.1.  Normative References
 
    [min_ref]  authSurName, authInitials., "Minimal Reference", 2006.
 
@@ -597,7 +583,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-15.2.  Informative References
+14.2.  Informative References
 
    [DOMINATION]
               Mad Dominators, Inc., "Ultimate Plan for Taking Over the
@@ -606,17 +592,6 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    [RFC2629]  Rose, M., "Writing I-Ds and RFCs using XML", RFC 2629,
               DOI 10.17487/RFC2629, June 1999,
               <https://www.rfc-editor.org/info/rfc2629>.
-
-
-
-
-
-
-
-Pfeifer & Schueler       Expires March 18, 2018                [Page 11]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
 
    [RFC3552]  Rescorla, E. and B. Korver, "Guidelines for Writing RFC
               Text on Security Considerations", BCP 72, RFC 3552,
@@ -631,6 +606,17 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 Appendix A.  Policies
 
    many exchangeable policies
+
+
+
+
+
+
+
+Pfeifer & Schueler       Expires March 22, 2018                [Page 11]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
 
 A.1.  Low Loss Policy
 
@@ -666,14 +652,6 @@ Authors' Addresses
    URI:   http://www.jauu.net/
 
 
-
-
-
-Pfeifer & Schueler       Expires March 18, 2018                [Page 12]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
-
    Joshua Schueler
 
 
@@ -691,38 +669,4 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Pfeifer & Schueler       Expires March 18, 2018                [Page 13]
+Pfeifer & Schueler       Expires March 22, 2018                [Page 12]

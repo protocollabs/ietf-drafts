@@ -193,17 +193,17 @@
        <t>An Extension Header consists of a length specifier, a Data field and
          a specifier for the type of the immediately following data.
        </t>
-       <!-- Length:8,Data:80,NextType:8 -->
+       <!-- NextType:8,Length:8,Data:80 -->
        <figure align="center">
        <artwork align="left"><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Length    |                                               |
-+-+-+-+-+-+-+-+-+                                               +
-|                              Data                             |
-+                                               +-+-+-+-+-+-+-+-+
-|                                               |    NextType   |
+|    NextType   |     Length    |                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+|                                                               |
++                              Data                             +
+|                                                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
          <postamble>The payload when NextType &lt; 128</postamble>
