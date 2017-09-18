@@ -331,12 +331,185 @@
           </section>
         </section>
       </section>
-      <section title="Message Types">
-        <section title="General Fields">
-          <t>All fields which are required in every message</t>
-        </section>
+      <section title="JSON Payload">
+        <t>A JSON payload is a lzma-compressed, ascii-7 encoded JSON object.</t>
+        <t>wording:
+          <list style="hanging">
+            <t hangText="REQUIRED">
+              <vspace blankLines="0"/>
+              This field is required, the sending node MUST include it.
+            </t>
+            <t hangText="REQUIRED if not empty">
+              <vspace blankLines="0"/>
+              If the field would be empty, it can be omitted, otherwise it is
+              REQUIRED
+            </t>
+            <t hangText="OPTIONAL">
+              <vspace blankLines="0"/>
+              This field can be inserted to activate specific features or use
+              other functionality. A sending node can choose to omit it and a
+              receiving node MUST be able to work without this field.
+            </t>
+          </list>
+        </t>
+        <t>
+          <figure>
+            <preamble>General Message Structure in JSON compatible YAML v1.2
+            </preamble>
+            <artwork><![CDATA[
+---
+id: <NODE_ID>
+seq: <SEQUENCE_NUMBER>
+type: <TYPE>
+partial-base: <SEQUENCE_NUMBER>
+
+addr-v4: <IPv4_ADDRESS>
+addr-v6: <IPv6_ADDRESS>
+networks:
+  <IPvX_NETWORK>:
+  <IPvX_NETWORK>:
+    retracted: true
+routing-data:
+  <POLICY>:
+    <NODE_ID>:
+      path: <PATH>
+node-data:
+  <NODE_ID>:
+    networks:
+      <IPvX_NETWORK>:
+      <IPvX_NETWORK>:
+        retracted: true
+link-attributes:
+  <LINK_ATTRIBUTE_ID>:
+    <LINK_ATTRIBUTE>: <METRIC>
+
+request-full:
+  - true
+  - <NODE_ID>
+
+reflect:
+  <REFLECT_DATA>: <DATA>
+
+reflected:
+  <NODE_ID>:
+    <REFLECT_DATA>: <DATA>
+            ]]></artwork>
+          </figure>
+        </t>
+        <t>Key and value description:
+          <list style="hanging">
+            <t hangText="id">
+              <vspace blankLines="0"/>
+              string: The sending node's id, NODE_ID: MUST NOT contain any of
+              the brackets: ()[]{}&lt;&gt;
+            </t>
+            <t hangText="seq">
+              <vspace blankLines="0"/>
+              integer: The message sequence number, strictly monotonically
+              increasing
+            </t>
+            <t hangText="type">
+              <vspace blankLines="0"/>
+              string: The type of the message, further specified below TODO ref
+            </t>
+            <t hangText="partial-base">
+              <vspace blankLines="0"/>
+              integer: The base message of a partial update, the message then only
+              includes the difference between the actual data and the base
+              message
+            </t>
+            <t hangText="addr-v4">
+              <vspace blankLines="0"/>
+              string: The IPv4 address of the sending node over the link this
+              packet has been sent.
+            </t>
+            <t hangText="addr-v6">
+              <vspace blankLines="0"/>
+              string: The IPv6 address of the sending node over the link this
+              packet has been sent.
+            </t>
+            <t hangText="networks">
+              <vspace blankLines="0"/>
+              object: The networks advertised by this node. The keys are valid
+              IPv4/IPv6 Network identifications with subnet prefix. If the value
+              of a network key is a object itself and the key "retracted" of
+              this object is set to true, the network MUST be handled as
+              retracted, see TODO ref retraction
+            </t>
+            <t hangText="routing-data">
+              <vspace blankLines="0"/>
+              object: A path to each reachable node for each policy. POLICY is
+              the name of a policy defined in the sending node. If the receiving
+              node does not understand this policy the entry MUST be ignored.
+              PATH: a path to a node described according to this syntax:
+              <figure>
+                <artwork type="abnf"><![CDATA[
+path = node [node-id ">[" link-attribute-id "]>" path]
+node-id = *ALPHA
+link-attribute-id = *DIGIT
+              ]]></artwork>
+              </figure>
+            </t>
+            <t hangText="node-data">
+              <vspace blankLines="0"/>
+              object: a list of networks for each reachable node defined in
+              "routing-data". "networks" is handled like "networks" defined
+              above
+            </t>
+            <t hangText="link-attributes">
+              <vspace blankLines="0"/>
+              object: the set of link-attributes used in the paths of
+              routing-data. Each key SHOULD be an integer and MUST NOT contain
+              any of the brackets ()[]{}&lt;&gt;
+              the value of a entry is itself a object containing LINK_ATTRIBUTE:
+              METRIC pairs where LINK_ATTRIBUTE is the name of a link attribute
+              and metric is its value as defined in Terminology TODO ref
+            </t>
+            <t hangText="request-full">
+              <vspace blankLines="0"/>
+              array or true: A list of NODE_IDs from which the sending node
+              requests a full update message.
+              If true the node requests a full update from all neighbors.
+            </t>
+            <t hangText="reflect">
+              <vspace blankLines="0"/>
+              object: arbitrary data the sending node wants to have included in
+              the "reflected" object in the next message of the receiver
+            </t>
+            <t hangText="reflected">
+              <vspace blankLines="0"/>
+              object: a set of reflected data, contains, for each neighboring
+              node the data the node requested to reflect.
+            </t>
+          </list>
+        </t>
         <section title="Full Update">
-          <t>fields and description of a full update</t>
+          <t>A full update SHOULD replace all data from the sending node in the
+            receivers Information Base, it MUST NOT require any previous
+            knowledge of the sender by the receiver. The following keys are
+            specified:
+          </t>
+          <t>
+            <list style="hanging">
+              <t hangText="addr-v4">
+                <vspace blankLines="0"/>
+                string, REQUIRED: The IPv4 address of the
+                sending node over the link this packet has been sent.
+              </t>
+              <t hangText="addr-v6">
+                <vspace blankLines="0"/>
+                string: REQUIRED: The IPv6 address of the
+                sending node over the link this packet has been sent.
+              </t>
+              <t>Note: only one of addr-v4 and addr-v6 is required</t>
+              <t hangText="networks">
+                <vspace blankLines="0"/>
+                object, REQUIRED if not empty: The networks
+                advertised by this node, see above
+              </t>
+              <t hangText="routing-data">object, REQUIRED if not empty:</t>
+            </list>
+          </t>
         </section>
         <section title="Partial Update">
           <t>fields and description of a partial update</t>
