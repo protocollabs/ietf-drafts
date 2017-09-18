@@ -354,7 +354,9 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 3.2.  JSON Payload
 
-   A JSON payload is a lzma-compressed, ascii-7 encoded JSON object.
+   A JSON payload is a lzma-compressed, ascii-7 encoded JSON object.  A
+   sending node SHOULD use ascii-encoding for the json data, a receiving
+   node MUST be able to decode UTF-8 encoded data
 
    wording:
 
@@ -369,8 +371,6 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
       This field can be inserted to activate specific features or use
       other functionality.  A sending node can choose to omit it and a
       receiving node MUST be able to work without this field.
-
-
 
 
 
