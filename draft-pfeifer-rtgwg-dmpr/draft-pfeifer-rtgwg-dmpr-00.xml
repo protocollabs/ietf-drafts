@@ -160,6 +160,28 @@
    </section>
    <section title="Message Format">
      <section title="Header">
+       <t>A DMPR packet consists of a preamble, followed by zero or more
+         Extension Headers followed by zero or one Payload. Each Extension
+         Header and Payload is defined by a Type.</t>
+       <texttable anchor="nexttype_table" title="Possible Types">
+         <ttcol align="center">Type</ttcol>
+
+         <ttcol align="center">Use</ttcol>
+
+         <c>0-119</c>
+         <c>Extension Header</c>
+
+         <c>120-127</c>
+         <c>Extension Header, reserved for private use</c>
+
+         <c>128-247</c>
+         <c>Payload</c>
+
+         <c>248-255</c>
+         <c>Payload, reserved for private use</c>
+
+         <postamble>Possible Types are further defined below</postamble>
+       </texttable>
        <section title="Preamble">
        <t>The preamble of a DMPR packet is as follows</t>
        <!-- Magic:3,Reserved:5,NextType:8,Payload:80 -->
@@ -180,18 +202,14 @@
            <t hangText="Reserved"><vspace blankLines="0" />
              Reserved for future use</t>
            <t hangText="NextType"><vspace blankLines="0" />
-             8-bit unsigned integer. Defines the type of the immediately
-             following data. For a NextType of &lt; 128 this data consists
-             an Extension Header.
-             For a NextType of &ge; 128 the rest of the packet is payload, the
-             processing is further specified by NextType.
+             The type of the next header or payload.
            </t>
          </list>
        </t>
          </section>
        <section title="Extension Header">
-       <t>An Extension Header consists of a length specifier, a Data field and
-         a specifier for the type of the immediately following data.
+       <t>An Extension Header consists of the type immediately following this
+         header, a length specifier, and the Extension Header data.
        </t>
        <!-- NextType:8,Length:8,Data:80 -->
        <figure align="center">
@@ -206,29 +224,41 @@
 |                                                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
-         <postamble>The payload when NextType &lt; 128</postamble>
      </figure>
        <t>
          <list style="hanging">
+           <t hangText="NextType"><vspace blankLines="0" />
+             The type of the immediately following header or payload
+             (as specified in the packet preamble description)</t>
            <t hangText="Length"><vspace blankLines="0" />
              8-bit unsigned integer: The length of the Data
              field in 2-octets </t>
            <t hangText="Data"><vspace blankLines="0" />
-             The type-specific data.</t>
-           <t hangText="NextType"><vspace blankLines="0" />
-             The type of the immediately following data
-             (as specified in the packet preamble description)</t>
+             The header-specific data.</t>
          </list>
        </t>
          </section>
        <section title="Payload">
-         <section title="Compressed JSON">
+         <t>The Payload consists of the data until the end of the packet.
+         Payloads may be recursive, i.e. contain a valid packet (or parts of it)
+           in themselves, payload processors therefore MUST have the
+         ability to feed their result back into the message processing chain.
+         </t>
+         <section title="Payload: Keep-Alive">
            <t>Type: 128</t>
-           <t>LZMA-compressed standard-compliant JSON data (TODO RFC 7159)</t>
+           <t>This is a keep-alive packet, the payload length is zero.
+             Implementations SHOULD reset the message hold timer for the
+             sending node upon receiving a keep-alive packet</t>
          </section>
-         <section title="Fragmentation Payload">
+         <section title="Payload: Compressed JSON">
            <t>Type: 129</t>
-           <t>TODO define, idea below</t>
+           <t>LZMA-compressed standard-compliant JSON data (TODO RFC 7159)
+           This is the main routing data, its structure is defined TODO: ref</t>
+         </section>
+         <section title="Payload: Fragmentation">
+           <t>Type: 130</t>
+           <t>A packet greater than the MTU between two nodes SHOULD be
+             fragmented using the fragmentation payload.</t>
            <!-- Identifier:8,Last:1,Packet offset:7,Payload:48 -->
        <figure align="center">
        <artwork align="left"><![CDATA[
@@ -240,22 +270,38 @@
 |                            Payload                            |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
-         <postamble>TODO: The fragmentation header</postamble>
+         <postamble>The Fragmentation Payload Header</postamble>
      </figure>
            <t>
          <list style="hanging">
            <t hangText="Identifier"><vspace blankLines="0" />
              Identifies possibly concurrent fragmented
-             packets. Implementations SHOULD use an increasing counter to
+             packets. Implementations SHOULD use an incrementing counter to
            practically eliminate the possibility of a collision.</t>
-           <t hangText="L(ength)"><vspace blankLines="0" />
-             Last, 1 if this packet has the highest packet offset
-           in this fragmentation collection.</t>
-           <t hangText="Packet offset"><vspace blankLines="0" />
-             7-bit unsigned integer. TODO name. To sort the packets
+           <t hangText="L(ast)"><vspace blankLines="0" />
+             Last, set to 1 if this packet has the highest packet offset
+           in this fragmentation collection, i.e. is the last packet.</t>
+           <t hangText="Packet index"><vspace blankLines="0" />
+             7-bit unsigned integer. Defines the index of this packet in the
+             list of fragments resulting in the fragmentation of the original
+             packet. The first packet has offset zero.
            </t>
          </list>
        </t>
+           <t>When a packet is larger than the MTU of the link between two nodes
+           it SHOULD be fragmented. For this the sending node computes the
+           maximum effective payload size for packets sent (i.e MTU less
+             preamble, possibly extension headers and the fragmentation header)
+           and splits the original packet into parts with this size. For each of
+           this parts it sends a packet with the fragmentation header set to a
+             common Identifier, an according packet offset and the LAST bit set
+           for the last fragment.</t>
+           <t>The receiving node keeps track of all received fragments, grouping
+             them by source address and Identifier. As soon as a all fragments
+             of a packet have been received, the reconstructed packet MUST be
+             fed back into the message processing chain as if it were a new,
+             just received packet. Fragments MUST be regularly purged based on a
+             hold timer.</t>
          </section>
        </section>
      </section>
