@@ -2,15 +2,15 @@
 <!-- This template is for creating an Internet Draft using xml2rfc,
     which is available here: http://xml.resource.org. -->
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-<!-- One method to get references from the online citation libraries.
-    There has to be one entity for each item to be referenced. 
-    An alternate method (rfc include) is described in the references. -->
+        <!-- One method to get references from the online citation libraries.
+            There has to be one entity for each item to be referenced.
+            An alternate method (rfc include) is described in the references. -->
 
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
-<!ENTITY RFC3552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">
-<!ENTITY RFC5226 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5226.xml">
-]>
+        <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+        <!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
+        <!ENTITY RFC3552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">
+        <!ENTITY RFC5226 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5226.xml">
+        ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
 <?rfc strict="yes" ?>
@@ -36,184 +36,195 @@
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
 <rfc category="info" docName="draft-pfeifer-rtgwg-dmpr-00" ipr="trust200902">
- <!-- category values: std, bcp, info, exp, and historic
-    ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
-       or pre5378Trust200902
-    you can add the attributes updates="NNNN" and obsoletes="NNNN" 
-    they will automatically be output with "(if approved)" -->
+  <!-- category values: std, bcp, info, exp, and historic
+     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
+        or pre5378Trust200902
+     you can add the attributes updates="NNNN" and obsoletes="NNNN"
+     they will automatically be output with "(if approved)" -->
 
- <!-- ***** FRONT MATTER ***** -->
+  <!-- ***** FRONT MATTER ***** -->
 
- <front>
-   <title abbrev="Dynamic MultiPath Routing">Dynamic MultiPath Routing Protocol</title>
+  <front>
+    <title abbrev="Dynamic MultiPath Routing">Dynamic MultiPath Routing
+      Protocol
+    </title>
 
-   <author fullname="Hagen Paul Pfeifer" initials="H.P.P" role="editor"
-           surname="Pfeifer">
-     <organization>ProtocolLabs</organization>
+    <author fullname="Hagen Paul Pfeifer" initials="H.P.P" role="editor"
+            surname="Pfeifer">
+      <organization>ProtocolLabs</organization>
 
-     <address>
-       <postal>
-         <street>Agnes Bernauer Str. 84</street>
-         <city>Munich</city>
-         <code>80687</code>
-         <country>DE</country>
-       </postal>
-       <phone>+49 174 54 55 209</phone>
+      <address>
+        <postal>
+          <street>Agnes Bernauer Str. 84</street>
+          <city>Munich</city>
+          <code>80687</code>
+          <country>DE</country>
+        </postal>
+        <phone>+49 174 54 55 209</phone>
 
-			 <email>hagen@jauu.net</email>
-			 <uri>http://www.jauu.net/</uri>
-     </address>
-	 </author>
+        <email>hagen@jauu.net</email>
+        <uri>http://www.jauu.net/</uri>
+      </address>
+    </author>
 
 
-   <author fullname="Joshua Schueler" initials="J.S." surname="Schueler">
-     <organization></organization>
+    <author fullname="Joshua Schueler" initials="J.S." surname="Schueler">
+      <organization></organization>
 
-     <address>
-       <postal>
-         <street></street>
-         <city></city>
-         <code></code>
-         <country></country>
-       </postal>
-       <phone></phone>
+      <address>
+        <postal>
+          <street></street>
+          <city></city>
+          <code></code>
+          <country></country>
+        </postal>
+        <phone></phone>
 
-			 <email></email>
-     </address>
-   </author>
+        <email></email>
+      </address>
+    </author>
 
-   <date year="2017" />
+    <date year="2017"/>
 
-   <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
-        in the current day for you. If only the current year is specified, xml2rfc will fill 
-	 in the current day and month for you. If the year is not the current one, it is 
-	 necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the 
-	 purpose of calculating the expiry date).  With drafts it is normally sufficient to 
-	 specify just the year. -->
+    <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
+         in the current day for you. If only the current year is specified, xml2rfc will fill
+    in the current day and month for you. If the year is not the current one, it is
+    necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the
+    purpose of calculating the expiry date).  With drafts it is normally sufficient to
+    specify just the year. -->
 
-   <!-- Meta-data Declarations -->
+    <!-- Meta-data Declarations -->
 
-   <area>IETF</area>
+    <area>IETF</area>
 
-   <workgroup>Internet Engineering Task Force</workgroup>
+    <workgroup>Internet Engineering Task Force</workgroup>
 
-   <!-- WG name at the upperleft corner of the doc,
-        IETF is fine for individual submissions.  
-	 If this element is not present, the default is "Network Working Group",
-        which is used by the RFC Editor as a nod to the history of the IETF. -->
+    <!-- WG name at the upperleft corner of the doc,
+         IETF is fine for individual submissions.
+    If this element is not present, the default is "Network Working Group",
+         which is used by the RFC Editor as a nod to the history of the IETF. -->
 
-   <keyword>template</keyword>
+    <keyword>template</keyword>
 
-   <!-- Keywords will be incorporated into HTML output
-        files in a meta tag but they have no effect on text or nroff
-        output. If you submit your draft to the RFC Editor, the
-        keywords will be used for the search engine. -->
+    <!-- Keywords will be incorporated into HTML output
+         files in a meta tag but they have no effect on text or nroff
+         output. If you submit your draft to the RFC Editor, the
+         keywords will be used for the search engine. -->
 
-   <abstract>
-     <t>Insert an abstract: MANDATORY. This template is for creating an
-     Internet Draft.</t>
-   </abstract>
- </front>
+    <abstract>
+      <t>Insert an abstract: MANDATORY. This template is for creating an
+        Internet Draft.
+      </t>
+    </abstract>
+  </front>
 
- <middle>
-   <section title="Introduction">
-     <t>this is dmpr, why we built it and what it can be used for</t>
-     <section title="Requirements Language">
-       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-       "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-       document are to be interpreted as described in <xref
-       target="RFC2119">RFC 2119</xref>.</t>
-     </section>
-     <section title="Terminology">
-       <t>whats a policy, metric, link, link attribute, router, network</t>
-     </section>
-     <section title="Overview">
-       <t>how does it work from a bird's eye perspective</t>
-     </section>
-     <section title="Distinction from other Routing Protocols">
-       <t>why this protocol?</t>
-     </section>
-   </section>
-   <section title="Behavior">
-     <section title="Neighbor Detection">
-       <t>how do we find neighbors</t>
-     </section>
-     <section title="Interface Handling">
-       <t>How do we handle multiple interfaces</t>
-     </section>
-     <section title="Message Handling">
-       <t>how do we process the messages from neighbors</t>
-     </section>
-     <section title="Policies">
-       <t>how do the policies come into the play</t>
-     </section>
-     <section title="Route Selection">
-       <t>how do we select the best route</t>
-     </section>
-     <section title="Network Retraction">
-       <t>what happens with retracted networks</t>
-     </section>
-     <section title="Other...">
-       <t>TODO: how does the network handle: different network conditions,
-       disappearing and reappearing nodes,</t>
-     </section>
-   </section>
-   <section title="Message Format">
-     <section title="Header">
-       <t>A DMPR packet consists of a preamble, followed by zero or more
-         Extension Headers followed by zero or one Payload. Each Extension
-         Header and Payload is defined by a Type.</t>
-       <texttable anchor="nexttype_table" title="Possible Types">
-         <ttcol align="center">Type</ttcol>
+  <middle>
+    <section title="Introduction">
+      <t>this is dmpr, why we built it and what it can be used for</t>
+      <section title="Requirements Language">
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+          "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+          document are to be interpreted as described in <xref
+                  target="RFC2119">RFC 2119</xref>.
+        </t>
+      </section>
+      <section title="Terminology">
+        <t>whats a policy, metric, link, link attribute, router, network</t>
+      </section>
+      <section title="Overview">
+        <t>how does it work from a bird's eye perspective</t>
+      </section>
+      <section title="Distinction from other Routing Protocols">
+        <t>why this protocol?</t>
+      </section>
+    </section>
+    <section title="Behavior">
+      <section title="Neighbor Detection">
+        <t>how do we find neighbors</t>
+      </section>
+      <section title="Interface Handling">
+        <t>How do we handle multiple interfaces</t>
+      </section>
+      <section title="Message Handling">
+        <t>how do we process the messages from neighbors</t>
+      </section>
+      <section title="Policies">
+        <t>how do the policies come into the play</t>
+      </section>
+      <section title="Route Selection">
+        <t>how do we select the best route</t>
+      </section>
+      <section title="Network Retraction">
+        <t>what happens with retracted networks</t>
+      </section>
+      <section title="Other...">
+        <t>TODO: how does the network handle: different network conditions,
+          disappearing and reappearing nodes,
+        </t>
+      </section>
+    </section>
+    <section title="Message Format">
+      <section title="Header">
+        <t>A DMPR packet consists of a preamble, followed by zero or more
+          Extension Headers followed by zero or one Payload. Each Extension
+          Header and Payload is defined by a Type.
+        </t>
+        <texttable anchor="nexttype_table" title="Possible Types">
+          <ttcol align="center">Type</ttcol>
 
-         <ttcol align="center">Use</ttcol>
+          <ttcol align="center">Use</ttcol>
 
-         <c>0-119</c>
-         <c>Extension Header</c>
+          <c>0-119</c>
+          <c>Extension Header</c>
 
-         <c>120-127</c>
-         <c>Extension Header, reserved for private use</c>
+          <c>120-127</c>
+          <c>Extension Header, reserved for private use</c>
 
-         <c>128-247</c>
-         <c>Payload</c>
+          <c>128-247</c>
+          <c>Payload</c>
 
-         <c>248-255</c>
-         <c>Payload, reserved for private use</c>
+          <c>248-255</c>
+          <c>Payload, reserved for private use</c>
 
-         <postamble>Possible Types are further defined below</postamble>
-       </texttable>
-       <section title="Preamble">
-       <t>The preamble of a DMPR packet is as follows</t>
-       <!-- Magic:3,Reserved:5,NextType:8,Payload:80 -->
-       <figure align="center">
-       <artwork align="left"><![CDATA[
+          <postamble>Possible Types are further defined below</postamble>
+        </texttable>
+        <section title="Preamble">
+          <t>The preamble of a DMPR packet is as follows</t>
+          <!-- Magic:3,Reserved:5,NextType:8,Payload:80 -->
+          <figure align="center">
+            <artwork align="left"><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |Magic| Reserved|    NextType   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
-         <postamble>The preamble of a packet</postamble>
-     </figure>
-       <t>
-         <list style="hanging">
-           <t hangText="Magic"><vspace blankLines="0" />
-             A 3-bit Magic: 0b010</t>
-           <t hangText="Reserved"><vspace blankLines="0" />
-             Reserved for future use</t>
-           <t hangText="NextType"><vspace blankLines="0" />
-             The type of the next header or payload.
-           </t>
-         </list>
-       </t>
-         </section>
-       <section title="Extension Header">
-       <t>An Extension Header consists of the type immediately following this
-         header, a length specifier, and the Extension Header data.
-       </t>
-       <!-- NextType:8,Length:8,Data:80 -->
-       <figure align="center">
-       <artwork align="left"><![CDATA[
+            <postamble>The preamble of a packet</postamble>
+          </figure>
+          <t>
+            <list style="hanging">
+              <t hangText="Magic">
+                <vspace blankLines="0"/>
+                A 3-bit Magic: 0b010
+              </t>
+              <t hangText="Reserved">
+                <vspace blankLines="0"/>
+                Reserved for future use
+              </t>
+              <t hangText="NextType">
+                <vspace blankLines="0"/>
+                The type of the next header or payload.
+              </t>
+            </list>
+          </t>
+        </section>
+        <section title="Extension Header">
+          <t>An Extension Header consists of the type immediately following this
+            header, a length specifier, and the Extension Header data.
+          </t>
+          <!-- NextType:8,Length:8,Data:80 -->
+          <figure align="center">
+            <artwork align="left"><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -224,44 +235,52 @@
 |                                                               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
-     </figure>
-       <t>
-         <list style="hanging">
-           <t hangText="NextType"><vspace blankLines="0" />
-             The type of the immediately following header or payload
-             (as specified in the packet preamble description)</t>
-           <t hangText="Length"><vspace blankLines="0" />
-             8-bit unsigned integer: The length of the Data
-             field in 2-octets </t>
-           <t hangText="Data"><vspace blankLines="0" />
-             The header-specific data.</t>
-         </list>
-       </t>
-         </section>
-       <section title="Payload">
-         <t>The Payload consists of the data until the end of the packet.
-         Payloads may be recursive, i.e. contain a valid packet (or parts of it)
-           in themselves, payload processors therefore MUST have the
-         ability to feed their result back into the message processing chain.
-         </t>
-         <section title="Payload: Keep-Alive">
-           <t>Type: 128</t>
-           <t>This is a keep-alive packet, the payload length is zero.
-             Implementations SHOULD reset the message hold timer for the
-             sending node upon receiving a keep-alive packet</t>
-         </section>
-         <section title="Payload: Compressed JSON">
-           <t>Type: 129</t>
-           <t>LZMA-compressed standard-compliant JSON data (TODO RFC 7159)
-           This is the main routing data, its structure is defined TODO: ref</t>
-         </section>
-         <section title="Payload: Fragmentation">
-           <t>Type: 130</t>
-           <t>A packet greater than the MTU between two nodes SHOULD be
-             fragmented using the fragmentation payload.</t>
-           <!-- Identifier:8,Last:1,Packet offset:7,Payload:48 -->
-       <figure align="center">
-       <artwork align="left"><![CDATA[
+          </figure>
+          <t>
+            <list style="hanging">
+              <t hangText="NextType">
+                <vspace blankLines="0"/>
+                The type of the immediately following header or payload (as
+                specified in the packet preamble description)
+              </t>
+              <t hangText="Length">
+                <vspace blankLines="0"/>
+                8-bit unsigned integer: The length of the Data field in 2-octets
+              </t>
+              <t hangText="Data">
+                <vspace blankLines="0"/>
+                The header-specific data.
+              </t>
+            </list>
+          </t>
+        </section>
+        <section title="Payload">
+          <t>The Payload consists of the data until the end of the packet.
+            Payloads may be recursive, i.e. contain a valid packet (or parts of
+            it) in themselves, payload processors therefore MUST have the
+            ability to feed their result back into the message processing chain.
+          </t>
+          <section title="Payload: Keep-Alive">
+            <t>Type: 128</t>
+            <t>This is a keep-alive packet, the payload length is zero.
+              Implementations SHOULD reset the message hold timer for the
+              sending node upon receiving a keep-alive packet
+            </t>
+          </section>
+          <section title="Payload: Compressed JSON">
+            <t>Type: 129</t>
+            <t>LZMA-compressed standard-compliant JSON data (TODO RFC 7159)
+              This is the main routing data, its structure is defined TODO: ref
+            </t>
+          </section>
+          <section title="Payload: Fragmentation">
+            <t>Type: 130</t>
+            <t>A packet greater than the MTU between two nodes SHOULD be
+              fragmented using the fragmentation payload.
+            </t>
+            <!-- Identifier:8,Last:1,Packet offset:7,Payload:48 -->
+            <figure align="center">
+              <artwork align="left"><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -270,214 +289,252 @@
 |                            Payload                            |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
-         <postamble>The Fragmentation Payload Header</postamble>
-     </figure>
-           <t>
-         <list style="hanging">
-           <t hangText="Identifier"><vspace blankLines="0" />
-             Identifies possibly concurrent fragmented
-             packets. Implementations SHOULD use an incrementing counter to
-           practically eliminate the possibility of a collision.</t>
-           <t hangText="L(ast)"><vspace blankLines="0" />
-             Last, set to 1 if this packet has the highest packet offset
-           in this fragmentation collection, i.e. is the last packet.</t>
-           <t hangText="Packet index"><vspace blankLines="0" />
-             7-bit unsigned integer. Defines the index of this packet in the
-             list of fragments resulting in the fragmentation of the original
-             packet. The first packet has offset zero.
-           </t>
-         </list>
-       </t>
-           <t>When a packet is larger than the MTU of the link between two nodes
-           it SHOULD be fragmented. For this the sending node computes the
-           maximum effective payload size for packets sent (i.e MTU less
-             preamble, possibly extension headers and the fragmentation header)
-           and splits the original packet into parts with this size. For each of
-           this parts it sends a packet with the fragmentation header set to a
-             common Identifier, an according packet offset and the LAST bit set
-           for the last fragment.</t>
-           <t>The receiving node keeps track of all received fragments, grouping
-             them by source address and Identifier. As soon as a all fragments
-             of a packet have been received, the reconstructed packet MUST be
-             fed back into the message processing chain as if it were a new,
-             just received packet. Fragments MUST be regularly purged based on a
-             hold timer.</t>
-         </section>
-       </section>
-     </section>
-     <section title="Message Types">
-       <section title="General Fields">
-         <t>All fields which are required in every message</t>
-       </section>
-       <section title="Full Update">
-         <t>fields and description of a full update</t>
-       </section>
-       <section title="Partial Update">
-         <t>fields and description of a partial update</t>
-       </section>
-       <section title="Keep Alive">
-         <t>keepalive</t>
-       </section>
-     </section>
-     <section title="Requests">
-       <t>fields and description of full-update requests</t>
-     </section>
-     <section title="Reflections">
-       <t>fields and description of reflections</t>
-     </section>
-   </section>
-   <section title="Data Structures">
-     <t>Every router uses these data structures as Routing and Forward
-       Information Base</t>
-   </section>
-   <section title="Optional Features">
-     <section title="Asymmetric Link Detection">
-       <t>How should asymmetric link detection work/how can it be implemented</t>
-     </section>
-     <section title="Full Only Mode">
-       <t>when/how to switch the mode</t>
-     </section>
-   </section>
-   <section title="Introduction">
-     <t>The original specification of xml2rfc format is in <xref
-     target="RFC2629">RFC&nbsp;2629</xref>.</t>
-   </section>
+              <postamble>The Fragmentation Payload Header</postamble>
+            </figure>
+            <t>
+              <list style="hanging">
+                <t hangText="Identifier">
+                  <vspace blankLines="0"/>
+                  Identifies possibly concurrent fragmented packets.
+                  Implementations SHOULD use an incrementing counter to
+                  practically eliminate the possibility of a collision.
+                </t>
+                <t hangText="L(ast)">
+                  <vspace blankLines="0"/>
+                  Last, set to 1 if this packet has the highest packet offset
+                  in this fragmentation collection, i.e. is the last packet.
+                </t>
+                <t hangText="Packet index">
+                  <vspace blankLines="0"/>
+                  7-bit unsigned integer. Defines the index of this packet in
+                  the list of fragments resulting in the fragmentation of the
+                  original packet. The first packet has offset zero.
+                </t>
+              </list>
+            </t>
+            <t>When a packet is larger than the MTU of the link between two
+              nodes it SHOULD be fragmented. For this the sending node computes
+              the maximum effective payload size for packets sent (i.e MTU less
+              preamble, possibly extension headers and the fragmentation header)
+              and splits the original packet into parts with this size. For each
+              of this parts it sends a packet with the fragmentation header set
+              to a common Identifier, an according packet offset and the LAST
+              bit set for the last fragment.
+            </t>
+            <t>The receiving node keeps track of all received fragments,
+              grouping them by source address and Identifier. As soon as a all
+              fragments of a packet have been received, the reconstructed packet
+              MUST be fed back into the message processing chain as if it were a
+              new, just received packet. Fragments MUST be regularly purged
+              based on a hold timer.
+            </t>
+          </section>
+        </section>
+      </section>
+      <section title="Message Types">
+        <section title="General Fields">
+          <t>All fields which are required in every message</t>
+        </section>
+        <section title="Full Update">
+          <t>fields and description of a full update</t>
+        </section>
+        <section title="Partial Update">
+          <t>fields and description of a partial update</t>
+        </section>
+        <section title="Keep Alive">
+          <t>keepalive</t>
+        </section>
+      </section>
+      <section title="Requests">
+        <t>fields and description of full-update requests</t>
+      </section>
+      <section title="Reflections">
+        <t>fields and description of reflections</t>
+      </section>
+    </section>
+    <section title="Data Structures">
+      <t>Every router uses these data structures as Routing and Forward
+        Information Base
+      </t>
+    </section>
+    <section title="Optional Features">
+      <section title="Asymmetric Link Detection">
+        <t>How should asymmetric link detection work/how can it be implemented
+        </t>
+      </section>
+      <section title="Full Only Mode">
+        <t>when/how to switch the mode</t>
+      </section>
+    </section>
+    <section title="Introduction">
+      <t>The original specification of xml2rfc format is in <xref
+              target="RFC2629">RFC&nbsp;2629</xref>.
+      </t>
+    </section>
 
-   <section anchor="simple_list" title="Simple List">
-     <t>List styles: 'empty', 'symbols', 'letters', 'numbers', 'hanging',
-     'format'.</t>
+    <section anchor="simple_list" title="Simple List">
+      <t>List styles: 'empty', 'symbols', 'letters', 'numbers', 'hanging',
+        'format'.
+      </t>
 
-     <t><list style="symbols">
-         <t>First bullet</t>
+      <t>
+        <list style="symbols">
+          <t>First bullet</t>
 
-         <t>Second bullet</t>
-       </list> You can write text here as well.</t>
-   </section>
+          <t>Second bullet</t>
+        </list>
+        You can write text here as well.
+      </t>
+    </section>
 
-   <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
+    <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
 
-   <?rfc needLines="8" ?>
+    <?rfc needLines="8" ?>
 
-   <section title="Subsections and Tables">
-     <section title="A Subsection">
-       <t>By default 3 levels of nesting show in table of contents but that
-       can be adjusted with the value of the "tocdepth" processing
-       instruction.</t>
-     </section>
+    <section title="Subsections and Tables">
+      <section title="A Subsection">
+        <t>By default 3 levels of nesting show in table of contents but that
+          can be adjusted with the value of the "tocdepth" processing
+          instruction.
+        </t>
+      </section>
 
-     <section title="Tables">
-       <t>.. are very similar to figures:</t>
+      <section title="Tables">
+        <t>.. are very similar to figures:</t>
 
-       <texttable anchor="table_example" title="A Very Simple Table">
-         <preamble>Tables use ttcol to define column headers and widths.
-         Every cell then has a "c" element for its content.</preamble>
+        <texttable anchor="table_example" title="A Very Simple Table">
+          <preamble>Tables use ttcol to define column headers and widths.
+            Every cell then has a "c" element for its content.
+          </preamble>
 
-         <ttcol align="center">ttcol #1</ttcol>
+          <ttcol align="center">ttcol #1</ttcol>
 
-         <ttcol align="center">ttcol #2</ttcol>
+          <ttcol align="center">ttcol #2</ttcol>
 
-         <c>c #1</c>
+          <c>c #1</c>
 
-         <c>c #2</c>
+          <c>c #2</c>
 
-         <c>c #3</c>
+          <c>c #3</c>
 
-         <c>c #4</c>
+          <c>c #4</c>
 
-         <c>c #5</c>
+          <c>c #5</c>
 
-         <c>c #6</c>
+          <c>c #6</c>
 
-         <postamble>which is a very simple example.</postamble>
-       </texttable>
-     </section>
-   </section>
+          <postamble>which is a very simple example.</postamble>
+        </texttable>
+      </section>
+    </section>
 
-   <section anchor="nested_lists" title="More about Lists">
-     <t>Lists with 'hanging labels': the list item is indented the amount of
-     the hangIndent: <list hangIndent="8" style="hanging">
-         <t hangText="short">With a label shorter than the hangIndent.</t>
+    <section anchor="nested_lists" title="More about Lists">
+      <t>Lists with 'hanging labels': the list item is indented the amount of
+        the hangIndent:
+        <list hangIndent="8" style="hanging">
+          <t hangText="short">With a label shorter than the hangIndent.</t>
 
-         <t hangText="fantastically long label">With a label longer than the
-         hangIndent.</t>
+          <t hangText="fantastically long label">With a label longer than the
+            hangIndent.
+          </t>
 
-         <t hangText="vspace_trick"><vspace blankLines="0" />Forces the new
-         item to start on a new line.</t>
-       </list></t>
+          <t hangText="vspace_trick"><vspace blankLines="0"/>Forces the new
+            item to start on a new line.
+          </t>
+        </list>
+      </t>
 
-     <!-- It would be nice to see the next piece (12 lines) all on one page. -->
+      <!-- It would be nice to see the next piece (12 lines) all on one page. -->
 
-     <?rfc needLines="12" ?>
+      <?rfc needLines="12" ?>
 
-     <t>Simulating more than one paragraph in a list item using
-     &lt;vspace&gt;: <list style="letters">
-         <t>First, a short item.</t>
+      <t>Simulating more than one paragraph in a list item using
+        &lt;vspace&gt;:
+        <list style="letters">
+          <t>First, a short item.</t>
 
-         <t>Second, a longer list item.<vspace blankLines="1" /> And
-         something that looks like a separate pararaph..</t>
-       </list></t>
+          <t>Second, a longer list item.
+            <vspace blankLines="1"/>
+            And
+            something that looks like a separate pararaph..
+          </t>
+        </list>
+      </t>
 
-     <t>Simple indented paragraph using the "empty" style: <list
-         hangIndent="10" style="empty">
-         <t>The quick, brown fox jumped over the lazy dog and lived to fool
-         many another hunter in the great wood in the west.</t>
-       </list></t>
+      <t>Simple indented paragraph using the "empty" style:
+        <list
+                hangIndent="10" style="empty">
+          <t>The quick, brown fox jumped over the lazy dog and lived to fool
+            many another hunter in the great wood in the west.
+          </t>
+        </list>
+      </t>
 
-     <section title="Numbering Lists across Lists and Sections">
-       <t>Numbering items continuously although they are in separate
-       &lt;list&gt; elements, maybe in separate sections using the "format"
-       style and a "counter" variable.</t>
+      <section title="Numbering Lists across Lists and Sections">
+        <t>Numbering items continuously although they are in separate
+          &lt;list&gt; elements, maybe in separate sections using the "format"
+          style and a "counter" variable.
+        </t>
 
-       <t>First list: <list counter="reqs" hangIndent="4" style="format R%d">
-           <t>#1</t>
+        <t>First list:
+          <list counter="reqs" hangIndent="4" style="format R%d">
+            <t>#1</t>
 
-           <t>#2</t>
+            <t>#2</t>
 
-           <t>#3</t>
-         </list> Specify the indent explicitly so that all the items line up
-       nicely.</t>
+            <t>#3</t>
+          </list>
+          Specify the indent explicitly so that all the items line up
+          nicely.
+        </t>
 
-       <t>Second list: <list counter="reqs" hangIndent="4" style="format R%d">
-           <t>#4</t>
+        <t>Second list:
+          <list counter="reqs" hangIndent="4" style="format R%d">
+            <t>#4</t>
 
-           <t>#5</t>
+            <t>#5</t>
 
-           <t>#6</t>
-         </list></t>
-     </section>
+            <t>#6</t>
+          </list>
+        </t>
+      </section>
 
-     <section title="Where the List Numbering Continues">
-       <t>List continues here.</t>
+      <section title="Where the List Numbering Continues">
+        <t>List continues here.</t>
 
-       <t>Third list: <list counter="reqs" hangIndent="4" style="format R%d">
-           <t>#7</t>
+        <t>Third list:
+          <list counter="reqs" hangIndent="4" style="format R%d">
+            <t>#7</t>
 
-           <t>#8</t>
+            <t>#8</t>
 
-           <t>#9</t>
+            <t>#9</t>
 
-           <t>#10</t>
-         </list> The end of the list.</t>
-     </section>
-   </section>
+            <t>#10</t>
+          </list>
+          The end of the list.
+        </t>
+      </section>
+    </section>
 
-   <section anchor="codeExample"
-            title="Example of Code or MIB Module To Be Extracted">
-     <figure>
-       <preamble>The &lt;artwork&gt; element has a number of extra attributes
-       that can be used to substitute a more aesthetically pleasing rendition
-       into HTML output while continuing to use the ASCII art version in the
-       text and nroff outputs (see the xml2rfc README for details). It also
-       has a "type" attribute. This is currently ignored except in the case
-       'type="abnf"'. In this case the "artwork" is expected to contain a
-       piece of valid Augmented Backus-Naur Format (ABNF) grammar. This will
-       be syntax checked by xml2rfc and any errors will cause a fatal error
-       if the "strict" processing instruction is set to "yes". The ABNF will
-       also be colorized in HTML output to highlight the syntactic
-       components. Checking of additional "types" may be provided in future
-       versions of xml2rfc.</preamble>
+    <section anchor="codeExample"
+             title="Example of Code or MIB Module To Be Extracted">
+      <figure>
+        <preamble>The &lt;artwork&gt; element has a number of extra attributes
+          that can be used to substitute a more aesthetically pleasing rendition
+          into HTML output while continuing to use the ASCII art version in the
+          text and nroff outputs (see the xml2rfc README for details). It also
+          has a "type" attribute. This is currently ignored except in the case
+          'type="abnf"'. In this case the "artwork" is expected to contain a
+          piece of valid Augmented Backus-Naur Format (ABNF) grammar. This will
+          be syntax checked by xml2rfc and any errors will cause a fatal error
+          if the "strict" processing instruction is set to "yes". The ABNF will
+          also be colorized in HTML output to highlight the syntactic
+          components. Checking of additional "types" may be provided in future
+          versions of xml2rfc.
+        </preamble>
 
-       <artwork><![CDATA[
+        <artwork><![CDATA[
 
 /**** an example C program */
 
@@ -499,134 +556,143 @@ main(int argc, char *argv[])
 /* end of file */
 
            ]]></artwork>
-     </figure>
-   </section>
+      </figure>
+    </section>
 
-   <section anchor="Acknowledgements" title="Acknowledgements">
-     <t>This template was derived from an initial version written by Pekka
-     Savola and contributed by him to the xml2rfc project.</t>
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>This template was derived from an initial version written by Pekka
+        Savola and contributed by him to the xml2rfc project.
+      </t>
 
-     <t>This document is part of a plan to make xml2rfc indispensable <xref
-     target="DOMINATION"></xref>.</t>
-   </section>
+      <t>This document is part of a plan to make xml2rfc indispensable <xref
+              target="DOMINATION"></xref>.
+      </t>
+    </section>
 
-   <!-- Possibly a 'Contributors' section ... -->
+    <!-- Possibly a 'Contributors' section ... -->
 
-   <section anchor="IANA" title="IANA Considerations">
-     <t>This memo includes no request to IANA.</t>
+    <section anchor="IANA" title="IANA Considerations">
+      <t>This memo includes no request to IANA.</t>
 
-     <t>All drafts are required to have an IANA considerations section (see
-     <xref target="RFC5226">Guidelines for Writing an IANA Considerations Section in RFCs</xref> for a guide). If the draft does not require IANA to do
-     anything, the section contains an explicit statement that this is the
-     case (as above). If there are no requirements for IANA, the section will
-     be removed during conversion into an RFC by the RFC Editor.</t>
-   </section>
+      <t>All drafts are required to have an IANA considerations section (see
+        <xref target="RFC5226">Guidelines for Writing an IANA Considerations
+          Section in RFCs
+        </xref>
+        for a guide). If the draft does not require IANA to do
+        anything, the section contains an explicit statement that this is the
+        case (as above). If there are no requirements for IANA, the section will
+        be removed during conversion into an RFC by the RFC Editor.
+      </t>
+    </section>
 
-   <section anchor="Security" title="Security Considerations">
-     <t>All drafts are required to have a security considerations section.
-     See <xref target="RFC3552">RFC 3552</xref> for a guide.</t>
-   </section>
- </middle>
+    <section anchor="Security" title="Security Considerations">
+      <t>All drafts are required to have a security considerations section.
+        See <xref target="RFC3552">RFC 3552</xref> for a guide.
+      </t>
+    </section>
+  </middle>
 
- <!--  *****BACK MATTER ***** -->
+  <!--  *****BACK MATTER ***** -->
 
- <back>
-   <!-- References split into informative and normative -->
+  <back>
+    <!-- References split into informative and normative -->
 
-   <!-- There are 2 ways to insert reference entries from the citation libraries:
-    1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
-    2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
-       (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
+    <!-- There are 2 ways to insert reference entries from the citation libraries:
+     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
+     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
+        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
 
-    Both are cited textually in the same manner: by using xref elements.
-    If you use the PI option, xml2rfc will, by default, try to find included files in the same
-    directory as the including file. You can also define the XML_LIBRARY environment variable
-    with a value containing a set of directories to search.  These can be either in the local
-    filing system or remote ones accessed by http (http://domain/dir/... ).-->
+     Both are cited textually in the same manner: by using xref elements.
+     If you use the PI option, xml2rfc will, by default, try to find included files in the same
+     directory as the including file. You can also define the XML_LIBRARY environment variable
+     with a value containing a set of directories to search.  These can be either in the local
+     filing system or remote ones accessed by http (http://domain/dir/... ).-->
 
-   <references title="Normative References">
-     <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-     &RFC2119;
+    <references title="Normative References">
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
+      &RFC2119;
 
-     <reference anchor="min_ref">
-       <!-- the following is the minimum to make xml2rfc happy -->
+      <reference anchor="min_ref">
+        <!-- the following is the minimum to make xml2rfc happy -->
 
-       <front>
-         <title>Minimal Reference</title>
+        <front>
+          <title>Minimal Reference</title>
 
-         <author initials="authInitials" surname="authSurName">
-           <organization></organization>
-         </author>
+          <author initials="authInitials" surname="authSurName">
+            <organization></organization>
+          </author>
 
-         <date year="2006" />
-       </front>
-     </reference>
-   </references>
+          <date year="2006"/>
+        </front>
+      </reference>
+    </references>
 
-   <references title="Informative References">
-     <!-- Here we use entities that we defined at the beginning. -->
+    <references title="Informative References">
+      <!-- Here we use entities that we defined at the beginning. -->
 
-     &RFC2629;
+      &RFC2629;
 
-     &RFC3552;
+      &RFC3552;
 
-     &RFC5226;
+      &RFC5226;
 
-     <!-- A reference written by by an organization not a person. -->
+      <!-- A reference written by by an organization not a person. -->
 
-     <reference anchor="DOMINATION"
-                target="http://www.example.com/dominator.html">
-       <front>
-         <title>Ultimate Plan for Taking Over the World</title>
+      <reference anchor="DOMINATION"
+                 target="http://www.example.com/dominator.html">
+        <front>
+          <title>Ultimate Plan for Taking Over the World</title>
 
-         <author>
-           <organization>Mad Dominators, Inc.</organization>
-         </author>
+          <author>
+            <organization>Mad Dominators, Inc.</organization>
+          </author>
 
-         <date year="1984" />
-       </front>
-     </reference>
-   </references>
+          <date year="1984"/>
+        </front>
+      </reference>
+    </references>
 
-   <section title="Policies">
-     <t>many exchangeable policies</t>
-     <section title="Low Loss Policy">
-       <t>use path with lowest overall loss</t>
-     </section>
-     <section title="High Bandwidth Policy">
-       <t>use path with highest bandwidth</t>
-     </section>
-   </section>
-   <section title="Tuneables">
-     <t>The different magic values and what they affect, how they could/should be
-     set</t>
-   </section>
-   <section title="Examples">
-     <t>Examples</t>
-   </section>
-   <section anchor="app-additional" title="Additional Stuff">
-     <t>This becomes an Appendix.</t>
-   </section>
+    <section title="Policies">
+      <t>many exchangeable policies</t>
+      <section title="Low Loss Policy">
+        <t>use path with lowest overall loss</t>
+      </section>
+      <section title="High Bandwidth Policy">
+        <t>use path with highest bandwidth</t>
+      </section>
+    </section>
+    <section title="Tuneables">
+      <t>The different magic values and what they affect, how they could/should
+        be
+        set
+      </t>
+    </section>
+    <section title="Examples">
+      <t>Examples</t>
+    </section>
+    <section anchor="app-additional" title="Additional Stuff">
+      <t>This becomes an Appendix.</t>
+    </section>
 
-   <!-- Change Log
+    <!-- Change Log
 
-v00 2006-03-15  EBD   Initial version
+ v00 2006-03-15  EBD   Initial version
 
-v01 2006-04-03  EBD   Moved PI location back to position 1 -
-                     v3.1 of XMLmind is better with them at this location.
-v02 2007-03-07  AH    removed extraneous nested_list attribute,
-                     other minor corrections
-v03 2007-03-09  EBD   Added comments on null IANA sections and fixed heading capitalization.
-                     Modified comments around figure to reflect non-implementation of
-                     figure indent control.  Put in reference using anchor="DOMINATION".
-                     Fixed up the date specification comments to reflect current truth.
-v04 2007-03-09 AH     Major changes: shortened discussion of PIs,
-                     added discussion of rfc include.
-v05 2007-03-10 EBD    Added preamble to C program example to tell about ABNF and alternative 
-                     images. Removed meta-characters from comments (causes problems).
+ v01 2006-04-03  EBD   Moved PI location back to position 1 -
+                      v3.1 of XMLmind is better with them at this location.
+ v02 2007-03-07  AH    removed extraneous nested_list attribute,
+                      other minor corrections
+ v03 2007-03-09  EBD   Added comments on null IANA sections and fixed heading capitalization.
+                      Modified comments around figure to reflect non-implementation of
+                      figure indent control.  Put in reference using anchor="DOMINATION".
+                      Fixed up the date specification comments to reflect current truth.
+ v04 2007-03-09 AH     Major changes: shortened discussion of PIs,
+                      added discussion of rfc include.
+ v05 2007-03-10 EBD    Added preamble to C program example to tell about ABNF and alternative
+                      images. Removed meta-characters from comments (causes problems).
 
-v06 2010-04-01 TT     Changed ipr attribute values to latest ones. Changed date to
-                     year only, to be consistent with the comments. Updated the 
-                     IANA guidelines reference from the I-D to the finished RFC.  -->
- </back>
+ v06 2010-04-01 TT     Changed ipr attribute values to latest ones. Changed date to
+                      year only, to be consistent with the comments. Updated the
+                      IANA guidelines reference from the I-D to the finished RFC.  -->
+  </back>
 </rfc>
