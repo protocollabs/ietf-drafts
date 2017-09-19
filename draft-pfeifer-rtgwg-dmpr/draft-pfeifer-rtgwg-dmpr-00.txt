@@ -356,7 +356,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
    A JSON payload is a lzma-compressed, ascii-7 encoded JSON object.  A
    sending node SHOULD use ascii-encoding for the json data, a receiving
-   node MUST be able to decode UTF-8 encoded data
+   node MUST be able to decode UTF-8 encoded data.
 
    wording:
 
@@ -372,20 +372,20 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
       other functionality.  A sending node can choose to omit it and a
       receiving node MUST be able to work without this field.
 
+   General Message Structure
 
+   {
+     "id": <NODE_ID>,
+     "seq": <SEQUENCE_NUMBER>,
+     "type": <TYPE>,
+     "partial-base": <SEQUENCE_NUMBER>,
 
-
-
-
-
-
-
-
-
-
-
-
-
+     "addr-v4": <IPv4_ADDRESS>,
+     "addr-v6": <IPv6_ADDRESS>,
+     "networks": {
+       <IPvX_NETWORK>: {},
+       <IPvX_NETWORK>: {
+         "retracted": true
 
 
 
@@ -394,44 +394,43 @@ Pfeifer & Schueler       Expires March 23, 2018                 [Page 7]
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
-   General Message Structure in JSON compatible YAML v1.2
+       }
+     },
+     "routing-data": {
+       <POLICY>: {
+         <NODE_ID>: {
+           "path": <PATH>
+         }
+       }
+     },
+     "node-data": {
+       <NODE_ID>: {
+         "networks": {
+           <IPvX_NETWORK>: {},
+           <IPvX_NETWORK>: {
+             "retracted": true
+           }
+         }
+       }
+     },
+     "link-attributes": {
+       <LINK_ATTRIBUTE_ID>: {
+         <LINK_ATTRIBUTE>: <METRIC>
+       }
+     },
 
-   ---
-   id: <NODE_ID>
-   seq: <SEQUENCE_NUMBER>
-   type: <TYPE>
-   partial-base: <SEQUENCE_NUMBER>
+     "request-full": union(true, [<NODE_ID>, ...]),
 
-   addr-v4: <IPv4_ADDRESS>
-   addr-v6: <IPv6_ADDRESS>
-   networks:
-     <IPvX_NETWORK>:
-     <IPvX_NETWORK>:
-       retracted: true
-   routing-data:
-     <POLICY>:
-       <NODE_ID>:
-         path: <PATH>
-   node-data:
-     <NODE_ID>:
-       networks:
-         <IPvX_NETWORK>:
-         <IPvX_NETWORK>:
-           retracted: true
-   link-attributes:
-     <LINK_ATTRIBUTE_ID>:
-       <LINK_ATTRIBUTE>: <METRIC>
-
-   request-full:
-     - true
-     - <NODE_ID>
-
-   reflect:
-     <REFLECT_DATA>: <DATA>
-
-   reflected:
-     <NODE_ID>:
+     "reflect": {
        <REFLECT_DATA>: <DATA>
+     }
+
+     "reflected": {
+       <NODE_ID>: {
+         <REFLECT_DATA>: <DATA>
+       }
+     }
+   }
 
    Key and value description:
 
@@ -442,6 +441,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    seq
       integer: The message sequence number, strictly monotonically
       increasing
+
 
 
 
