@@ -64,7 +64,7 @@ Table of Contents
      1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
      1.3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   3
-     1.4.  Distinction from other Routing Protocols  . . . . . . . .   4
+     1.4.  Distinction from other Routing Protocols  . . . . . . . .   3
    2.  Behavior  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
      2.1.  Neighbor Detection  . . . . . . . . . . . . . . . . . . .   4
      2.2.  Interface Handling  . . . . . . . . . . . . . . . . . . .   4
@@ -93,19 +93,19 @@ Table of Contents
      5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .  12
    6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .  13
    7.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .  13
-   8.  Subsections and Tables  . . . . . . . . . . . . . . . . . . .  13
-     8.1.  A Subsection  . . . . . . . . . . . . . . . . . . . . . .  13
-     8.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-   9.  More about Lists  . . . . . . . . . . . . . . . . . . . . . .  13
-     9.1.  Numbering Lists across Lists and Sections . . . . . . . .  14
-     9.2.  Where the List Numbering Continues  . . . . . . . . . . .  14
-   10. Example of Code or MIB Module To Be Extracted . . . . . . . .  15
-   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  16
-   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-   13. Security Considerations . . . . . . . . . . . . . . . . . . .  16
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .  16
-     14.2.  Informative References . . . . . . . . . . . . . . . . .  16
+   8.  More about Lists  . . . . . . . . . . . . . . . . . . . . . .  13
+     8.1.  Numbering Lists across Lists and Sections . . . . . . . .  13
+     8.2.  Where the List Numbering Continues  . . . . . . . . . . .  14
+   9.  Example of Code or MIB Module To Be Extracted . . . . . . . .  14
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
+   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   12. Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     13.2.  Informative References . . . . . . . . . . . . . . . . .  16
+   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  16
+     A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  17
+     A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  17
 
 
 
@@ -114,12 +114,8 @@ Pfeifer & Schueler       Expires March 23, 2018                 [Page 2]
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
-   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  17
-     A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  17
-     A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  17
    Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  17
    Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  17
-   Appendix D.  Additional Stuff . . . . . . . . . . . . . . . . . .  17
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
 1.  Introduction
@@ -160,6 +156,10 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
    how does it work from a bird's eye perspective
 
+1.4.  Distinction from other Routing Protocols
+
+   why this protocol?
+
 
 
 
@@ -169,10 +169,6 @@ Pfeifer & Schueler       Expires March 23, 2018                 [Page 3]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
-
-1.4.  Distinction from other Routing Protocols
-
-   why this protocol?
 
 2.  Behavior
 
@@ -212,6 +208,10 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    A DMPR packet consists of a preamble, followed by zero or more
    Extension Headers followed by zero or one Payload.  Each Extension
    Header and Payload is defined by a Type.
+
+
+
+
 
 
 
@@ -690,45 +690,12 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
    You can write text here as well.
 
-8.  Subsections and Tables
-
-8.1.  A Subsection
-
-   By default 3 levels of nesting show in table of contents but that can
-   be adjusted with the value of the "tocdepth" processing instruction.
-
-8.2.  Tables
-
-   .. are very similar to figures:
-
-     Tables use ttcol to define column headers and widths.  Every cell
-                  then has a "c" element for its content.
-
-                          +----------+----------+
-                          | ttcol #1 | ttcol #2 |
-                          +----------+----------+
-                          |   c #1   |   c #2   |
-                          |   c #3   |   c #4   |
-                          |   c #5   |   c #6   |
-                          +----------+----------+
-
-                      which is a very simple example.
-
-                       Table 2: A Very Simple Table
-
-9.  More about Lists
+8.  More about Lists
 
    Lists with 'hanging labels': the list item is indented the amount of
    the hangIndent:
 
    short   With a label shorter than the hangIndent.
-
-
-
-Pfeifer & Schueler       Expires March 23, 2018                [Page 13]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
 
    fantastically long label  With a label longer than the hangIndent.
 
@@ -748,13 +715,20 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
       The quick, brown fox jumped over the lazy dog and lived to fool
       many another hunter in the great wood in the west.
 
-9.1.  Numbering Lists across Lists and Sections
+8.1.  Numbering Lists across Lists and Sections
 
    Numbering items continuously although they are in separate <list>
    elements, maybe in separate sections using the "format" style and a
    "counter" variable.
 
    First list:
+
+
+
+Pfeifer & Schueler       Expires March 23, 2018                [Page 13]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
 
    R1  #1
 
@@ -772,19 +746,11 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
    R6  #6
 
-9.2.  Where the List Numbering Continues
+8.2.  Where the List Numbering Continues
 
    List continues here.
 
    Third list:
-
-
-
-
-Pfeifer & Schueler       Expires March 23, 2018                [Page 14]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
 
    R7  #7
 
@@ -796,7 +762,29 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
    The end of the list.
 
-10.  Example of Code or MIB Module To Be Extracted
+9.  Example of Code or MIB Module To Be Extracted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pfeifer & Schueler       Expires March 23, 2018                [Page 14]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
 
    The <artwork> element has a number of extra attributes that can be
    used to substitute a more aesthetically pleasing rendition into HTML
@@ -832,8 +820,20 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    /* end of file */
 
 
+10.  Acknowledgements
 
+   This template was derived from an initial version written by Pekka
+   Savola and contributed by him to the xml2rfc project.
 
+   This document is part of a plan to make xml2rfc indispensable
+   [DOMINATION].
+
+11.  IANA Considerations
+
+   This memo includes no request to IANA.
+
+   All drafts are required to have an IANA considerations section (see
+   Guidelines for Writing an IANA Considerations Section in RFCs
 
 
 
@@ -842,33 +842,19 @@ Pfeifer & Schueler       Expires March 23, 2018                [Page 15]
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
-11.  Acknowledgements
-
-   This template was derived from an initial version written by Pekka
-   Savola and contributed by him to the xml2rfc project.
-
-   This document is part of a plan to make xml2rfc indispensable
-   [DOMINATION].
-
-12.  IANA Considerations
-
-   This memo includes no request to IANA.
-
-   All drafts are required to have an IANA considerations section (see
-   Guidelines for Writing an IANA Considerations Section in RFCs
    [RFC5226] for a guide).  If the draft does not require IANA to do
    anything, the section contains an explicit statement that this is the
    case (as above).  If there are no requirements for IANA, the section
    will be removed during conversion into an RFC by the RFC Editor.
 
-13.  Security Considerations
+12.  Security Considerations
 
    All drafts are required to have a security considerations section.
    See RFC 3552 [RFC3552] for a guide.
 
-14.  References
+13.  References
 
-14.1.  Normative References
+13.1.  Normative References
 
    [min_ref]  authSurName, authInitials., "Minimal Reference", 2006.
 
@@ -877,7 +863,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-14.2.  Informative References
+13.2.  Informative References
 
    [DOMINATION]
               Mad Dominators, Inc., "Ultimate Plan for Taking Over the
@@ -886,17 +872,6 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    [RFC2629]  Rose, M., "Writing I-Ds and RFCs using XML", RFC 2629,
               DOI 10.17487/RFC2629, June 1999,
               <https://www.rfc-editor.org/info/rfc2629>.
-
-
-
-
-
-
-
-Pfeifer & Schueler       Expires March 23, 2018                [Page 16]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
 
    [RFC3552]  Rescorla, E. and B. Korver, "Guidelines for Writing RFC
               Text on Security Considerations", BCP 72, RFC 3552,
@@ -911,6 +886,17 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 Appendix A.  Policies
 
    many exchangeable policies
+
+
+
+
+
+
+
+Pfeifer & Schueler       Expires March 23, 2018                [Page 16]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
 
 A.1.  Low Loss Policy
 
@@ -929,10 +915,6 @@ Appendix C.  Examples
 
    Examples
 
-Appendix D.  Additional Stuff
-
-   This becomes an Appendix.
-
 Authors' Addresses
 
    Hagen Paul Pfeifer (editor)
@@ -944,14 +926,6 @@ Authors' Addresses
    Phone: +49 174 54 55 209
    Email: hagen@jauu.net
    URI:   http://www.jauu.net/
-
-
-
-
-
-Pfeifer & Schueler       Expires March 23, 2018                [Page 17]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
    Joshua Schueler
@@ -975,34 +949,4 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Pfeifer & Schueler       Expires March 23, 2018                [Page 18]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 17]

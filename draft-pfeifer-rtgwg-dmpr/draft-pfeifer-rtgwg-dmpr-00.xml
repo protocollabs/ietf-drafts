@@ -681,43 +681,6 @@ link-attribute-id = *DIGIT
 
     <?rfc needLines="8" ?>
 
-    <section title="Subsections and Tables">
-      <section title="A Subsection">
-        <t>By default 3 levels of nesting show in table of contents but that
-          can be adjusted with the value of the "tocdepth" processing
-          instruction.
-        </t>
-      </section>
-
-      <section title="Tables">
-        <t>.. are very similar to figures:</t>
-
-        <texttable anchor="table_example" title="A Very Simple Table">
-          <preamble>Tables use ttcol to define column headers and widths.
-            Every cell then has a "c" element for its content.
-          </preamble>
-
-          <ttcol align="center">ttcol #1</ttcol>
-
-          <ttcol align="center">ttcol #2</ttcol>
-
-          <c>c #1</c>
-
-          <c>c #2</c>
-
-          <c>c #3</c>
-
-          <c>c #4</c>
-
-          <c>c #5</c>
-
-          <c>c #6</c>
-
-          <postamble>which is a very simple example.</postamble>
-        </texttable>
-      </section>
-    </section>
-
     <section anchor="nested_lists" title="More about Lists">
       <t>Lists with 'hanging labels': the list item is indented the amount of
         the hangIndent:
@@ -960,29 +923,5 @@ main(int argc, char *argv[])
     <section title="Examples">
       <t>Examples</t>
     </section>
-    <section anchor="app-additional" title="Additional Stuff">
-      <t>This becomes an Appendix.</t>
-    </section>
-
-    <!-- Change Log
-
- v00 2006-03-15  EBD   Initial version
-
- v01 2006-04-03  EBD   Moved PI location back to position 1 -
-                      v3.1 of XMLmind is better with them at this location.
- v02 2007-03-07  AH    removed extraneous nested_list attribute,
-                      other minor corrections
- v03 2007-03-09  EBD   Added comments on null IANA sections and fixed heading capitalization.
-                      Modified comments around figure to reflect non-implementation of
-                      figure indent control.  Put in reference using anchor="DOMINATION".
-                      Fixed up the date specification comments to reflect current truth.
- v04 2007-03-09 AH     Major changes: shortened discussion of PIs,
-                      added discussion of rfc include.
- v05 2007-03-10 EBD    Added preamble to C program example to tell about ABNF and alternative
-                      images. Removed meta-characters from comments (causes problems).
-
- v06 2010-04-01 TT     Changed ipr attribute values to latest ones. Changed date to
-                      year only, to be consistent with the comments. Updated the
-                      IANA guidelines reference from the I-D to the finished RFC.  -->
   </back>
 </rfc>
