@@ -5,7 +5,7 @@
 Internet Engineering Task Force                          H. Pfeifer, Ed.
 Internet-Draft                                              ProtocolLabs
 Intended status: Informational                               J. Schueler
-Expires: March 22, 2018                               September 18, 2017
+Expires: March 23, 2018                               September 19, 2017
 
 
                    Dynamic MultiPath Routing Protocol
@@ -31,7 +31,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 22, 2018.
+   This Internet-Draft will expire on March 23, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                 [Page 1]
+Pfeifer & Schueler       Expires March 23, 2018                 [Page 1]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                 [Page 2]
+Pfeifer & Schueler       Expires March 23, 2018                 [Page 2]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -165,7 +165,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                 [Page 3]
+Pfeifer & Schueler       Expires March 23, 2018                 [Page 3]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -196,12 +196,12 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    Header and Payload is defined by a Type.
 
          +---------+--------------------------------------------+
-         |   Type  |                    Use                     |
+         |   Type  | Use                                        |
          +---------+--------------------------------------------+
-         |  0-119  |              Extension Header              |
+         |  0-119  | Extension Header                           |
          | 120-127 | Extension Header, reserved for private use |
-         | 128-247 |                  Payload                   |
-         | 248-255 |     Payload, reserved for private use      |
+         | 128-247 | Payload                                    |
+         | 248-255 | Payload, reserved for private use          |
          +---------+--------------------------------------------+
 
                  Possible Types are further defined below
@@ -221,7 +221,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                 [Page 4]
+Pfeifer & Schueler       Expires March 23, 2018                 [Page 4]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -277,7 +277,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                 [Page 5]
+Pfeifer & Schueler       Expires March 23, 2018                 [Page 5]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -333,7 +333,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                 [Page 6]
+Pfeifer & Schueler       Expires March 23, 2018                 [Page 6]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -389,7 +389,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                 [Page 7]
+Pfeifer & Schueler       Expires March 23, 2018                 [Page 7]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -445,7 +445,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                 [Page 8]
+Pfeifer & Schueler       Expires March 23, 2018                 [Page 8]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -501,7 +501,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                 [Page 9]
+Pfeifer & Schueler       Expires March 23, 2018                 [Page 9]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -557,7 +557,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                [Page 10]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 10]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -613,7 +613,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                [Page 11]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 11]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -669,7 +669,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                [Page 12]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 12]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -725,7 +725,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                [Page 13]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 13]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -781,7 +781,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                [Page 14]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 14]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -837,7 +837,7 @@ Appendix A.  Policies
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                [Page 15]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 15]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -893,4 +893,4 @@ Authors' Addresses
 
 
 
-Pfeifer & Schueler       Expires March 22, 2018                [Page 16]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 16]

@@ -171,8 +171,7 @@
         </t>
         <texttable anchor="nexttype_table" title="Possible Types">
           <ttcol align="center">Type</ttcol>
-
-          <ttcol align="center">Use</ttcol>
+          <ttcol align="left">Use</ttcol>
 
           <c>0-119</c>
           <c>Extension Header</c>
