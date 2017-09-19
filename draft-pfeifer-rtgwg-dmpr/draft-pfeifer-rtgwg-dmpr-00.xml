@@ -129,7 +129,35 @@
         </t>
       </section>
       <section title="Terminology">
-        <t>whats a policy, metric, link, link attribute, router, network</t>
+        <t>The following list describes the Terminology used in this RFC</t>
+        <t>
+          <list style="hanging">
+            <t hangText="Router, Node">
+              <vspace blankLines="0"/>
+              A Router (or a Node) are the routing entities of a network which
+              run an implementation of DMPR, have zero or more networks attached
+              and at least one link to another router.
+            </t>
+            <t hangText="Link">
+              <vspace blankLines="0"/>
+              A Link is the direct connection between two interfaces of two
+              distinct routers.
+            </t>
+            <t hangText="Link Attribute">
+              <vspace blankLines="0"/>
+              A Link Attribute is a basic attribute of a link, for example the
+              maximum bandwidth, the average packet loss or the cost of the
+              link.
+            </t>
+            <t hangText="Policy">
+              <vspace blankLines="0"/>
+              A Policy describes an order relation over a set of paths using the
+              link attributes of these paths. Note that to guarantee loop-free
+              properties this ordering function MUST be commutative and
+              associative.
+            </t>
+          </list>
+        </t>
       </section>
       <section title="Overview">
         <t>how does it work from a bird's eye perspective</t>
@@ -335,7 +363,7 @@
           A sending node SHOULD use ascii-encoding for the json data, a
           receiving node MUST be able to decode UTF-8 encoded data.
         </t>
-        <t>wording:
+        <t>Augmented requirements language for this section:
           <list style="hanging">
             <t hangText="REQUIRED">
               <vspace blankLines="0"/>
