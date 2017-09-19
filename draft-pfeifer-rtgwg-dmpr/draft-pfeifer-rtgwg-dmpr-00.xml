@@ -500,7 +500,7 @@ link-attribute-id = *DIGIT
         </t>
         <section title="Full Update">
           <t>A full update SHOULD replace all data from the sending node in the
-            receivers Information Base, it MUST NOT require any previous
+            receivers Message Information Base, it MUST NOT require any previous
             knowledge of the sender by the receiver. The following keys are
             specified:
           </t>
@@ -522,12 +522,86 @@ link-attribute-id = *DIGIT
                 object, REQUIRED if not empty: The networks
                 advertised by this node, see above
               </t>
-              <t hangText="routing-data">object, REQUIRED if not empty:</t>
+              <t hangText="routing-data">
+                <vspace blankLines="0"/>
+                object, REQUIRED if not empty: The paths advertised by the
+                sender, grouped by POLICY and target NODE_ID. The syntax of a
+                path is described above. A path MUST include the sender of this
+                message, all hops with their link-attribute ids and the target
+                node.
+              </t>
+              <t hangText="node-data">
+                <vspace blankLines="0"/>
+                object, OPTIONAL: The networks from other nodes known to the
+                sender including their retraction status.
+              </t>
+              <t hangText="link-attributes">
+                <vspace blankLines="0"/>
+                object, REQUIRED if not empty: The link-attributes used in
+                "routing-data". Each entry MUST contain all attributes known to
+                the sender, even if they are not needed by a policy.
+              </t>
+              <!-- TODO -->
             </list>
           </t>
         </section>
         <section title="Partial Update">
-          <t>fields and description of a partial update</t>
+          <t>A partial update only replaces the changed data in the receivers
+            Message Information Base. It therefore has the additional field
+            "partial-base" which describes the sequence number of the base
+            message, which MUST be a full update message, on which the changes
+            apply. NOTE: A partial update only describes changes to a previous
+            full update, never to a previous partial update. The following keys
+            are specified:
+          </t>
+          <t>
+            <list style="hanging">
+              <t hangText="addr-v4">
+                <vspace blankLines="0"/>
+                string, OPTIONAL: The IPv4 address of the sending node over the
+                link this packet has been sent, only included if it has not
+                changed. If it became invalid, the value is null.
+              </t>
+              <t hangText="addr-v6">
+                <vspace blankLines="0"/>
+                string, OPTIONAL: The IPv6 address of the sending node over the
+                link this packet has been sent, only included if it has not
+                changed. If it became invalid, the value is null.
+              </t>
+              <t>NOTE: A partial update MUST NOT produce an invalid
+                configuration by deleting the only address available for a node.
+              </t>
+              <t hangText="networks">
+                <vspace blankLines="0"/>
+                object, OPTIONAL: The networks advertised by the sender. The
+                entries replace the base message entries on a per
+                NODE_ID basis. If a entry has been deleted, the value for the
+                specific NODE_ID is null.
+              </t>
+              <t hangText="routing-data">
+                <vspace blankLines="0"/>
+                object, OPTIONAL: The paths advertised by the sender, grouped by
+                POLICY and target NODE_ID. The entries replace the base message
+                entries on a per NODE_ID basis. If a entry has been deleted, the
+                value for the specific NODE_ID is null.
+              </t>
+              <t hangText="node-data">
+                <vspace blankLines="0"/>
+                object, OPTIONAL: The networks from other nodes known to the
+                sender. The entries replace the base message entries on a per
+                NODE_ID basis. If a entry has been deleted, the value for the
+                specific NODE_ID is null.
+              </t>
+              <t hangText="link-attributes">
+                <vspace blankLines="0"/>
+                object, REQUIRED if not empty: The link-attributes used in
+                "routing-data". Note that link-attributes are only valid on a
+                per-message basis and MUST NOT replace link-attribute entries in
+                the base message.
+              </t>
+              <!-- TODO -->
+            </list>
+          </t>
         </section>
         <section title="Keep Alive">
           <t>keepalive</t>

@@ -83,29 +83,29 @@ Table of Contents
          3.1.3.3.  Payload: Fragmentation  . . . . . . . . . . . . .   6
      3.2.  JSON Payload  . . . . . . . . . . . . . . . . . . . . . .   7
        3.2.1.  Full Update . . . . . . . . . . . . . . . . . . . . .  10
-       3.2.2.  Partial Update  . . . . . . . . . . . . . . . . . . .  10
-       3.2.3.  Keep Alive  . . . . . . . . . . . . . . . . . . . . .  10
-     3.3.  Requests  . . . . . . . . . . . . . . . . . . . . . . . .  10
-     3.4.  Reflections . . . . . . . . . . . . . . . . . . . . . . .  11
-   4.  Data Structures . . . . . . . . . . . . . . . . . . . . . . .  11
-   5.  Optional Features . . . . . . . . . . . . . . . . . . . . . .  11
-     5.1.  Asymmetric Link Detection . . . . . . . . . . . . . . . .  11
-     5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .  11
-   6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .  11
-   7.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   8.  Subsections and Tables  . . . . . . . . . . . . . . . . . . .  11
-     8.1.  A Subsection  . . . . . . . . . . . . . . . . . . . . . .  11
-     8.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   9.  More about Lists  . . . . . . . . . . . . . . . . . . . . . .  12
-     9.1.  Numbering Lists across Lists and Sections . . . . . . . .  12
-     9.2.  Where the List Numbering Continues  . . . . . . . . . . .  13
-   10. Example of Code or MIB Module To Be Extracted . . . . . . . .  13
-   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  14
-   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
-   13. Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .  15
-     14.2.  Informative References . . . . . . . . . . . . . . . . .  15
+       3.2.2.  Partial Update  . . . . . . . . . . . . . . . . . . .  11
+       3.2.3.  Keep Alive  . . . . . . . . . . . . . . . . . . . . .  12
+     3.3.  Requests  . . . . . . . . . . . . . . . . . . . . . . . .  12
+     3.4.  Reflections . . . . . . . . . . . . . . . . . . . . . . .  12
+   4.  Data Structures . . . . . . . . . . . . . . . . . . . . . . .  12
+   5.  Optional Features . . . . . . . . . . . . . . . . . . . . . .  12
+     5.1.  Asymmetric Link Detection . . . . . . . . . . . . . . . .  12
+     5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .  12
+   6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .  12
+   7.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   8.  Subsections and Tables  . . . . . . . . . . . . . . . . . . .  12
+     8.1.  A Subsection  . . . . . . . . . . . . . . . . . . . . . .  13
+     8.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+   9.  More about Lists  . . . . . . . . . . . . . . . . . . . . . .  13
+     9.1.  Numbering Lists across Lists and Sections . . . . . . . .  14
+     9.2.  Where the List Numbering Continues  . . . . . . . . . . .  14
+   10. Example of Code or MIB Module To Be Extracted . . . . . . . .  14
+   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
+   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   13. Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     14.2.  Informative References . . . . . . . . . . . . . . . . .  16
 
 
 
@@ -114,13 +114,13 @@ Pfeifer & Schueler       Expires March 23, 2018                 [Page 2]
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
-   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  15
-     A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  16
-     A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  16
-   Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  16
-   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  16
-   Appendix D.  Additional Stuff . . . . . . . . . . . . . . . . . .  16
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
+   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  16
+     A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  17
+     A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  17
+   Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  17
+   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  17
+   Appendix D.  Additional Stuff . . . . . . . . . . . . . . . . . .  17
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
 1.  Introduction
 
@@ -521,7 +521,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 3.2.1.  Full Update
 
    A full update SHOULD replace all data from the sending node in the
-   receivers Information Base, it MUST NOT require any previous
+   receivers Message Information Base, it MUST NOT require any previous
    knowledge of the sender by the receiver.  The following keys are
    specified:
 
@@ -539,20 +539,20 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
       object, REQUIRED if not empty: The networks advertised by this
       node, see above
 
-   routing-data  object, REQUIRED if not empty:
+   routing-data
+      object, REQUIRED if not empty: The paths advertised by the sender,
+      grouped by POLICY and target NODE_ID.  The syntax of a path is
+      described above.  A path MUST include the sender of this message,
+      all hops with their link-attribute ids and the target node.
 
-3.2.2.  Partial Update
+   node-data
+      object, OPTIONAL: The networks from other nodes known to the
+      sender including their retraction status.
 
-   fields and description of a partial update
-
-3.2.3.  Keep Alive
-
-   keepalive
-
-3.3.  Requests
-
-   fields and description of full-update requests
-
+   link-attributes
+      object, REQUIRED if not empty: The link-attributes used in
+      "routing-data".  Each entry MUST contain all attributes known to
+      the sender, even if they are not needed by a policy.
 
 
 
@@ -561,6 +561,70 @@ Pfeifer & Schueler       Expires March 23, 2018                [Page 10]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
+
+3.2.2.  Partial Update
+
+   A partial update only replaces the changed data in the receivers
+   Message Information Base.  It therefore has the additional field
+   "partial-base" which describes the sequence number of the base
+   message, which MUST be a full update message, on which the changes
+   apply.  NOTE: A partial update only describes changes to a previous
+   full update, never to a previous partial update.  The following keys
+   are specified:
+
+   addr-v4
+      string, OPTIONAL: The IPv4 address of the sending node over the
+      link this packet has been sent, only included if it has not
+      changed.  If it became invalid, the value is null.
+
+   addr-v6
+      string, OPTIONAL: The IPv6 address of the sending node over the
+      link this packet has been sent, only included if it has not
+      changed.  If it became invalid, the value is null.
+
+      NOTE: A partial update MUST NOT produce an invalid configuration
+      by deleting the only address available for a node.
+
+   networks
+      object, OPTIONAL: The networks advertised by the sender.  The
+      entries replace the base message entries on a per NODE_ID basis.
+      If a entry has been deleted, the value for the specific NODE_ID is
+      null.
+
+   routing-data
+      object, OPTIONAL: The paths advertised by the sender, grouped by
+      POLICY and target NODE_ID.  The entries replace the base message
+      entries on a per NODE_ID basis.  If a entry has been deleted, the
+      value for the specific NODE_ID is null.
+
+   node-data
+      object, OPTIONAL: The networks from other nodes known to the
+      sender.  The entries replace the base message entries on a per
+      NODE_ID basis.  If a entry has been deleted, the value for the
+      specific NODE_ID is null.
+
+   link-attributes
+      object, REQUIRED if not empty: The link-attributes used in
+      "routing-data".  Note that link-attributes are only valid on a
+      per-message basis and MUST NOT replace link-attribute entries in
+      the base message.
+
+
+
+
+
+Pfeifer & Schueler       Expires March 23, 2018                [Page 11]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
+
+3.2.3.  Keep Alive
+
+   keepalive
+
+3.3.  Requests
+
+   fields and description of full-update requests
 
 3.4.  Reflections
 
@@ -599,6 +663,17 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 8.  Subsections and Tables
 
+
+
+
+
+
+
+Pfeifer & Schueler       Expires March 23, 2018                [Page 12]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
+
 8.1.  A Subsection
 
    By default 3 levels of nesting show in table of contents but that can
@@ -607,16 +682,6 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 8.2.  Tables
 
    .. are very similar to figures:
-
-
-
-
-
-
-Pfeifer & Schueler       Expires March 23, 2018                [Page 11]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
 
      Tables use ttcol to define column headers and widths.  Every cell
                   then has a "c" element for its content.
@@ -658,6 +723,13 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
       The quick, brown fox jumped over the lazy dog and lived to fool
       many another hunter in the great wood in the west.
 
+
+
+Pfeifer & Schueler       Expires March 23, 2018                [Page 13]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
+
 9.1.  Numbering Lists across Lists and Sections
 
    Numbering items continuously although they are in separate <list>
@@ -665,14 +737,6 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    "counter" variable.
 
    First list:
-
-
-
-
-Pfeifer & Schueler       Expires March 23, 2018                [Page 12]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
 
    R1  #1
 
@@ -717,15 +781,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-
-
-
-
-
-
-
-
-Pfeifer & Schueler       Expires March 23, 2018                [Page 13]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 14]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -781,7 +837,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 23, 2018                [Page 14]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 15]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -837,7 +893,7 @@ Appendix A.  Policies
 
 
 
-Pfeifer & Schueler       Expires March 23, 2018                [Page 15]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 16]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -893,4 +949,4 @@ Authors' Addresses
 
 
 
-Pfeifer & Schueler       Expires March 23, 2018                [Page 16]
+Pfeifer & Schueler       Expires March 23, 2018                [Page 17]
