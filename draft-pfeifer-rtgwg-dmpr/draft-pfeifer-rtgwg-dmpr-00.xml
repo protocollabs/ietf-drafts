@@ -201,7 +201,8 @@
       </section>
       <section title="Distinction from other Routing Protocols">
         <t>
-          Traditionally, routing protocols find the best path using a scalar metric.
+          Traditionally, routing protocols find the best path using a scalar
+          metric.
           This metric may be a simple constant stating the preference of the
           link or may be a computed metric using several factors like bandwidth,
           latency or cost. Furthermore, this metric is only known locally or,
@@ -216,9 +217,42 @@
       </section>
     </section>
     <section title="Data Structures">
-      <t>Every router uses these data structures as Routing and Forward
-        Information Base
-      </t>
+      <section title="Message Information Base">
+        <t>
+          Every message received by a node is saved in the Message Information
+          Base. This data structure is the basis for all subsequently emitted
+          routing messages and the routing table.
+          The Message Information Base contains for each neighbor the latest (by
+          sequence number) received message. Each entry is controlled by a hold
+          time and is purged after the hold time expires. This timer is reset as
+          soon as a new valid message from this neighbor is received.
+          This data structure contains potentially duplicate or conflicting data
+          as many neighbors send their paths and subnet information for all
+          nodes
+          they know of. This is intended and required as any message may be
+          deleted at almost any time when its hold timer expires.
+        </t>
+      </section>
+      <section title="Routing Data">
+        <t>
+          The Routing Data is computed from the Message Information Base. In
+          contrast to the Message Information Base this is data structure
+          contains
+          no conflicting information and can be seen as the single source of
+          truth
+          for the routing table and routing message generation.
+          It contains the best path to each known node grouped by policy.
+          Furthermore the advertised subnets from each node are combined while
+          following the network retraction rules (see TODO ref).
+        </t>
+      </section>
+      <section title="Routing Table">
+        <t>
+          The Routing Table finally contains the best path to each known subnet
+          grouped by policy. This table then can be inserted into the underlying
+          OS's routing table.
+        </t>
+      </section>
     </section>
     <section title="Behavior">
       <section title="Neighbor Detection">
