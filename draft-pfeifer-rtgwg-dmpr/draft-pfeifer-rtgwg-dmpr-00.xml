@@ -253,6 +253,12 @@
           OS's routing table.
         </t>
       </section>
+      <section title="Networks">
+        <t>
+          The Networks list contains all known and all known retracted networks.
+          Each network is accompanied by a hold timer. TODO!! see dmpr-core#30
+        </t>
+      </section>
     </section>
     <section title="Behavior">
       <section title="Neighbor Detection">
@@ -290,7 +296,63 @@
         <t>how do we select the best route</t>
       </section>
       <section title="Network Retraction">
-        <t>what happens with retracted networks</t>
+        <t>
+          TODO SEE dmpr-core#30
+        </t>
+        <t>
+          Each network advertised in a message has an optional flag called
+          "retracted". This flag is set to true when a node no longer advertises
+          this network as available. The only node to ever set this flag to true
+          MUST be the originally advertising node. A set retracted flag always
+          supersedes an unset flag. Networks are forwarded with this ruleset:
+        </t>
+        <texttable>
+          <ttcol align="center">Network known as not retracted</ttcol>
+          <ttcol align="center">Network known as retracted</ttcol>
+          <ttcol align="center">Network set as retracted in a message</ttcol>
+          <ttcol align="left">Action to take</ttcol>
+
+          <c>0</c>
+          <c>0</c>
+          <c>0</c>
+          <c>Insert network in known networks and forward</c>
+
+          <c>0</c>
+          <c>0</c>
+          <c>1</c>
+          <c>ignore network, do not forward</c>
+
+          <c>0</c>
+          <c>1</c>
+          <c>0</c>
+          <c>forward network as retracted</c>
+
+          <c>0</c>
+          <c>1</c>
+          <c>1</c>
+          <c>forward network as retracted</c>
+
+          <c>1</c>
+          <c>0</c>
+          <c>0</c>
+          <c>just forward network</c>
+
+          <c>1</c>
+          <c>0</c>
+          <c>1</c>
+          <c>set network in known networks as retracted and forward retracted
+          </c>
+
+          <c>1</c>
+          <c>1</c>
+          <c>0</c>
+          <c>illegal</c>
+
+          <c>1</c>
+          <c>1</c>
+          <c>1</c>
+          <c>illegal</c>
+        </texttable>
       </section>
       <section title="Other...">
         <t>TODO: how does the network handle: different network conditions,

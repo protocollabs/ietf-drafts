@@ -67,9 +67,10 @@ Table of Contents
      1.4.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   4
      1.5.  Distinction from other Routing Protocols  . . . . . . . .   4
    2.  Data Structures . . . . . . . . . . . . . . . . . . . . . . .   4
-     2.1.  Message Information Base  . . . . . . . . . . . . . . . .   4
+     2.1.  Message Information Base  . . . . . . . . . . . . . . . .   5
      2.2.  Routing Data  . . . . . . . . . . . . . . . . . . . . . .   5
      2.3.  Routing Table . . . . . . . . . . . . . . . . . . . . . .   5
+     2.4.  Networks  . . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Behavior  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Neighbor Detection  . . . . . . . . . . . . . . . . . . .   5
      3.2.  Interface Handling  . . . . . . . . . . . . . . . . . . .   6
@@ -77,35 +78,34 @@ Table of Contents
      3.4.  Policies  . . . . . . . . . . . . . . . . . . . . . . . .   6
      3.5.  Route Selection . . . . . . . . . . . . . . . . . . . . .   6
      3.6.  Network Retraction  . . . . . . . . . . . . . . . . . . .   6
-     3.7.  Other...  . . . . . . . . . . . . . . . . . . . . . . . .   6
-   4.  Message Format  . . . . . . . . . . . . . . . . . . . . . . .   6
-     4.1.  Header  . . . . . . . . . . . . . . . . . . . . . . . . .   6
-       4.1.1.  Preamble  . . . . . . . . . . . . . . . . . . . . . .   7
-       4.1.2.  Extension Header  . . . . . . . . . . . . . . . . . .   7
-       4.1.3.  Payload . . . . . . . . . . . . . . . . . . . . . . .   8
-         4.1.3.1.  Payload: Keep-Alive . . . . . . . . . . . . . . .   8
-         4.1.3.2.  Payload: Compressed JSON  . . . . . . . . . . . .   8
-         4.1.3.3.  Payload: Fragmentation  . . . . . . . . . . . . .   8
-     4.2.  JSON Payload  . . . . . . . . . . . . . . . . . . . . . .   9
-       4.2.1.  Full Update . . . . . . . . . . . . . . . . . . . . .  12
-       4.2.2.  Partial Update  . . . . . . . . . . . . . . . . . . .  13
-       4.2.3.  Keep Alive  . . . . . . . . . . . . . . . . . . . . .  14
-     4.3.  Requests  . . . . . . . . . . . . . . . . . . . . . . . .  14
-     4.4.  Reflections . . . . . . . . . . . . . . . . . . . . . . .  14
-   5.  Optional Features . . . . . . . . . . . . . . . . . . . . . .  14
-     5.1.  Asymmetric Link Detection . . . . . . . . . . . . . . . .  14
-     5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .  14
-   6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .  14
-   7.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   8.  More about Lists  . . . . . . . . . . . . . . . . . . . . . .  15
-     8.1.  Numbering Lists across Lists and Sections . . . . . . . .  15
-     8.2.  Where the List Numbering Continues  . . . . . . . . . . .  16
-   9.  Example of Code or MIB Module To Be Extracted . . . . . . . .  16
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
-   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
-   12. Security Considerations . . . . . . . . . . . . . . . . . . .  18
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  18
+     3.7.  Other...  . . . . . . . . . . . . . . . . . . . . . . . .   7
+   4.  Message Format  . . . . . . . . . . . . . . . . . . . . . . .   7
+     4.1.  Header  . . . . . . . . . . . . . . . . . . . . . . . . .   7
+       4.1.1.  Preamble  . . . . . . . . . . . . . . . . . . . . . .   8
+       4.1.2.  Extension Header  . . . . . . . . . . . . . . . . . .   8
+       4.1.3.  Payload . . . . . . . . . . . . . . . . . . . . . . .   9
+         4.1.3.1.  Payload: Keep-Alive . . . . . . . . . . . . . . .   9
+         4.1.3.2.  Payload: Compressed JSON  . . . . . . . . . . . .   9
+         4.1.3.3.  Payload: Fragmentation  . . . . . . . . . . . . .   9
+     4.2.  JSON Payload  . . . . . . . . . . . . . . . . . . . . . .  10
+       4.2.1.  Full Update . . . . . . . . . . . . . . . . . . . . .  13
+       4.2.2.  Partial Update  . . . . . . . . . . . . . . . . . . .  14
+       4.2.3.  Keep Alive  . . . . . . . . . . . . . . . . . . . . .  15
+     4.3.  Requests  . . . . . . . . . . . . . . . . . . . . . . . .  15
+     4.4.  Reflections . . . . . . . . . . . . . . . . . . . . . . .  15
+   5.  Optional Features . . . . . . . . . . . . . . . . . . . . . .  15
+     5.1.  Asymmetric Link Detection . . . . . . . . . . . . . . . .  15
+     5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .  15
+   6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .  15
+   7.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .  15
+   8.  More about Lists  . . . . . . . . . . . . . . . . . . . . . .  16
+     8.1.  Numbering Lists across Lists and Sections . . . . . . . .  16
+     8.2.  Where the List Numbering Continues  . . . . . . . . . . .  17
+   9.  Example of Code or MIB Module To Be Extracted . . . . . . . .  17
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
+   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
+   12. Security Considerations . . . . . . . . . . . . . . . . . . .  19
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
 
 
 
@@ -114,13 +114,14 @@ Pfeifer & Schueler       Expires March 26, 2018                 [Page 2]
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  18
-   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  18
-     A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  19
-     A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  19
-   Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  19
-   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  19
+     13.2.  Informative References . . . . . . . . . . . . . . . . .  19
+   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  19
+     A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  20
+     A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  20
+   Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  20
+   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
 
@@ -161,7 +162,6 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    Section 2 describes the information every node has and gets and how
    it should proceed with that.  Implementations are not required to
    strictly implement them as described here but the same functionality
-   must be provided.  Section 3 describes the behavior of the protocol
 
 
 
@@ -170,6 +170,7 @@ Pfeifer & Schueler       Expires March 26, 2018                 [Page 3]
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
+   must be provided.  Section 3 describes the behavior of the protocol
    in different scenarios and how it achieves particular features.
    Section 4 describes the message format in detail.  Section 5
    describes optional features which can be implemented to improve or
@@ -213,11 +214,10 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 2.  Data Structures
 
-2.1.  Message Information Base
 
-   Every message received by a node is saved in the Message Information
-   Base.  This data structure is the basis for all subsequently emitted
-   routing messages and the routing table.  The Message Information Base
+
+
+
 
 
 
@@ -226,6 +226,11 @@ Pfeifer & Schueler       Expires March 26, 2018                 [Page 4]
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
+2.1.  Message Information Base
+
+   Every message received by a node is saved in the Message Information
+   Base.  This data structure is the basis for all subsequently emitted
+   routing messages and the routing table.  The Message Information Base
    contains for each neighbor the latest (by sequence number) received
    message.  Each entry is controlled by a hold time and is purged after
    the hold time expires.  This timer is reset as soon as a new valid
@@ -251,6 +256,12 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    grouped by policy.  This table then can be inserted into the
    underlying OS's routing table.
 
+2.4.  Networks
+
+   The Networks list contains all known and all known retracted
+   networks.  Each network is accompanied by a hold timer.  TODO!! see
+   dmpr-core#30
+
 3.  Behavior
 
 3.1.  Neighbor Detection
@@ -263,6 +274,14 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
    o  For each policy, a path to each node it knows of.
 
+
+
+
+Pfeifer & Schueler       Expires March 26, 2018                 [Page 5]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
+
    o  The attributes of the links between the paths.
 
    When a node receives a message it deduces a connection and therefore
@@ -272,15 +291,6 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
    node assigns every received message to a hold timer and purges this
    message after the timer expires.  Asymmetric links are handled with a
    feature called reflection, this is described in TODO ref
-
-
-
-
-
-Pfeifer & Schueler       Expires March 26, 2018                 [Page 5]
-
-Internet-Draft          Dynamic MultiPath Routing         September 2017
-
 
 3.2.  Interface Handling
 
@@ -300,7 +310,56 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 3.6.  Network Retraction
 
-   what happens with retracted networks
+   TODO SEE dmpr-core#30
+
+   Each network advertised in a message has an optional flag called
+   "retracted".  This flag is set to true when a node no longer
+   advertises this network as available.  The only node to ever set this
+   flag to true MUST be the originally advertising node.  A set
+   retracted flag always supersedes an unset flag.  Networks are
+   forwarded with this ruleset:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pfeifer & Schueler       Expires March 26, 2018                 [Page 6]
+
+Internet-Draft          Dynamic MultiPath Routing         September 2017
+
+
+   +-------------+------------+---------------+------------------------+
+   |   Network   |  Network   |  Network set  | Action to take         |
+   |   known as  |  known as  |  as retracted |                        |
+   |     not     | retracted  |  in a message |                        |
+   |  retracted  |            |               |                        |
+   +-------------+------------+---------------+------------------------+
+   |      0      |     0      |       0       | Insert network in      |
+   |             |            |               | known networks and     |
+   |             |            |               | forward                |
+   |      0      |     0      |       1       | ignore network, do not |
+   |             |            |               | forward                |
+   |      0      |     1      |       0       | forward network as     |
+   |             |            |               | retracted              |
+   |      0      |     1      |       1       | forward network as     |
+   |             |            |               | retracted              |
+   |      1      |     0      |       0       | just forward network   |
+   |      1      |     0      |       1       | set network in known   |
+   |             |            |               | networks as retracted  |
+   |             |            |               | and forward retracted  |
+   |      1      |     1      |       0       | illegal                |
+   |      1      |     1      |       1       | illegal                |
+   +-------------+------------+---------------+------------------------+
 
 3.7.  Other...
 
@@ -330,10 +389,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-
-
-
-Pfeifer & Schueler       Expires March 26, 2018                 [Page 6]
+Pfeifer & Schueler       Expires March 26, 2018                 [Page 7]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -389,7 +445,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                 [Page 7]
+Pfeifer & Schueler       Expires March 26, 2018                 [Page 8]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -445,7 +501,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                 [Page 8]
+Pfeifer & Schueler       Expires March 26, 2018                 [Page 9]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -501,7 +557,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                 [Page 9]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 10]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -557,7 +613,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 10]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 11]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -613,7 +669,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 11]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 12]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -669,7 +725,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 12]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 13]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -725,7 +781,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 13]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 14]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -781,7 +837,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 14]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 15]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -837,7 +893,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 15]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 16]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -893,7 +949,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 16]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 17]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -949,7 +1005,7 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 17]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 18]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -1005,7 +1061,7 @@ Appendix A.  Policies
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 18]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 19]
 
 Internet-Draft          Dynamic MultiPath Routing         September 2017
 
@@ -1061,4 +1117,4 @@ Authors' Addresses
 
 
 
-Pfeifer & Schueler       Expires March 26, 2018                [Page 19]
+Pfeifer & Schueler       Expires March 26, 2018                [Page 20]
