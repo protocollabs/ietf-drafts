@@ -197,9 +197,9 @@ Internet-Draft          Dynamic MultiPath Routing         September 2017
 
 1.5.  Distinction from other Routing Protocols
 
-   Traditionally, routing protocols find the best path using a metric.
-   This metric may be a simple constant stating the preference of the
-   link or may be a computed metric using several factors like
+   Traditionally, routing protocols find the best path using a scalar
+   metric.  This metric may be a simple constant stating the preference
+   of the link or may be a computed metric using several factors like
    bandwidth, latency or cost.  Furthermore, this metric is only known
    locally or, for example in the case of BGP-4, where external paths
    can be marked with a local preference for internal peers, to a small
