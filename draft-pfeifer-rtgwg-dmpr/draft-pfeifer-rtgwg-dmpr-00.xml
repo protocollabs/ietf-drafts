@@ -181,7 +181,23 @@
         </t>
       </section>
       <section title="Overview">
-        <t>how does it work from a bird's eye perspective</t>
+        <t>
+          Every router periodically sends out a multicast message to all its
+          neighbors. This message includes the best path to each node known by
+          this router. A router receiving this message adds itself to all these
+          paths,
+          chooses the best path to each node among all it got from its neighbors
+          and itself advertises these paths via multicast messages. This is
+          standard procedure in a Path-Vector Routing Protocol. In DMPR the
+          paths are further separated by a policy, therefore it is possible to
+          have more than one path to each node. Also included in the message are
+          all attributes of this path so that the receiving node can make
+          informed decisions on whether this path is the best under the current
+          policy. In the end there exist multiple paths through the network and
+          packets can be routed according to their requirements which for
+          example can be the path with the highest bandwidth or with the lowest
+          latency.
+        </t>
       </section>
       <section title="Distinction from other Routing Protocols">
         <t>why this protocol?</t>
