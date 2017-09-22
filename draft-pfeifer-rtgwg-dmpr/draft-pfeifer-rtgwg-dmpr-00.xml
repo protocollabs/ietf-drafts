@@ -200,7 +200,19 @@
         </t>
       </section>
       <section title="Distinction from other Routing Protocols">
-        <t>why this protocol?</t>
+        <t>
+          Traditionally, routing protocols find the best path using a metric.
+          This metric may be a simple constant stating the preference of the
+          link or may be a computed metric using several factors like bandwidth,
+          latency or cost. Furthermore, this metric is only known locally or,
+          for example in the case of BGP-4, where external paths can be marked
+          with a local preference for internal peers, to a small subset of the
+          network.
+          In DMPR a policy is a globally defined function which provides a
+          ordering over paths. For this the policy has all link attributes of
+          each path at its disposal and has a higher control over which path it
+          chooses.
+        </t>
       </section>
     </section>
     <section title="Data Structures">
