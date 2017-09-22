@@ -159,12 +159,38 @@
           </list>
         </t>
       </section>
+      <section title="Organization of this Document">
+        <t>
+          Section 2 describes the information every node has and gets and how it
+          should proceed with that. Implementations are not required to strictly
+          implement them as described here but the same functionality must be
+          provided.
+          Section 3 describes the behavior of the protocol in different
+          scenarios and how it achieves particular features.
+          Section 4 describes the message format in detail.
+          Section 5 describes optional features which can be implemented to
+          improve or extend DMPR but are not required for the basic
+          functionality of propagating routing information.
+        </t>
+        <t>
+          Appendix A has a few policy examples.
+          Appendix B lists all constants used in this RFC where some of them are
+          configurable.
+          Appendix C shows a few simple examples of how DMPR behaves in specific
+          network conditions.
+        </t>
+      </section>
       <section title="Overview">
         <t>how does it work from a bird's eye perspective</t>
       </section>
       <section title="Distinction from other Routing Protocols">
         <t>why this protocol?</t>
       </section>
+    </section>
+    <section title="Data Structures">
+      <t>Every router uses these data structures as Routing and Forward
+        Information Base
+      </t>
     </section>
     <section title="Behavior">
       <section title="Neighbor Detection">
@@ -641,11 +667,6 @@ link-attribute-id = *DIGIT
       <section title="Reflections">
         <t>fields and description of reflections</t>
       </section>
-    </section>
-    <section title="Data Structures">
-      <t>Every router uses these data structures as Routing and Forward
-        Information Base
-      </t>
     </section>
     <section title="Optional Features">
       <section title="Asymmetric Link Detection">
