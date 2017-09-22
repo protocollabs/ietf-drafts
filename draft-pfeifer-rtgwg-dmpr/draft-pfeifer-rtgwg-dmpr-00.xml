@@ -210,7 +210,26 @@
     </section>
     <section title="Behavior">
       <section title="Neighbor Detection">
-        <t>how do we find neighbors</t>
+        <t>
+          Each node listens on the multicast address TODO. Periodically, after a
+          defined message interval + jitter, a node sends out message which
+          includes:
+          <list style="symbols">
+            <t>All nodes it has a path to, including the networks they
+              advertise
+            </t>
+            <t>For each policy, a path to each node it knows of.</t>
+            <t>The attributes of the links between the paths.</t>
+          </list>
+          When a node receives a message it deduces a connection and therefore a
+          path to the sender via the interface that message came in. Through
+          this mechanism the path to a node propagates through the network. To
+          detect disconnected links or nodes getting removed or out of range, a
+          node assigns every received message to a hold timer and purges this
+          message after the timer expires.
+          Asymmetric links are handled with a feature called reflection, this is
+          described in TODO ref
+        </t>
       </section>
       <section title="Interface Handling">
         <t>How do we handle multiple interfaces</t>
