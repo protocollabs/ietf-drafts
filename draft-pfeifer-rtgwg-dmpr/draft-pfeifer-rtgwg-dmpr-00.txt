@@ -155,7 +155,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       A Policy describes an order relation over a set of paths using the
       link attributes of these paths.  Note that to guarantee loop-free
       properties this ordering function MUST be commutative and
-      associative.
+      associative.  Policy examples can be found in Appendix TODO ref
 
 1.3.  Organization of this Document
 
