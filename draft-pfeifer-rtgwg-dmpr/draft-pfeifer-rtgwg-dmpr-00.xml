@@ -149,6 +149,11 @@
               maximum bandwidth, the average packet loss or the cost of the
               link.
             </t>
+            <t hangText="Path">
+              <vspace blankLines="0"/>
+              A Path in DMPR is one or more successive, directly connected links
+              which define a loop-free path from one node to another.
+            </t>
             <t hangText="Policy">
               <vspace blankLines="0"/>
               A Policy describes an order relation over a set of paths using the
