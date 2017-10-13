@@ -2,7 +2,7 @@
 
 set -e
 
-TMP=$(tempfile)
+TMP=$(mktemp)
 
 # Generate the txt-version from the staged xml
 git show :draft-pfeifer-rtgwg-dmpr/draft-pfeifer-rtgwg-dmpr-00.xml > $TMP
