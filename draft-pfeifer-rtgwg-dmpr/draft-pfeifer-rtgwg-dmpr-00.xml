@@ -441,7 +441,8 @@
               </t>
               <t hangText="Length">
                 <vspace blankLines="0"/>
-                8-bit unsigned integer: The length of the Data field in 2-octets
+                8-bit unsigned integer: The length of the Data field in 2-octets, this does not include NextType and
+                Length itself
               </t>
               <t hangText="Data">
                 <vspace blankLines="0"/>
