@@ -5,7 +5,7 @@
 Internet Engineering Task Force                          H. Pfeifer, Ed.
 Internet-Draft                                              ProtocolLabs
 Intended status: Informational                               J. Schueler
-Expires: April 16, 2018                                 October 13, 2017
+Expires: April 25, 2018                                 October 22, 2017
 
 
                    Dynamic MultiPath Routing Protocol
@@ -13,8 +13,13 @@ Expires: April 16, 2018                                 October 13, 2017
 
 Abstract
 
-   Insert an abstract: MANDATORY.  This template is for creating an
-   Internet Draft.
+   Dynamic MultiPath Routing (DMPR) is a loop free path vector routing
+   protocol with build-in support for policy based routing.  It has been
+   designed from the ground up to work at both low and high bandwidths -
+   even with high packet losses.  The aim was also to keep routing
+   overhead low and deterministic.  DMPR can be used to manage huge
+   networks with a similar feature set as BGPv4 minus the concept of
+   Autonomous Systems.
 
 Status of This Memo
 
@@ -31,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 16, 2018.
+   This Internet-Draft will expire on April 25, 2018.
 
 Copyright Notice
 
@@ -45,18 +50,16 @@ Copyright Notice
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
    include Simplified BSD License text as described in Section 4.e of
-   the Trust Legal Provisions and are provided without warranty as
-   described in the Simplified BSD License.
 
 
 
-
-
-
-Pfeifer & Schueler       Expires April 16, 2018                 [Page 1]
+Pfeifer & Schueler       Expires April 25, 2018                 [Page 1]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
+
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
 
 Table of Contents
 
@@ -103,17 +106,17 @@ Table of Contents
      8.2.  Where the List Numbering Continues  . . . . . . . . . . .  17
    9.  Example of Code or MIB Module To Be Extracted . . . . . . . .  17
    10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
-   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
-   12. Security Considerations . . . . . . . . . . . . . . . . . . .  19
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                 [Page 2]
+Pfeifer & Schueler       Expires April 25, 2018                 [Page 2]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
+   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
+   12. Security Considerations . . . . . . . . . . . . . . . . . . .  19
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
      13.1.  Normative References . . . . . . . . . . . . . . . . . .  19
      13.2.  Informative References . . . . . . . . . . . . . . . . .  19
    Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  19
@@ -158,17 +161,17 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    Policy
       A Policy describes an order relation over a set of paths using the
       link attributes of these paths.  Note that to guarantee loop-free
-      properties this ordering function MUST be commutative and
-      associative.  Policy examples can be found in Appendix TODO ref
 
 
 
 
-
-Pfeifer & Schueler       Expires April 16, 2018                 [Page 3]
+Pfeifer & Schueler       Expires April 25, 2018                 [Page 3]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
+
+      properties this ordering function MUST be commutative and
+      associative.  Policy examples can be found in Appendix TODO ref
 
 1.3.  Organization of this Document
 
@@ -214,17 +217,17 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    can be marked with a local preference for internal peers, to a small
    subset of the network.  In DMPR a policy is a globally defined
    function which provides a ordering over paths.  For this the policy
-   has all link attributes of each path at its disposal and has a higher
-   control over which path it chooses.
 
 
 
 
-
-Pfeifer & Schueler       Expires April 16, 2018                 [Page 4]
+Pfeifer & Schueler       Expires April 25, 2018                 [Page 4]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
+
+   has all link attributes of each path at its disposal and has a higher
+   control over which path it chooses.
 
 2.  Data Structures
 
@@ -272,15 +275,14 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    a defined message interval + jitter, a node sends out message which
    includes:
 
-   o  All nodes it has a path to, including the networks they advertise
 
 
-
-
-Pfeifer & Schueler       Expires April 16, 2018                 [Page 5]
+Pfeifer & Schueler       Expires April 25, 2018                 [Page 5]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
+
+   o  All nodes it has a path to, including the networks they advertise
 
    o  For each policy, a path to each node it knows of.
 
@@ -331,9 +333,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-
-
-Pfeifer & Schueler       Expires April 16, 2018                 [Page 6]
+Pfeifer & Schueler       Expires April 25, 2018                 [Page 6]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -389,7 +389,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                 [Page 7]
+Pfeifer & Schueler       Expires April 25, 2018                 [Page 7]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -445,7 +445,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                 [Page 8]
+Pfeifer & Schueler       Expires April 25, 2018                 [Page 8]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -501,7 +501,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                 [Page 9]
+Pfeifer & Schueler       Expires April 25, 2018                 [Page 9]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -557,7 +557,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 10]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 10]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -613,7 +613,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 11]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 11]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -669,7 +669,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 12]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 12]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -725,7 +725,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 13]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 13]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -781,7 +781,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 14]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 14]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -837,7 +837,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 15]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 15]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -893,7 +893,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 16]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 16]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -949,7 +949,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 17]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 17]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -1005,7 +1005,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 18]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 18]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -1061,7 +1061,7 @@ Appendix A.  Policies
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 19]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 19]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Pfeifer & Schueler       Expires April 16, 2018                [Page 20]
+Pfeifer & Schueler       Expires April 25, 2018                [Page 20]

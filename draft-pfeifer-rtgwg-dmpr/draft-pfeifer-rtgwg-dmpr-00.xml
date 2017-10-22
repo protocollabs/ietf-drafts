@@ -112,8 +112,12 @@
          keywords will be used for the search engine. -->
 
     <abstract>
-      <t>Insert an abstract: MANDATORY. This template is for creating an
-        Internet Draft.
+			<t> Dynamic MultiPath Routing (DMPR) is a loop free path vector routing
+				protocol with build-in support for policy based routing. It has been
+				designed from the ground up to work at both low and high bandwidths -
+				even with high packet losses. The aim was also to keep routing overhead
+				low and deterministic. DMPR can be used to manage huge networks with a
+				similar feature set as BGPv4 minus the concept of Autonomous Systems.
       </t>
     </abstract>
   </front>
