@@ -149,26 +149,144 @@
               maximum bandwidth, the average packet loss or the cost of the
               link.
             </t>
+            <t hangText="Path">
+              <vspace blankLines="0"/>
+              A Path in DMPR is one or more successive, directly connected links
+              which define a loop-free path from one node to another.
+            </t>
             <t hangText="Policy">
               <vspace blankLines="0"/>
               A Policy describes an order relation over a set of paths using the
               link attributes of these paths. Note that to guarantee loop-free
               properties this ordering function MUST be commutative and
-              associative.
+              associative. Policy examples can be found in Appendix TODO ref
             </t>
           </list>
         </t>
       </section>
+      <section title="Organization of this Document">
+        <t>
+          Section 2 describes the information every node has and gets and how it
+          should proceed with that. Implementations are not required to strictly
+          implement them as described here but the same functionality must be
+          provided.
+          Section 3 describes the behavior of the protocol in different
+          scenarios and how it achieves particular features.
+          Section 4 describes the message format in detail.
+          Section 5 describes optional features which can be implemented to
+          improve or extend DMPR but are not required for the basic
+          functionality of propagating routing information.
+        </t>
+        <t>
+          Appendix A has a few policy examples.
+          Appendix B lists all constants used in this RFC where some of them are
+          configurable.
+          Appendix C shows a few simple examples of how DMPR behaves in specific
+          network conditions.
+        </t>
+      </section>
       <section title="Overview">
-        <t>how does it work from a bird's eye perspective</t>
+        <t>
+          Every router periodically sends out a multicast message to all its
+          neighbors. This message includes the best path to each node known by
+          this router. A router receiving this message adds itself to all these
+          paths,
+          chooses the best path to each node among all it got from its neighbors
+          and itself advertises these paths via multicast messages. This is
+          standard procedure in a Path-Vector Routing Protocol. In DMPR the
+          paths are further separated by a policy, therefore it is possible to
+          have more than one path to each node. Also included in the message are
+          all attributes of this path so that the receiving node can make
+          informed decisions on whether this path is the best under the current
+          policy. In the end there exist multiple paths through the network and
+          packets can be routed according to their requirements which for
+          example can be the path with the highest bandwidth or with the lowest
+          latency.
+        </t>
       </section>
       <section title="Distinction from other Routing Protocols">
-        <t>why this protocol?</t>
+        <t>
+          Traditionally, routing protocols find the best path using a scalar
+          metric.
+          This metric may be a simple constant stating the preference of the
+          link or may be a computed metric using several factors like bandwidth,
+          latency or cost. Furthermore, this metric is only known locally or,
+          for example in the case of BGP-4, where external paths can be marked
+          with a local preference for internal peers, to a small subset of the
+          network.
+          In DMPR a policy is a globally defined function which provides a
+          ordering over paths. For this the policy has all link attributes of
+          each path at its disposal and has a higher control over which path it
+          chooses.
+        </t>
+      </section>
+    </section>
+    <section title="Data Structures">
+      <section title="Message Information Base">
+        <t>
+          Every message received by a node is saved in the Message Information
+          Base. This data structure is the basis for all subsequently emitted
+          routing messages and the routing table.
+          The Message Information Base contains for each neighbor the latest (by
+          sequence number) received message. Each entry is controlled by a hold
+          time and is purged after the hold time expires. This timer is reset as
+          soon as a new valid message from this neighbor is received.
+          This data structure contains potentially duplicate or conflicting data
+          as many neighbors send their paths and subnet information for all
+          nodes
+          they know of. This is intended and required as any message may be
+          deleted at almost any time when its hold timer expires.
+        </t>
+      </section>
+      <section title="Routing Data">
+        <t>
+          The Routing Data is computed from the Message Information Base. In
+          contrast to the Message Information Base this is data structure
+          contains
+          no conflicting information and can be seen as the single source of
+          truth
+          for the routing table and routing message generation.
+          It contains the best path to each known node grouped by policy.
+          Furthermore the advertised subnets from each node are combined while
+          following the network retraction rules (see TODO ref).
+        </t>
+      </section>
+      <section title="Routing Table">
+        <t>
+          The Routing Table finally contains the best path to each known subnet
+          grouped by policy. This table then can be inserted into the underlying
+          OS's routing table.
+        </t>
+      </section>
+      <section title="Networks">
+        <t>
+          The Networks list contains all known and all known retracted networks.
+          Each network is accompanied by a hold timer. TODO!! see dmpr-core#30
+        </t>
       </section>
     </section>
     <section title="Behavior">
       <section title="Neighbor Detection">
-        <t>how do we find neighbors</t>
+        <t>
+          Each node listens on the multicast address TODO. Periodically, after a
+          defined message interval + jitter, a node sends out message which
+          includes:
+          <list style="symbols">
+            <t>All nodes it has a path to, including the networks they
+              advertise
+            </t>
+            <t>For each policy, a path to each node it knows of.</t>
+            <t>The attributes of the links between the paths.</t>
+          </list>
+          When a node receives a message it deduces a connection and therefore a
+          path to the sender via the interface that message came in. Through
+          this mechanism the path to a node propagates through the network. To
+          detect disconnected links or nodes getting removed or out of range, a
+          node assigns every received message to a hold timer and purges this
+          message after the timer expires.
+          Asymmetric links are handled with a feature called reflection, this is
+          described in TODO ref
+        </t>
       </section>
       <section title="Interface Handling">
         <t>How do we handle multiple interfaces</t>
@@ -183,7 +301,63 @@
         <t>how do we select the best route</t>
       </section>
       <section title="Network Retraction">
-        <t>what happens with retracted networks</t>
+        <t>
+          TODO SEE dmpr-core#30
+        </t>
+        <t>
+          Each network advertised in a message has an optional flag called
+          "retracted". This flag is set to true when a node no longer advertises
+          this network as available. The only node to ever set this flag to true
+          MUST be the originally advertising node. A set retracted flag always
+          supersedes an unset flag. Networks are forwarded with this ruleset:
+        </t>
+        <texttable>
+          <ttcol align="center">Network known as not retracted</ttcol>
+          <ttcol align="center">Network known as retracted</ttcol>
+          <ttcol align="center">Network set as retracted in a message</ttcol>
+          <ttcol align="left">Action to take</ttcol>
+
+          <c>0</c>
+          <c>0</c>
+          <c>0</c>
+          <c>Insert network in known networks and forward</c>
+
+          <c>0</c>
+          <c>0</c>
+          <c>1</c>
+          <c>ignore network, do not forward</c>
+
+          <c>0</c>
+          <c>1</c>
+          <c>0</c>
+          <c>forward network as retracted</c>
+
+          <c>0</c>
+          <c>1</c>
+          <c>1</c>
+          <c>forward network as retracted</c>
+
+          <c>1</c>
+          <c>0</c>
+          <c>0</c>
+          <c>just forward network</c>
+
+          <c>1</c>
+          <c>0</c>
+          <c>1</c>
+          <c>set network in known networks as retracted and forward retracted
+          </c>
+
+          <c>1</c>
+          <c>1</c>
+          <c>0</c>
+          <c>illegal</c>
+
+          <c>1</c>
+          <c>1</c>
+          <c>1</c>
+          <c>illegal</c>
+        </texttable>
       </section>
       <section title="Other...">
         <t>TODO: how does the network handle: different network conditions,
@@ -272,7 +446,8 @@
               </t>
               <t hangText="Length">
                 <vspace blankLines="0"/>
-                8-bit unsigned integer: The length of the Data field in 2-octets
+                8-bit unsigned integer: The length of the Data field in 2-octets, this does not include NextType and
+                Length itself
               </t>
               <t hangText="Data">
                 <vspace blankLines="0"/>
@@ -642,11 +817,6 @@ link-attribute-id = *DIGIT
         <t>fields and description of reflections</t>
       </section>
     </section>
-    <section title="Data Structures">
-      <t>Every router uses these data structures as Routing and Forward
-        Information Base
-      </t>
-    </section>
     <section title="Optional Features">
       <section title="Asymmetric Link Detection">
         <t>How should asymmetric link detection work/how can it be implemented
@@ -680,43 +850,6 @@ link-attribute-id = *DIGIT
     <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
 
     <?rfc needLines="8" ?>
-
-    <section title="Subsections and Tables">
-      <section title="A Subsection">
-        <t>By default 3 levels of nesting show in table of contents but that
-          can be adjusted with the value of the "tocdepth" processing
-          instruction.
-        </t>
-      </section>
-
-      <section title="Tables">
-        <t>.. are very similar to figures:</t>
-
-        <texttable anchor="table_example" title="A Very Simple Table">
-          <preamble>Tables use ttcol to define column headers and widths.
-            Every cell then has a "c" element for its content.
-          </preamble>
-
-          <ttcol align="center">ttcol #1</ttcol>
-
-          <ttcol align="center">ttcol #2</ttcol>
-
-          <c>c #1</c>
-
-          <c>c #2</c>
-
-          <c>c #3</c>
-
-          <c>c #4</c>
-
-          <c>c #5</c>
-
-          <c>c #6</c>
-
-          <postamble>which is a very simple example.</postamble>
-        </texttable>
-      </section>
-    </section>
 
     <section anchor="nested_lists" title="More about Lists">
       <t>Lists with 'hanging labels': the list item is indented the amount of
@@ -960,29 +1093,5 @@ main(int argc, char *argv[])
     <section title="Examples">
       <t>Examples</t>
     </section>
-    <section anchor="app-additional" title="Additional Stuff">
-      <t>This becomes an Appendix.</t>
-    </section>
-
-    <!-- Change Log
-
- v00 2006-03-15  EBD   Initial version
-
- v01 2006-04-03  EBD   Moved PI location back to position 1 -
-                      v3.1 of XMLmind is better with them at this location.
- v02 2007-03-07  AH    removed extraneous nested_list attribute,
-                      other minor corrections
- v03 2007-03-09  EBD   Added comments on null IANA sections and fixed heading capitalization.
-                      Modified comments around figure to reflect non-implementation of
-                      figure indent control.  Put in reference using anchor="DOMINATION".
-                      Fixed up the date specification comments to reflect current truth.
- v04 2007-03-09 AH     Major changes: shortened discussion of PIs,
-                      added discussion of rfc include.
- v05 2007-03-10 EBD    Added preamble to C program example to tell about ABNF and alternative
-                      images. Removed meta-characters from comments (causes problems).
-
- v06 2010-04-01 TT     Changed ipr attribute values to latest ones. Changed date to
-                      year only, to be consistent with the comments. Updated the
-                      IANA guidelines reference from the I-D to the finished RFC.  -->
   </back>
 </rfc>
