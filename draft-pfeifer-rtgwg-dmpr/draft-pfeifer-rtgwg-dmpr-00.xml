@@ -2,15 +2,16 @@
 <!-- This template is for creating an Internet Draft using xml2rfc,
     which is available here: http://xml.resource.org. -->
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-        <!-- One method to get references from the online citation libraries.
-            There has to be one entity for each item to be referenced.
-            An alternate method (rfc include) is described in the references. -->
+    <!-- One method to get references from the online citation libraries.
+        There has to be one entity for each item to be referenced.
+        An alternate method (rfc include) is described in the references. -->
 
-        <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-        <!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
-        <!ENTITY RFC3552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">
-        <!ENTITY RFC5226 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5226.xml">
-        ]>
+    <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+    <!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
+    <!ENTITY RFC3552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">
+    <!ENTITY RFC5226 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5226.xml">
+    <!ENTITY RFC7493 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7493.xml">
+    ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
 <?rfc strict="yes" ?>
@@ -131,10 +132,10 @@
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
           "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
           document are to be interpreted as described in <xref
-                  target="RFC2119">RFC 2119</xref>.
+              target="RFC2119">RFC 2119</xref>.
         </t>
       </section>
-      <section title="Terminology">
+      <section title="Terminology" anchor="terminology">
         <t>The following list describes the Terminology used in this RFC</t>
         <t>
           <list style="hanging">
@@ -165,30 +166,38 @@
               A Policy describes an order relation over a set of paths using the
               link attributes of these paths. Note that to guarantee loop-free
               properties this ordering function MUST be commutative and
-              associative. Policy examples can be found in Appendix TODO ref
+              associative. Policy examples can be found in
+              <xref target="appendix.policies"/>
             </t>
           </list>
         </t>
       </section>
       <section title="Organization of this Document">
         <t>
-          Section 2 describes the information every node has and gets and how it
-          should proceed with that. Implementations are not required to strictly
+          <xref target="datastructures"/>
+          describes the information every node has and gets and how it should
+          proceed with that. Implementations are not required to strictly
           implement them as described here but the same functionality must be
           provided.
-          Section 3 describes the behavior of the protocol in different
-          scenarios and how it achieves particular features.
-          Section 4 describes the message format in detail.
-          Section 5 describes optional features which can be implemented to
-          improve or extend DMPR but are not required for the basic
-          functionality of propagating routing information.
+          <xref target="behaviour"/>
+          describes the behavior of the protocol in different scenarios and how
+          it achieves particular features.
+          <xref target="messagefmt"/>
+          describes the message format in detail.
+          <xref target="optionalfeatures"/>
+          describes optional features which can be implemented to improve or
+          extend DMPR but are not required for the basic functionality of
+          propagating routing information.
         </t>
         <t>
-          Appendix A has a few policy examples.
-          Appendix B lists all constants used in this RFC where some of them are
+          <xref target="appendix.policies"/>
+          has a few policy examples.
+          <xref target="appendix.constants"/>
+          lists all constants used in this RFC where some of them are
           configurable.
-          Appendix C shows a few simple examples of how DMPR behaves in specific
-          network conditions.
+          <xref target="appendix.examples"/>
+          shows a few simple examples of how DMPR behaves in specific network
+          conditions.
         </t>
       </section>
       <section title="Overview">
@@ -227,7 +236,7 @@
         </t>
       </section>
     </section>
-    <section title="Data Structures">
+    <section title="Data Structures" anchor="datastructures">
       <section title="Message Information Base">
         <t>
           Every message received by a node is saved in the Message Information
@@ -254,7 +263,8 @@
           for the routing table and routing message generation.
           It contains the best path to each known node grouped by policy.
           Furthermore the advertised subnets from each node are combined while
-          following the network retraction rules (see TODO ref).
+          following the network retraction rules (see
+          <xref target="retraction"/>).
         </t>
       </section>
       <section title="Routing Table">
@@ -271,7 +281,7 @@
         </t>
       </section>
     </section>
-    <section title="Behavior">
+    <section title="Behavior" anchor="behaviour">
       <section title="Neighbor Detection">
         <t>
           Each node listens on the multicast address TODO. Periodically, after a
@@ -291,7 +301,7 @@
           node assigns every received message to a hold timer and purges this
           message after the timer expires.
           Asymmetric links are handled with a feature called reflection, this is
-          described in TODO ref
+          described in <xref target="reflections"/>.
         </t>
       </section>
       <section title="Interface Handling">
@@ -306,7 +316,7 @@
       <section title="Route Selection">
         <t>how do we select the best route</t>
       </section>
-      <section title="Network Retraction">
+      <section title="Network Retraction" anchor="retraction">
         <t>
           TODO SEE dmpr-core#30
         </t>
@@ -323,45 +333,45 @@
           <ttcol align="center">Network set as retracted in a message</ttcol>
           <ttcol align="left">Action to take</ttcol>
 
-          <c>0</c>
-          <c>0</c>
-          <c>0</c>
+          <c>false</c>
+          <c>false</c>
+          <c>false</c>
           <c>Insert network in known networks and forward</c>
 
-          <c>0</c>
-          <c>0</c>
-          <c>1</c>
+          <c>false</c>
+          <c>false</c>
+          <c>true</c>
           <c>ignore network, do not forward</c>
 
-          <c>0</c>
-          <c>1</c>
-          <c>0</c>
+          <c>false</c>
+          <c>true</c>
+          <c>false</c>
           <c>forward network as retracted</c>
 
-          <c>0</c>
-          <c>1</c>
-          <c>1</c>
+          <c>false</c>
+          <c>true</c>
+          <c>true</c>
           <c>forward network as retracted</c>
 
-          <c>1</c>
-          <c>0</c>
-          <c>0</c>
+          <c>true</c>
+          <c>false</c>
+          <c>false</c>
           <c>just forward network</c>
 
-          <c>1</c>
-          <c>0</c>
-          <c>1</c>
+          <c>true</c>
+          <c>false</c>
+          <c>true</c>
           <c>set network in known networks as retracted and forward retracted
           </c>
 
-          <c>1</c>
-          <c>1</c>
-          <c>0</c>
+          <c>true</c>
+          <c>true</c>
+          <c>false</c>
           <c>illegal</c>
 
-          <c>1</c>
-          <c>1</c>
-          <c>1</c>
+          <c>true</c>
+          <c>true</c>
+          <c>true</c>
           <c>illegal</c>
         </texttable>
       </section>
@@ -371,7 +381,7 @@
         </t>
       </section>
     </section>
-    <section title="Message Format">
+    <section title="Message Format" anchor="messagefmt">
       <section title="Header">
         <t>A DMPR packet consists of a preamble, followed by zero or more
           Extension Headers followed by zero or one Payload. Each Extension
@@ -452,7 +462,8 @@
               </t>
               <t hangText="Length">
                 <vspace blankLines="0"/>
-                8-bit unsigned integer: The length of the Data field in 2-octets, this does not include NextType and
+                8-bit unsigned integer: The length of the Data field in
+                2-octets, this does not include NextType and
                 Length itself
               </t>
               <t hangText="Data">
@@ -477,8 +488,9 @@
           </section>
           <section title="Payload: Compressed JSON">
             <t>Type: 129</t>
-            <t>LZMA-compressed standard-compliant JSON data (TODO RFC 7159)
-              This is the main routing data, its structure is defined TODO: ref
+            <t>LZMA-compressed standard-compliant I-JSON data as described in
+              <xref target="RFC7493"/> This is the main routing data, its
+              structure is defined <xref target="jsonpayload"/>
             </t>
           </section>
           <section title="Payload: Fragmentation">
@@ -539,7 +551,7 @@
           </section>
         </section>
       </section>
-      <section title="JSON Payload">
+      <section title="JSON Payload" anchor="jsonpayload">
         <t>A JSON payload is a lzma-compressed, ascii-7 encoded JSON object.
           A sending node SHOULD use ascii-encoding for the json data, a
           receiving node MUST be able to decode UTF-8 encoded data.
@@ -633,7 +645,8 @@
             </t>
             <t hangText="type">
               <vspace blankLines="0"/>
-              string: The type of the message, further specified below TODO ref
+              string: The type of the message, further specified below <xref
+                target="jsontypes"/>
             </t>
             <t hangText="partial-base">
               <vspace blankLines="0"/>
@@ -658,7 +671,7 @@
               IPv4/IPv6 Network identifications with subnet prefix. If the value
               of a network key is a object itself and the key "retracted" of
               this object is set to true, the network MUST be handled as
-              retracted, see TODO ref retraction
+              retracted, see <xref target="retraction"/>
             </t>
             <t hangText="routing-data">
               <vspace blankLines="0"/>
@@ -687,7 +700,7 @@ link-attribute-id = *DIGIT
               any of the brackets ()[]{}&lt;&gt;
               the value of a entry is itself a object containing LINK_ATTRIBUTE:
               METRIC pairs where LINK_ATTRIBUTE is the name of a link attribute
-              and metric is its value as defined in Terminology TODO ref
+              and metric is its value as defined in <xref target="terminology"/>
             </t>
             <t hangText="request-full">
               <vspace blankLines="0"/>
@@ -706,6 +719,10 @@ link-attribute-id = *DIGIT
               node the data the node requested to reflect.
             </t>
           </list>
+        </t>
+        <t anchor="jsontypes">
+          Each message has a type. This RFC describes two types, namely full and
+          partial, which are further described here.
         </t>
         <section title="Full Update">
           <t>A full update SHOULD replace all data from the sending node in the
@@ -819,11 +836,11 @@ link-attribute-id = *DIGIT
       <section title="Requests">
         <t>fields and description of full-update requests</t>
       </section>
-      <section title="Reflections">
+      <section title="Reflections" anchor="reflections">
         <t>fields and description of reflections</t>
       </section>
     </section>
-    <section title="Optional Features">
+    <section title="Optional Features" anchor="optionalfeatures">
       <section title="Asymmetric Link Detection">
         <t>How should asymmetric link detection work/how can it be implemented
         </t>
@@ -834,7 +851,7 @@ link-attribute-id = *DIGIT
     </section>
     <section title="Introduction">
       <t>The original specification of xml2rfc format is in <xref
-              target="RFC2629">RFC&nbsp;2629</xref>.
+          target="RFC2629">RFC&nbsp;2629</xref>.
       </t>
     </section>
 
@@ -892,7 +909,7 @@ link-attribute-id = *DIGIT
 
       <t>Simple indented paragraph using the "empty" style:
         <list
-                hangIndent="10" style="empty">
+            hangIndent="10" style="empty">
           <t>The quick, brown fox jumped over the lazy dog and lived to fool
             many another hunter in the great wood in the west.
           </t>
@@ -994,7 +1011,7 @@ main(int argc, char *argv[])
       </t>
 
       <t>This document is part of a plan to make xml2rfc indispensable <xref
-              target="DOMINATION"></xref>.
+          target="DOMINATION"></xref>.
       </t>
     </section>
 
@@ -1065,6 +1082,8 @@ main(int argc, char *argv[])
 
       &RFC5226;
 
+      &RFC7493;
+
       <!-- A reference written by by an organization not a person. -->
 
       <reference anchor="DOMINATION"
@@ -1081,7 +1100,7 @@ main(int argc, char *argv[])
       </reference>
     </references>
 
-    <section title="Policies">
+    <section title="Policies" anchor="appendix.policies">
       <t>many exchangeable policies</t>
       <section title="Low Loss Policy">
         <t>use path with lowest overall loss</t>
@@ -1090,13 +1109,13 @@ main(int argc, char *argv[])
         <t>use path with highest bandwidth</t>
       </section>
     </section>
-    <section title="Tuneables">
-      <t>The different magic values and what they affect, how they could/should
-        be
-        set
+    <section title="Tuneables" anchor="appendix.constants">
+      <t>
+        The different magic values and what they affect, how they could/should
+        be set
       </t>
     </section>
-    <section title="Examples">
+    <section title="Examples" anchor="appendix.examples">
       <t>Examples</t>
     </section>
   </back>

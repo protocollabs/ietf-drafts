@@ -119,7 +119,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
      13.1.  Normative References . . . . . . . . . . . . . . . . . .  19
      13.2.  Informative References . . . . . . . . . . . . . . . . .  19
-   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  19
+   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  20
      A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  20
      A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  20
    Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  20
@@ -171,7 +171,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
       properties this ordering function MUST be commutative and
-      associative.  Policy examples can be found in Appendix TODO ref
+      associative.  Policy examples can be found in Appendix A
 
 1.3.  Organization of this Document
 
@@ -253,7 +253,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    source of truth for the routing table and routing message generation.
    It contains the best path to each known node grouped by policy.
    Furthermore the advertised subnets from each node are combined while
-   following the network retraction rules (see TODO ref).
+   following the network retraction rules (see Section 3.6).
 
 2.3.  Routing Table
 
@@ -294,7 +294,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    detect disconnected links or nodes getting removed or out of range, a
    node assigns every received message to a hold timer and purges this
    message after the timer expires.  Asymmetric links are handled with a
-   feature called reflection, this is described in TODO ref
+   feature called reflection, this is described in Section 4.4.
 
 3.2.  Interface Handling
 
@@ -344,21 +344,21 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    |     not     | retracted  |  in a message |                        |
    |  retracted  |            |               |                        |
    +-------------+------------+---------------+------------------------+
-   |      0      |     0      |       0       | Insert network in      |
+   |    false    |   false    |     false     | Insert network in      |
    |             |            |               | known networks and     |
    |             |            |               | forward                |
-   |      0      |     0      |       1       | ignore network, do not |
+   |    false    |   false    |      true     | ignore network, do not |
    |             |            |               | forward                |
-   |      0      |     1      |       0       | forward network as     |
+   |    false    |    true    |     false     | forward network as     |
    |             |            |               | retracted              |
-   |      0      |     1      |       1       | forward network as     |
+   |    false    |    true    |      true     | forward network as     |
    |             |            |               | retracted              |
-   |      1      |     0      |       0       | just forward network   |
-   |      1      |     0      |       1       | set network in known   |
+   |     true    |   false    |     false     | just forward network   |
+   |     true    |   false    |      true     | set network in known   |
    |             |            |               | networks as retracted  |
    |             |            |               | and forward retracted  |
-   |      1      |     1      |       0       | illegal                |
-   |      1      |     1      |       1       | illegal                |
+   |     true    |    true    |     false     | illegal                |
+   |     true    |    true    |      true     | illegal                |
    +-------------+------------+---------------+------------------------+
 
 3.7.  Other...
@@ -469,8 +469,9 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
    Type: 129
 
-   LZMA-compressed standard-compliant JSON data (TODO RFC 7159) This is
-   the main routing data, its structure is defined TODO: ref
+   LZMA-compressed standard-compliant I-JSON data as described in
+   [RFC7493] This is the main routing data, its structure is defined
+   Section 4.2
 
 4.1.3.3.  Payload: Fragmentation
 
@@ -497,7 +498,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    L(ast)
       Last, set to 1 if this packet has the highest packet offset in
       this fragmentation collection, i.e. is the last packet.
-
 
 
 
@@ -626,7 +626,8 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       increasing
 
    type
-      string: The type of the message, further specified below TODO ref
+      string: The type of the message, further specified below
+      Section 4.2, Paragraph 5
 
    partial-base
       integer: The base message of a partial update, the message then
@@ -646,7 +647,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       IPv4/IPv6 Network identifications with subnet prefix.  If the
       value of a network key is a object itself and the key "retracted"
       of this object is set to true, the network MUST be handled as
-      retracted, see TODO ref retraction
+      retracted, see Section 3.6
 
    routing-data
       object: A path to each reachable node for each policy.  POLICY is
@@ -668,7 +669,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-
 Pfeifer & Schueler       Expires April 30, 2018                [Page 12]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
@@ -679,7 +679,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       the brackets ()[]{}<> the value of a entry is itself a object
       containing LINK_ATTRIBUTE: METRIC pairs where LINK_ATTRIBUTE is
       the name of a link attribute and metric is its value as defined in
-      Terminology TODO ref
+      Section 1.2
 
    request-full
       array or true: A list of NODE_IDs from which the sending node
@@ -693,6 +693,9 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    reflected
       object: a set of reflected data, contains, for each neighboring
       node the data the node requested to reflect.
+
+   Each message has a type.  This RFC describes two types, namely full
+   and partial, which are further described here.
 
 4.2.1.  Full Update
 
@@ -718,10 +721,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    routing-data
       object, REQUIRED if not empty: The paths advertised by the sender,
       grouped by POLICY and target NODE_ID.  The syntax of a path is
-      described above.  A path MUST include the sender of this message,
-      all hops with their link-attribute ids and the target node.
 
-   node-data
 
 
 
@@ -730,6 +730,10 @@ Pfeifer & Schueler       Expires April 30, 2018                [Page 13]
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
+      described above.  A path MUST include the sender of this message,
+      all hops with their link-attribute ids and the target node.
+
+   node-data
       object, OPTIONAL: The networks from other nodes known to the
       sender including their retraction status.
 
@@ -774,10 +778,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       value for the specific NODE_ID is null.
 
    node-data
-      object, OPTIONAL: The networks from other nodes known to the
-      sender.  The entries replace the base message entries on a per
-      NODE_ID basis.  If a entry has been deleted, the value for the
-      specific NODE_ID is null.
 
 
 
@@ -785,6 +785,11 @@ Pfeifer & Schueler       Expires April 30, 2018                [Page 14]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
+
+      object, OPTIONAL: The networks from other nodes known to the
+      sender.  The entries replace the base message entries on a per
+      NODE_ID basis.  If a entry has been deleted, the value for the
+      specific NODE_ID is null.
 
    link-attributes
       object, REQUIRED if not empty: The link-attributes used in
@@ -829,11 +834,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    o  Second bullet
 
    You can write text here as well.
-
-
-
-
-
 
 
 
@@ -1051,9 +1051,9 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
               DOI 10.17487/RFC5226, May 2008,
               <https://www.rfc-editor.org/info/rfc5226>.
 
-Appendix A.  Policies
-
-   many exchangeable policies
+   [RFC7493]  Bray, T., Ed., "The I-JSON Message Format", RFC 7493,
+              DOI 10.17487/RFC7493, March 2015,
+              <https://www.rfc-editor.org/info/rfc7493>.
 
 
 
@@ -1065,6 +1065,10 @@ Pfeifer & Schueler       Expires April 30, 2018                [Page 19]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
+
+Appendix A.  Policies
+
+   many exchangeable policies
 
 A.1.  Low Loss Policy
 
@@ -1097,10 +1101,6 @@ Authors' Addresses
 
 
    Joshua Schueler
-
-
-
-
 
 
 
