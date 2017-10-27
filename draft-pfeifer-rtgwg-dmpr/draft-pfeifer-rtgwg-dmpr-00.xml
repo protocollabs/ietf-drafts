@@ -239,7 +239,7 @@
       </section>
     </section>
     <section title="Data Structures" anchor="datastructures">
-      <section title="Message Information Base">
+      <section title="Message Information Base" anchor="mib">
         <t>
           Every message received by a node is saved in the Message Information
           Base. This data structure is the basis for all subsequently emitted
@@ -250,9 +250,8 @@
           soon as a new valid message from this neighbor is received.
           This data structure contains potentially duplicate or conflicting data
           as many neighbors send their paths and subnet information for all
-          nodes
-          they know of. This is intended and required as any message may be
-          deleted at almost any time when its hold timer expires.
+          nodes they know of. This is intended and required as any message may
+          be deleted at almost any time when its hold timer expires.
         </t>
       </section>
       <section title="Routing Data">
@@ -290,8 +289,8 @@
           defined message interval + jitter, a node sends out message which
           includes:
           <list style="symbols">
-            <t>All nodes it has a path to, including the networks they
-              advertise
+            <t>
+              All nodes it has a path to, including the networks they advertise
             </t>
             <t>For each policy, a path to each node it knows of.</t>
             <t>The attributes of the links between the paths.</t>
@@ -303,17 +302,39 @@
           node assigns every received message to a hold timer and purges this
           message after the timer expires.
           Asymmetric links are handled with a feature called reflection, this is
-          described in <xref target="reflections"/>.
+          described in
+          <xref target="reflections"/>.
         </t>
       </section>
       <section title="Interface Handling">
-        <t>How do we handle multiple interfaces</t>
+        <t>
+          In DMPR all interfaces which are registered with the DMPR daemon are
+          treated completely separate from each other. Routing messages are sent
+          over each one individually. This ensures that all possibly accessible
+          neighbors are reachable. The Message Information Base (see<xref
+            target="mib"/>) is grouped by interface. Therefore nodes can detect
+          links over each interface individually.
+        </t>
       </section>
       <section title="Message Handling">
-        <t>how do we process the messages from neighbors</t>
+        <t>
+          Each message received by a neighbor is saved in the Message
+          Information Base (see<xref target="mib"/>). With this message a hold
+          timer is set which purges the messages after the given time.
+          To improve the message size a node can choose to only send partial
+          updates (i.e. differential, only the changes since the last full
+          update). To support this a node has to retain the a version from the
+          last full message to be able to apply the new partial message.
+        </t>
       </section>
       <section title="Policies">
-        <t>how do the policies come into the play</t>
+        <t>
+          To support routing different traffic types over different routes, DMPR
+          supports policies. A policy computes a ordering over paths using
+          the available link attributes. This ordering defines the routes the
+          nodes in the network will compute. For each policy there is a section
+          in the routing data message and also a separate routing table.
+        </t>
       </section>
       <section title="Route Selection">
         <t>how do we select the best route</t>
@@ -385,7 +406,8 @@
     </section>
     <section title="Message Format" anchor="messagefmt">
       <section title="Header">
-        <t>A DMPR packet consists of a preamble, followed by zero or more
+        <t>
+          A DMPR packet consists of a preamble, followed by zero or more
           Extension Headers followed by zero or one Payload. Each Extension
           Header and Payload is defined by a Type.
         </t>
@@ -409,7 +431,7 @@
         </texttable>
         <section title="Preamble">
           <t>The preamble of a DMPR packet is as follows</t>
-          <!-- Magic:3,Reserved:5,NextType:8,Payload:80 -->
+          <!-- Magic:3,Reserved:5,NextType:8 -->
           <figure align="center">
             <artwork><![CDATA[
  0                   1                   2                   3
@@ -459,7 +481,8 @@
             <list style="hanging">
               <t hangText="NextType">
                 <vspace/>
-                The type of the immediately following header or payload (as
+                8-bit unsigend integer:
+                The type of the immediately following header or payload (same as
                 specified in the packet preamble description)
               </t>
               <t hangText="Length">
@@ -470,16 +493,20 @@
               </t>
               <t hangText="Data">
                 <vspace/>
-                The header-specific data.
+                The header-specific data according to length. The encoding and
+                type is specified by the header itself.
               </t>
             </list>
           </t>
         </section>
         <section title="Payload">
-          <t>The Payload consists of the data until the end of the packet.
-            Payloads may be recursive, i.e. contain a valid packet (or parts of
-            it) in themselves, payload processors therefore MUST have the
-            ability to feed their result back into the message processing chain.
+          <t>
+            The Payload consists of the data from the end of the preamble or
+            last extension header until the end of the packet. Payloads may be
+            recursive, i.e. contain a valid packet (or parts of it) in
+            themselves, payload processors therefore MUST have the ability to
+            feed their result back into the message processing chain. This
+            behavior is defined by the payload itself.
           </t>
           <section title="Payload: Keep-Alive">
             <t>Type: 128</t>
@@ -491,8 +518,9 @@
           <section title="Payload: Compressed JSON">
             <t>Type: 129</t>
             <t>LZMA-compressed standard-compliant I-JSON data as described in
-              <xref target="RFC7493"/> This is the main routing data, its
-              structure is defined <xref target="jsonpayload"/>
+              <xref target="RFC7493"/>.
+              This is the main routing data, its structure is defined
+              <xref target="jsonpayload"/>
             </t>
           </section>
           <section title="Payload: Fragmentation">
@@ -647,14 +675,14 @@
             </t>
             <t hangText="type">
               <vspace/>
-              string: The type of the message, further specified below <xref
-                target="jsontypes"/>
+              string: The type of the message, further specified below
+              <xref
+                  target="jsontypes"/>
             </t>
             <t hangText="partial-base">
               <vspace/>
               integer: The base message of a partial update, the message then
-              only
-              includes the difference between the actual data and the base
+              only includes the difference between the actual data and the base
               message
             </t>
             <t hangText="addr-v4">
@@ -673,7 +701,8 @@
               IPv4/IPv6 Network identifications with subnet prefix. If the value
               of a network key is a object itself and the key "retracted" of
               this object is set to true, the network MUST be handled as
-              retracted, see <xref target="retraction"/>
+              retracted, see
+              <xref target="retraction"/>
             </t>
             <t hangText="routing-data">
               <vspace/>
@@ -702,7 +731,8 @@ link-attribute-id = *DIGIT
               any of the brackets ()[]{}&lt;&gt;
               the value of a entry is itself a object containing LINK_ATTRIBUTE:
               METRIC pairs where LINK_ATTRIBUTE is the name of a link attribute
-              and metric is its value as defined in <xref target="terminology"/>
+              and metric is its value as defined in
+              <xref target="terminology"/>
             </t>
             <t hangText="request-full">
               <vspace/>
@@ -779,9 +809,13 @@ link-attribute-id = *DIGIT
             "partial-base" which describes the sequence number of the base
             message, which MUST be a full update message, on which the changes
             apply. NOTE: A partial update only describes changes to a previous
-            full update, never to a previous partial update. The following keys
-            are specified:
+            full update, never to a previous partial update.
+            Should the receiving node be unable to apply the partial update, e.g
+            because it lacks the base message, then this node SHOULD use the
+            "request-full" procedure to request a new full update (see<xref
+                target="requests"/>).
           </t>
+          <t>The following keys are specified:</t>
           <t>
             <list style="hanging">
               <t hangText="addr-v4">
@@ -796,8 +830,9 @@ link-attribute-id = *DIGIT
                 link this packet has been sent, only included if it has not
                 changed. If it became invalid, the value is null.
               </t>
-              <t>NOTE: A partial update MUST NOT produce an invalid
-                configuration by deleting the only address available for a node.
+              <t>
+                NOTE: A partial update MUST NOT produce an invalid configuration
+                by deleting the only address available for a node.
               </t>
               <t hangText="networks">
                 <vspace/>
@@ -835,11 +870,38 @@ link-attribute-id = *DIGIT
           <t>keepalive</t>
         </section>
       </section>
-      <section title="Requests">
-        <t>fields and description of full-update requests</t>
+      <section title="Requests" anchor="requests">
+        <t>
+          When a node is not able to apply a partial update or just joined a
+          network, it can SHOULD sent out a request for a full update using the
+          request-full key in the message.
+          This key may be an array containing NODE_IDs from which a full message
+          is needed or may be the boolean value true, to indicate that a full
+          message from every neighbor is required.
+          When a node receives a request-full key in a message which either has
+          the value true or its id is present in the array, it MUST
+          <!--TODO MUST or SHOULD?-->
+          TODO: variant1: schedule the next message it sents to be a full
+          message.
+          TODO: variant2: send a full update immediately and reset its message
+          interval timer, except when the last message already was a out-of-band
+          full message, then it MUST/SHOULD schedule the next message according
+          to the message interval timer to be a full message.
+        </t>
       </section>
       <section title="Reflections" anchor="reflections">
-        <t>fields and description of reflections</t>
+        <t>
+          Reflections are a extensible mechanism and allow a node to exchange
+          data with neighboring nodes, with 2-hop neighbors and with itself.
+          When a node includes arbitrary JSON data in the reflect key in its
+          message, each node receiving this message MUST send this data in
+          the reflected key of its messages under the corresponding NODE_ID.
+          A node MUST support reflecting all requests but is not required to
+          actually parse that data.
+          Because the messages are sent to all neighbors, every 2-hop neighbor
+          becomes aware of the reflected data of a node. This fact is not used
+          in this RFC but may be used in extensions of this protocol.
+        </t>
       </section>
     </section>
     <section title="Optional Features" anchor="optionalfeatures">
@@ -1060,6 +1122,8 @@ main(int argc, char *argv[])
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
       &RFC2119;
 
+      &RFC7493;
+
       <reference anchor="min_ref">
         <!-- the following is the minimum to make xml2rfc happy -->
 
@@ -1083,8 +1147,6 @@ main(int argc, char *argv[])
       &RFC3552;
 
       &RFC5226;
-
-      &RFC7493;
 
       <!-- A reference written by by an organization not a person. -->
 
