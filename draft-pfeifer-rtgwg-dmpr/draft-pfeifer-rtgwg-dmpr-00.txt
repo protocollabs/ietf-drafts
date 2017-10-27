@@ -5,7 +5,7 @@
 Internet Engineering Task Force                          H. Pfeifer, Ed.
 Internet-Draft                                              ProtocolLabs
 Intended status: Informational                               J. Schueler
-Expires: April 25, 2018                                 October 22, 2017
+Expires: April 30, 2018                                 October 27, 2017
 
 
                    Dynamic MultiPath Routing Protocol
@@ -14,12 +14,12 @@ Expires: April 25, 2018                                 October 22, 2017
 Abstract
 
    Dynamic MultiPath Routing (DMPR) is a loop free path vector routing
-   protocol with build-in support for policy based routing.  It has been
+   protocol with built-in support for policy based routing.  It has been
    designed from the ground up to work at both low and high bandwidths -
-   even with high packet losses.  The aim was also to keep routing
-   overhead low and deterministic.  DMPR can be used to manage huge
-   networks with a similar feature set as BGPv4 minus the concept of
-   Autonomous Systems.
+   even with high packet loss.  The aim was also to keep routing
+   overhead low and with a deterministic upper bound.  DMPR can be used
+   to manage huge networks with a similar feature set as BGPv4 minus the
+   concept of Autonomous Systems.
 
 Status of This Memo
 
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 25, 2018.
+   This Internet-Draft will expire on April 30, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                 [Page 1]
+Pfeifer & Schueler       Expires April 30, 2018                 [Page 1]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                 [Page 2]
+Pfeifer & Schueler       Expires April 30, 2018                 [Page 2]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -165,7 +165,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                 [Page 3]
+Pfeifer & Schueler       Expires April 30, 2018                 [Page 3]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -221,7 +221,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                 [Page 4]
+Pfeifer & Schueler       Expires April 30, 2018                 [Page 4]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -277,7 +277,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                 [Page 5]
+Pfeifer & Schueler       Expires April 30, 2018                 [Page 5]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -333,7 +333,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                 [Page 6]
+Pfeifer & Schueler       Expires April 30, 2018                 [Page 6]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -389,7 +389,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                 [Page 7]
+Pfeifer & Schueler       Expires April 30, 2018                 [Page 7]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -445,7 +445,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                 [Page 8]
+Pfeifer & Schueler       Expires April 30, 2018                 [Page 8]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -501,7 +501,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                 [Page 9]
+Pfeifer & Schueler       Expires April 30, 2018                 [Page 9]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -557,7 +557,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 10]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 10]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -613,7 +613,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 11]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 11]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -669,7 +669,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 12]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 12]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -725,7 +725,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 13]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 13]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -781,7 +781,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 14]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 14]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -837,7 +837,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 15]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 15]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -893,7 +893,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 16]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 16]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -949,7 +949,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 17]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 17]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -1005,7 +1005,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 18]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 18]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -1061,7 +1061,7 @@ Appendix A.  Policies
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 19]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 19]
 
 Internet-Draft          Dynamic MultiPath Routing           October 2017
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Pfeifer & Schueler       Expires April 25, 2018                [Page 20]
+Pfeifer & Schueler       Expires April 30, 2018                [Page 20]
