@@ -140,29 +140,29 @@
         <t>
           <list style="hanging">
             <t hangText="Router, Node">
-              <vspace blankLines="0"/>
+              <vspace/>
               A Router (or a Node) are the routing entities of a network which
               run an implementation of DMPR, have zero or more networks attached
               and at least one link to another router.
             </t>
             <t hangText="Link">
-              <vspace blankLines="0"/>
+              <vspace/>
               A Link is the direct connection between two interfaces of two
               distinct routers.
             </t>
             <t hangText="Link Attribute">
-              <vspace blankLines="0"/>
+              <vspace/>
               A Link Attribute is a basic attribute of a link, for example the
               maximum bandwidth, the average packet loss or the cost of the
               link.
             </t>
             <t hangText="Path">
-              <vspace blankLines="0"/>
+              <vspace/>
               A Path in DMPR is one or more successive, directly connected links
               which define a loop-free path from one node to another.
             </t>
             <t hangText="Policy">
-              <vspace blankLines="0"/>
+              <vspace/>
               A Policy describes an order relation over a set of paths using the
               link attributes of these paths. Note that to guarantee loop-free
               properties this ordering function MUST be commutative and
@@ -409,7 +409,7 @@
           <t>The preamble of a DMPR packet is as follows</t>
           <!-- Magic:3,Reserved:5,NextType:8,Payload:80 -->
           <figure align="center">
-            <artwork align="left"><![CDATA[
+            <artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -421,15 +421,15 @@
           <t>
             <list style="hanging">
               <t hangText="Magic">
-                <vspace blankLines="0"/>
+                <vspace/>
                 A 3-bit Magic: 0b010
               </t>
               <t hangText="Reserved">
-                <vspace blankLines="0"/>
+                <vspace/>
                 Reserved for future use
               </t>
               <t hangText="NextType">
-                <vspace blankLines="0"/>
+                <vspace/>
                 The type of the next header or payload.
               </t>
             </list>
@@ -441,7 +441,7 @@
           </t>
           <!-- NextType:8,Length:8,Data:80 -->
           <figure align="center">
-            <artwork align="left"><![CDATA[
+            <artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -456,18 +456,18 @@
           <t>
             <list style="hanging">
               <t hangText="NextType">
-                <vspace blankLines="0"/>
+                <vspace/>
                 The type of the immediately following header or payload (as
                 specified in the packet preamble description)
               </t>
               <t hangText="Length">
-                <vspace blankLines="0"/>
+                <vspace/>
                 8-bit unsigned integer: The length of the Data field in
                 2-octets, this does not include NextType and
                 Length itself
               </t>
               <t hangText="Data">
-                <vspace blankLines="0"/>
+                <vspace/>
                 The header-specific data.
               </t>
             </list>
@@ -500,7 +500,7 @@
             </t>
             <!-- Identifier:8,Last:1,Packet offset:7,Payload:48 -->
             <figure align="center">
-              <artwork align="left"><![CDATA[
+              <artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -514,18 +514,18 @@
             <t>
               <list style="hanging">
                 <t hangText="Identifier">
-                  <vspace blankLines="0"/>
+                  <vspace/>
                   Identifies possibly concurrent fragmented packets.
                   Implementations SHOULD use an incrementing counter to
                   practically eliminate the possibility of a collision.
                 </t>
                 <t hangText="L(ast)">
-                  <vspace blankLines="0"/>
+                  <vspace/>
                   Last, set to 1 if this packet has the highest packet offset
                   in this fragmentation collection, i.e. is the last packet.
                 </t>
                 <t hangText="Packet index">
-                  <vspace blankLines="0"/>
+                  <vspace/>
                   7-bit unsigned integer. Defines the index of this packet in
                   the list of fragments resulting in the fragmentation of the
                   original packet. The first packet has offset zero.
@@ -559,16 +559,16 @@
         <t>Augmented requirements language for this section:
           <list style="hanging">
             <t hangText="REQUIRED">
-              <vspace blankLines="0"/>
+              <vspace/>
               This field is required, the sending node MUST include it.
             </t>
             <t hangText="REQUIRED if not empty">
-              <vspace blankLines="0"/>
+              <vspace/>
               If the field would be empty, it can be omitted, otherwise it is
               REQUIRED
             </t>
             <t hangText="OPTIONAL">
-              <vspace blankLines="0"/>
+              <vspace/>
               This field can be inserted to activate specific features or use
               other functionality. A sending node can choose to omit it and a
               receiving node MUST be able to work without this field.
@@ -634,39 +634,39 @@
         <t>Key and value description:
           <list style="hanging">
             <t hangText="id">
-              <vspace blankLines="0"/>
+              <vspace/>
               string: The sending node's id, NODE_ID: MUST NOT contain any of
               the brackets: ()[]{}&lt;&gt;
             </t>
             <t hangText="seq">
-              <vspace blankLines="0"/>
+              <vspace/>
               integer: The message sequence number, strictly monotonically
               increasing
             </t>
             <t hangText="type">
-              <vspace blankLines="0"/>
+              <vspace/>
               string: The type of the message, further specified below <xref
                 target="jsontypes"/>
             </t>
             <t hangText="partial-base">
-              <vspace blankLines="0"/>
+              <vspace/>
               integer: The base message of a partial update, the message then
               only
               includes the difference between the actual data and the base
               message
             </t>
             <t hangText="addr-v4">
-              <vspace blankLines="0"/>
+              <vspace/>
               string: The IPv4 address of the sending node over the link this
               packet has been sent.
             </t>
             <t hangText="addr-v6">
-              <vspace blankLines="0"/>
+              <vspace/>
               string: The IPv6 address of the sending node over the link this
               packet has been sent.
             </t>
             <t hangText="networks">
-              <vspace blankLines="0"/>
+              <vspace/>
               object: The networks advertised by this node. The keys are valid
               IPv4/IPv6 Network identifications with subnet prefix. If the value
               of a network key is a object itself and the key "retracted" of
@@ -674,7 +674,7 @@
               retracted, see <xref target="retraction"/>
             </t>
             <t hangText="routing-data">
-              <vspace blankLines="0"/>
+              <vspace/>
               object: A path to each reachable node for each policy. POLICY is
               the name of a policy defined in the sending node. If the receiving
               node does not understand this policy the entry MUST be ignored.
@@ -688,13 +688,13 @@ link-attribute-id = *DIGIT
               </figure>
             </t>
             <t hangText="node-data">
-              <vspace blankLines="0"/>
+              <vspace/>
               object: a list of networks for each reachable node defined in
               "routing-data". "networks" is handled like "networks" defined
               above
             </t>
             <t hangText="link-attributes">
-              <vspace blankLines="0"/>
+              <vspace/>
               object: the set of link-attributes used in the paths of
               routing-data. Each key SHOULD be an integer and MUST NOT contain
               any of the brackets ()[]{}&lt;&gt;
@@ -703,18 +703,18 @@ link-attribute-id = *DIGIT
               and metric is its value as defined in <xref target="terminology"/>
             </t>
             <t hangText="request-full">
-              <vspace blankLines="0"/>
+              <vspace/>
               array or true: A list of NODE_IDs from which the sending node
               requests a full update message.
               If true the node requests a full update from all neighbors.
             </t>
             <t hangText="reflect">
-              <vspace blankLines="0"/>
+              <vspace/>
               object: arbitrary data the sending node wants to have included in
               the "reflected" object in the next message of the receiver
             </t>
             <t hangText="reflected">
-              <vspace blankLines="0"/>
+              <vspace/>
               object: a set of reflected data, contains, for each neighboring
               node the data the node requested to reflect.
             </t>
@@ -733,23 +733,23 @@ link-attribute-id = *DIGIT
           <t>
             <list style="hanging">
               <t hangText="addr-v4">
-                <vspace blankLines="0"/>
+                <vspace/>
                 string, REQUIRED: The IPv4 address of the
                 sending node over the link this packet has been sent.
               </t>
               <t hangText="addr-v6">
-                <vspace blankLines="0"/>
+                <vspace/>
                 string: REQUIRED: The IPv6 address of the
                 sending node over the link this packet has been sent.
               </t>
               <t>Note: only one of addr-v4 and addr-v6 is required</t>
               <t hangText="networks">
-                <vspace blankLines="0"/>
+                <vspace/>
                 object, REQUIRED if not empty: The networks
                 advertised by this node, see above
               </t>
               <t hangText="routing-data">
-                <vspace blankLines="0"/>
+                <vspace/>
                 object, REQUIRED if not empty: The paths advertised by the
                 sender, grouped by POLICY and target NODE_ID. The syntax of a
                 path is described above. A path MUST include the sender of this
@@ -757,12 +757,12 @@ link-attribute-id = *DIGIT
                 node.
               </t>
               <t hangText="node-data">
-                <vspace blankLines="0"/>
+                <vspace/>
                 object, OPTIONAL: The networks from other nodes known to the
                 sender including their retraction status.
               </t>
               <t hangText="link-attributes">
-                <vspace blankLines="0"/>
+                <vspace/>
                 object, REQUIRED if not empty: The link-attributes used in
                 "routing-data". Each entry MUST contain all attributes known to
                 the sender, even if they are not needed by a policy.
@@ -783,13 +783,13 @@ link-attribute-id = *DIGIT
           <t>
             <list style="hanging">
               <t hangText="addr-v4">
-                <vspace blankLines="0"/>
+                <vspace/>
                 string, OPTIONAL: The IPv4 address of the sending node over the
                 link this packet has been sent, only included if it has not
                 changed. If it became invalid, the value is null.
               </t>
               <t hangText="addr-v6">
-                <vspace blankLines="0"/>
+                <vspace/>
                 string, OPTIONAL: The IPv6 address of the sending node over the
                 link this packet has been sent, only included if it has not
                 changed. If it became invalid, the value is null.
@@ -798,28 +798,28 @@ link-attribute-id = *DIGIT
                 configuration by deleting the only address available for a node.
               </t>
               <t hangText="networks">
-                <vspace blankLines="0"/>
+                <vspace/>
                 object, OPTIONAL: The networks advertised by the sender. The
                 entries replace the base message entries on a per
                 NODE_ID basis. If a entry has been deleted, the value for the
                 specific NODE_ID is null.
               </t>
               <t hangText="routing-data">
-                <vspace blankLines="0"/>
+                <vspace/>
                 object, OPTIONAL: The paths advertised by the sender, grouped by
                 POLICY and target NODE_ID. The entries replace the base message
                 entries on a per NODE_ID basis. If a entry has been deleted, the
                 value for the specific NODE_ID is null.
               </t>
               <t hangText="node-data">
-                <vspace blankLines="0"/>
+                <vspace/>
                 object, OPTIONAL: The networks from other nodes known to the
                 sender. The entries replace the base message entries on a per
                 NODE_ID basis. If a entry has been deleted, the value for the
                 specific NODE_ID is null.
               </t>
               <t hangText="link-attributes">
-                <vspace blankLines="0"/>
+                <vspace/>
                 object, REQUIRED if not empty: The link-attributes used in
                 "routing-data". Note that link-attributes are only valid on a
                 per-message basis and MUST NOT replace link-attribute entries in
@@ -884,7 +884,7 @@ link-attribute-id = *DIGIT
             hangIndent.
           </t>
 
-          <t hangText="vspace_trick"><vspace blankLines="0"/>Forces the new
+          <t hangText="vspace_trick"><vspace/>Forces the new
             item to start on a new line.
           </t>
         </list>
