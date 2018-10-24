@@ -2,7 +2,7 @@
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-    <!-- One method to get references from the online citation libraries.
+<!-- One method to get references from the online citation libraries.
         There has to be one entity for each item to be referenced.
         An alternate method (rfc include) is described in the references. -->
 
@@ -39,7 +39,7 @@
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
 <rfc category="info" docName="draft-pfeifer-rtgwg-dmpr-00" ipr="trust200902">
-  <!-- category values: std, bcp, info, exp, and historic
+    <!-- category values: std, bcp, info, exp, and historic
      ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
         or pre5378Trust200902
      you can add the attributes updates="NNNN" and obsoletes="NNNN"
@@ -48,48 +48,48 @@
   <!-- ***** FRONT MATTER ***** -->
 
   <front>
-    <title abbrev="Dynamic MultiPath Routing">Dynamic MultiPath Routing
-      Protocol
-    </title>
+      <title abbrev="Dynamic MultiPath Routing">Dynamic MultiPath Routing
+          Protocol
+      </title>
 
-    <author fullname="Hagen Paul Pfeifer" initials="H.P.P" role="editor"
-            surname="Pfeifer">
-      <organization>ProtocolLabs</organization>
+      <author fullname="Hagen Paul Pfeifer" initials="H.P.P" role="editor"
+          surname="Pfeifer">
+          <organization>ProtocolLabs</organization>
 
-      <address>
-        <postal>
-          <street>Agnes Bernauer Str. 84</street>
-          <city>Munich</city>
-          <code>80687</code>
-          <country>DE</country>
-        </postal>
-        <phone>+49 174 54 55 209</phone>
+          <address>
+              <postal>
+                  <street>Agnes Bernauer Str. 84</street>
+                  <city>Munich</city>
+                  <code>80687</code>
+                  <country>DE</country>
+              </postal>
+              <phone>+49 174 54 55 209</phone>
 
-        <email>hagen@jauu.net</email>
-        <uri>http://www.jauu.net/</uri>
-      </address>
-    </author>
+              <email>hagen@jauu.net</email>
+              <uri>http://www.jauu.net/</uri>
+          </address>
+      </author>
 
 
-    <author fullname="Joshua Schueler" initials="J.S." surname="Schueler">
-      <organization></organization>
+      <author fullname="Joshua Schueler" initials="J.S." surname="Schueler">
+          <organization></organization>
 
-      <address>
-        <postal>
-          <street></street>
-          <city></city>
-          <code></code>
-          <country></country>
-        </postal>
-        <phone></phone>
+          <address>
+              <postal>
+                  <street></street>
+                  <city></city>
+                  <code></code>
+                  <country></country>
+              </postal>
+              <phone></phone>
 
-        <email></email>
-      </address>
-    </author>
+              <email></email>
+          </address>
+      </author>
 
-    <date year="2017"/>
+      <date year="2018"/>
 
-    <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
+      <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
          in the current day for you. If only the current year is specified, xml2rfc will fill
     in the current day and month for you. If the year is not the current one, it is
     necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the
@@ -115,473 +115,498 @@
          keywords will be used for the search engine. -->
 
     <abstract>
-      <t>
-        Dynamic MultiPath Routing (DMPR) is a loop free path vector routing
-        protocol with built-in support for policy based routing. It has been
-        designed from the ground up to work at both low and high bandwidths -
-        even with high packet loss. The aim was also to keep routing overhead
-        low and with a deterministic upper bound. DMPR can be used to manage
-        huge networks with a similar feature set as BGPv4 minus the concept of
-        Autonomous Systems.
-      </t>
+        <t>
+            Dynamic MultiPath Routing (DMPR) is a loop free path vector routing
+            protocol with built-in support for policy based multipath routing. 
+            It has been
+            designed from the ground up to work at both low and high bandwidths -
+            even with high packet loss. The aim was also to keep routing overhead
+            low and with a deterministic upper bound. DMPR can be used to manage
+            huge networks with a similar feature set as BGPv4 minus the concept of
+            Autonomous Systems.
+        </t>
     </abstract>
-  </front>
+</front>
 
-  <middle>
+<middle>
     <section title="Introduction">
-      <t>this is dmpr, why we built it and what it can be used for</t>
-      <section title="Requirements Language">
-        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-          "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-          document are to be interpreted as described in <xref
-              target="RFC2119">RFC 2119</xref>.
-        </t>
-      </section>
-      <section title="Terminology" anchor="terminology">
-        <t>The following list describes the Terminology used in this RFC</t>
         <t>
-          <list style="hanging">
-            <t hangText="Router, Node">
-              <vspace/>
-              A Router (or a Node) are the routing entities of a network which
-              run an implementation of DMPR, have zero or more networks attached
-              and at least one link to another router.
-            </t>
-            <t hangText="Link">
-              <vspace/>
-              A Link is the direct connection between two interfaces of two
-              distinct routers.
-            </t>
-            <t hangText="Link Attribute">
-              <vspace/>
-              A Link Attribute is a basic attribute of a link, for example the
-              maximum bandwidth, the average packet loss or the cost of the
-              link.
-            </t>
-            <t hangText="Path">
-              <vspace/>
-              A Path in DMPR is one or more successive, directly connected links
-              which define a loop-free path from one node to another.
-            </t>
-            <t hangText="Policy">
-              <vspace/>
-              A Policy describes an order relation over a set of paths using the
-              link attributes of these paths. Note that to guarantee loop-free
-              properties this ordering function MUST be commutative and
-              associative. Policy examples can be found in
-              <xref target="appendix.policies"/>
-            </t>
-          </list>
+            Todays mobile wireless networks do have a diversity of requirements on
+            the wireless links. To meet this requirements, it is possible to attach 
+            multiple network access technologies on the router and select, depending
+            on the CoS of the packet, over which wireless link the packet is sent.
+            This is the main idea of policy based multipath routing. The established
+            routing protocols do not support the use of multiple access technologies
+            on a single router. To tackle this issues, DMPR as been developed as a 
+            protocol for policy based multipath routing in and between mobile networks,
+            which consist of multiple wireless links with different characteristics,
+            thus providing the possibility to calculate multiple routing tables and 
+            maintain the best paths for multiple policies.
         </t>
-      </section>
-      <section title="Organization of this Document">
-        <t>
-          <xref target="datastructures"/>
-          describes the information every node has and gets and how it should
-          proceed with that. Implementations are not required to strictly
-          implement them as described here but the same functionality must be
-          provided.
-          <xref target="behaviour"/>
-          describes the behavior of the protocol in different scenarios and how
-          it achieves particular features.
-          <xref target="messagefmt"/>
-          describes the message format in detail.
-          <xref target="optionalfeatures"/>
-          describes optional features which can be implemented to improve or
-          extend DMPR but are not required for the basic functionality of
-          propagating routing information.
-        </t>
-        <t>
-          <xref target="appendix.policies"/>
-          has a few policy examples.
-          <xref target="appendix.constants"/>
-          lists all constants used in this RFC where some of them are
-          configurable.
-          <xref target="appendix.examples"/>
-          shows a few simple examples of how DMPR behaves in specific network
-          conditions.
-        </t>
-      </section>
-      <section title="Overview">
-        <t>
-          Every router periodically sends out a multicast message to all its
-          neighbors. This message includes the best path to each node known by
-          this router. A router receiving this message adds itself to all these
-          paths,
-          chooses the best path to each node among all it got from its neighbors
-          and itself advertises these paths via multicast messages. This is
-          standard procedure in a Path-Vector Routing Protocol. In DMPR the
-          paths are further separated by a policy, therefore it is possible to
-          have more than one path to each node. Also included in the message are
-          all attributes of this path so that the receiving node can make
-          informed decisions on whether this path is the best under the current
-          policy. In the end there exist multiple paths through the network and
-          packets can be routed according to their requirements which for
-          example can be the path with the highest bandwidth or with the lowest
-          latency.
-        </t>
-      </section>
-      <section title="Distinction from other Routing Protocols">
-        <t>
-          Traditionally, routing protocols find the best path using a scalar
-          metric.
-          This metric may be a simple constant stating the preference of the
-          link or may be a computed metric using several factors like bandwidth,
-          latency or cost. Furthermore, this metric is only known locally or,
-          for example in the case of BGP-4, where external paths can be marked
-          with a local preference for internal peers, to a small subset of the
-          network.
-          In DMPR a policy is a globally defined function which provides a
-          ordering over paths. For this the policy has all link attributes of
-          each path at its disposal and has a higher control over which path it
-          chooses.
-        </t>
-      </section>
+        <section title="Requirements Language">
+            <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+                "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+                document are to be interpreted as described in <xref
+                    target="RFC2119">RFC 2119</xref>.
+            </t>
+        </section>
+        <section title="Terminology" anchor="terminology">
+            <t>The following list describes the Terminology used in this RFC</t>
+            <t>
+                <list style="hanging">
+                    <t hangText="Router, Node">
+                        <vspace/>
+                        A Router (or a Node) are the routing entities of a network which
+                        run an implementation of DMPR, have zero or more networks attached
+                        and at least one link to another router.
+                    </t>
+                    <t hangText="Link">
+                        <vspace/>
+                        A Link is the direct connection between two interfaces of two
+                        distinct routers.
+                    </t>
+                    <t hangText="Link Attribute">
+                        <vspace/>
+                        A Link Attribute is a basic attribute of a link, for example the
+                        maximum bandwidth, the average packet loss or the cost of the
+                        link.
+                    </t>
+                    <t hangText="Path">
+                        <vspace/>
+                        A Path in DMPR is one or more successive, directly connected links
+                        which define a loop-free path from one node to another.
+                    </t>
+                    <t hangText="Policy">
+                        <vspace/>
+                        A Policy describes an order relation over a set of paths using the
+                        link attributes of these paths. Note that to guarantee loop-free
+                        properties this ordering function MUST be commutative and
+                        associative. Policy examples can be found in
+                        <xref target="appendix.policies"/>
+                    </t>
+                </list>
+            </t>
+        </section>
+        <section title="Organization of this Document">
+            <t>
+                <xref target="datastructures"/>
+                describes the information every node has and gets and how it should
+                proceed with that. Implementations are not required to strictly
+                implement them as described here but the same functionality must be
+                provided.
+                <xref target="behaviour"/>
+                describes the behavior of the protocol in different scenarios and how
+                it achieves particular features.
+                <xref target="messagefmt"/>
+                describes the message format in detail.
+                <xref target="optionalfeatures"/>
+                describes optional features which can be implemented to improve or
+                extend DMPR but are not required for the basic functionality of
+                propagating routing information.
+            </t>
+            <t>
+                <xref target="appendix.policies"/>
+                has a few policy examples.
+                <xref target="appendix.constants"/>
+                lists all constants used in this RFC where some of them are
+                configurable.
+                <xref target="appendix.examples"/>
+                shows a few simple examples of how DMPR behaves in specific network
+                conditions.
+            </t>
+        </section>
+        <section title="Overview">
+            <t>
+                Every router periodically sends out a multicast message to all its
+                neighbors. This message includes the best path to each node known by
+                this router. A router receiving this message adds itself to all these
+                paths,
+                chooses the best path to each node among all it got from its neighbors
+                and itself advertises these paths via multicast messages. This is
+                standard procedure in a Path-Vector Routing Protocol. In DMPR the
+                paths are further separated by a policy, therefore it is possible to
+                have more than one path to each node. Also included in the message are
+                all attributes of this path so that the receiving node can make
+                informed decisions on whether this path is the best under the current
+                policy. In the end there exist multiple paths through the network and
+                packets can be routed according to their requirements which for
+                example can be the path with the highest bandwidth or with the lowest
+                latency.
+            </t>
+        </section>
+        <section title="Distinction from other Routing Protocols">
+            <t>
+                Traditionally, routing protocols find the best path using a scalar
+                metric.
+                This metric may be a simple constant stating the preference of the
+                link or may be a computed metric using several factors like bandwidth,
+                latency or cost. Furthermore, this metric is only known locally or,
+                for example in the case of BGP-4, where external paths can be marked
+                with a local preference for internal peers, to a small subset of the
+                network.
+                In DMPR a policy is a globally defined function which provides a
+                ordering over paths. For this reason, the policy has all link attributes of
+                each path at its disposal and therefore has a higher control over which path it
+                chooses.
+            </t>
+        </section>
     </section>
     <section title="Data Structures" anchor="datastructures">
-      <section title="Message Information Base" anchor="mib">
         <t>
-          Every message received by a node is saved in the Message Information
-          Base. This data structure is the basis for all subsequently emitted
-          routing messages and the routing table.
-          The Message Information Base contains for each neighbor the latest (by
-          sequence number) received message. Each entry is controlled by a hold
-          time and is purged after the hold time expires. This timer is reset as
-          soon as a new valid message from this neighbor is received.
-          This data structure contains potentially duplicate or conflicting data
-          as many neighbors send their paths and subnet information for all
-          nodes they know of. This is intended and required as any message may
-          be deleted at almost any time when its hold timer expires.
+            To maintain the routing data, all data extracted from the received routing messages
+            is organized in different data structures. These data structures are used for calculation
+            of the routes and creation of the routing tables.
         </t>
-      </section>
-      <section title="Routing Data">
-        <t>
-          The Routing Data is computed from the Message Information Base. In
-          contrast to the Message Information Base this is data structure
-          contains
-          no conflicting information and can be seen as the single source of
-          truth
-          for the routing table and routing message generation.
-          It contains the best path to each known node grouped by policy.
-          Furthermore the advertised subnets from each node are combined while
-          following the network retraction rules (see
-          <xref target="retraction"/>).
-        </t>
-      </section>
-      <section title="Routing Table">
-        <t>
-          The Routing Table finally contains the best path to each known subnet
-          grouped by policy. This table then can be inserted into the underlying
-          OS's routing table.
-        </t>
-      </section>
-      <section title="Networks">
-        <t>
-          The Networks list contains all known and all known retracted networks.
-          Each network is accompanied by a hold timer. TODO!! see dmpr-core#30
-        </t>
-      </section>
+        <section title="Message Information Base" anchor="mib">
+            <t>
+                Every message received by a node is saved in the Message Information
+                Base. This data structure is the basis for all subsequently emitted
+                routing messages and the routing table.
+                The Message Information Base contains the latest (by sequence number)
+                received message for each neighbor. Each entry is controlled by a hold
+                timer and is purged after the hold timer expires. This timer is reset as
+                soon as a new valid message from this neighbor is received.
+                This data structure contains potentially duplicate or conflicting data
+                as many neighbors send their paths and subnet information for all
+                nodes they know of. This is intended and required as any message may
+                be deleted at almost any time when its hold timer expires.
+            </t>
+        </section>
+        <section title="Routing Data">
+            <t>
+                The Routing Data is computed from the Message Information Base. In
+                contrast to the Message Information Base this is data structure
+                contains
+                no conflicting information and can be seen as the single source of
+                truth
+                for the routing table and routing message generation.
+                It contains the best path to each known node grouped by policy.
+                Furthermore the advertised subnets from each node are combined while
+                following the network retraction rules (see
+                <xref target="retraction"/>).
+            </t>
+        </section>
+        <section title="Routing Table">
+            <t>
+                The Routing Table contains the best path to each known subnet
+                grouped by policy. This table is ment to be inserted into the underlying
+                OS's routing table.
+            </t>
+        </section>
+        <section title="Networks">
+            <t>
+                The Networks list contains all known and all known retracted networks.
+                Each network is accompanied by a hold timer. TODO!! see dmpr-core#30
+            </t>
+        </section>
     </section>
     <section title="Behavior" anchor="behaviour">
-      <section title="Neighbor Detection">
-        <t>
-          Each node listens on the multicast address TODO. Periodically, after a
-          defined message interval + jitter, a node sends out message which
-          includes:
-          <list style="symbols">
+        <section title="Neighbor Detection">
             <t>
-              All nodes it has a path to, including the networks they advertise
+                Each node listens to a multicast address. This multicast address
+                SHOULD be configurable. Periodically, after a
+                defined message interval + jitter, a node sends out its routing message, 
+                which includes:
+                <list style="symbols">
+                    <t>
+                        All nodes it has a path to, including the networks they advertise
+                    </t>
+                    <t>For each policy, a path to each node it knows of.</t>
+                    <t>The attributes of the links between the paths.</t>
+                </list>
+                When a node receives a message, it deduces a connection and therefore a
+                path to the sender via the interface that message came in. With
+                this mechanism the path to a node propagates through the network. To
+                detect disconnected links or nodes getting removed or out of range, a
+                node assigns every received message to a hold timer and purges this
+                message after the timer expires.
+                Asymmetric links are handled with a feature called reflection, this is
+                described in
+                <xref target="reflections"/>.
             </t>
-            <t>For each policy, a path to each node it knows of.</t>
-            <t>The attributes of the links between the paths.</t>
-          </list>
-          When a node receives a message it deduces a connection and therefore a
-          path to the sender via the interface that message came in. Through
-          this mechanism the path to a node propagates through the network. To
-          detect disconnected links or nodes getting removed or out of range, a
-          node assigns every received message to a hold timer and purges this
-          message after the timer expires.
-          Asymmetric links are handled with a feature called reflection, this is
-          described in
-          <xref target="reflections"/>.
-        </t>
-      </section>
-      <section title="Interface Handling">
-        <t>
-          In DMPR all interfaces which are registered with the DMPR daemon are
-          treated completely separate from each other. Routing messages are sent
-          over each one individually. This ensures that all possibly accessible
-          neighbors are reachable. The Message Information Base (see<xref
-            target="mib"/>) is grouped by interface. Therefore nodes can detect
-          links over each interface individually.
-        </t>
-      </section>
-      <section title="Message Handling">
-        <t>
-          Each message received by a neighbor is saved in the Message
-          Information Base (see<xref target="mib"/>). With this message a hold
-          timer is set which purges the messages after the given time.
-          To improve the message size a node can choose to only send partial
-          updates (i.e. differential, only the changes since the last full
-          update). To support this a node has to retain the a version from the
-          last full message to be able to apply the new partial message.
-        </t>
-      </section>
-      <section title="Policies">
-        <t>
-          To support routing different traffic types over different routes, DMPR
-          supports policies. A policy computes a ordering over paths using
-          the available link attributes. This ordering defines the routes the
-          nodes in the network will compute. For each policy there is a section
-          in the routing data message and also a separate routing table.
-        </t>
-      </section>
-      <section title="Route Selection">
-        <t>how do we select the best route</t>
-      </section>
-      <section title="Network Retraction" anchor="retraction">
-        <t>
-          TODO SEE dmpr-core#30
-        </t>
-        <t>
-          Each network advertised in a message has an optional flag called
-          "retracted". This flag is set to true when a node no longer advertises
-          this network as available. The only node to ever set this flag to true
-          MUST be the originally advertising node. A set retracted flag always
-          supersedes an unset flag. Networks are forwarded with this ruleset:
-        </t>
-        <texttable>
-          <ttcol align="center">Network known as not retracted</ttcol>
-          <ttcol align="center">Network known as retracted</ttcol>
-          <ttcol align="center">Network set as retracted in a message</ttcol>
-          <ttcol align="left">Action to take</ttcol>
+        </section>
+        <section title="Interface Handling">
+            <t>
+                In DMPR all interfaces, which are registered with the DMPR daemon, are
+                treated completely separate from each other. Routing messages are sent
+                over each one individually. This ensures that all possibly accessible
+                neighbors are reachable. The Message Information Base (see<xref
+                    target="mib"/>) is grouped by interface. Therefore nodes can detect
+                links on each interface individually.
+            </t>
+        </section>
+        <section title="Message Handling">
+            <t>
+                Each message received by a neighbor is saved in the Message
+                Information Base (see<xref target="mib"/>). With this message a hold
+                timer is set which purges the messages after the given time.
+                To improve the message size a node can choose to only send partial
+                updates (i.e. differential, only the changes since the last full
+                update). To support this a node has to retain the a version from the
+                last full message to be able to apply the new partial message.
+            </t>
+        </section>
+        <section title="Policies">
+            <t>
+                To support routing different traffic types over different routes, DMPR
+                supports policies. A policy computes an arrangement over paths using
+                the available link attributes. This arrangement defines the routes the
+                nodes in the network will compute. For each policy there is a section
+                in the routing data message and also a separate routing table.
+            </t>
+        </section>
+        <section title="Route Selection">
+            <t>
+                The calculation of the best route MUST be defined for each policy seperately.
+                Simple policies for example do only consider a single link metric (like 
+                bandwidth or loss rate) for the calculation of the best route.
+                Combined policies might use a combination of multiple link metrics.
+                The route selection mechanism is part of a policies definition.
+            </t>
+        </section>
+        <section title="Network Retraction" anchor="retraction">
+            <t>
+                TODO SEE dmpr-core#30
+            </t>
+            <t>
+                Each network advertised in a message has an optional flag called
+                "retracted". This flag is set to true when a node no longer advertises
+                this network as available. The only node to ever set this flag to true
+                MUST be the originally advertising node. A set retracted flag always
+                supersedes an unset flag. Networks are forwarded with this ruleset:
+            </t>
+            <texttable>
+                <ttcol align="center">Network known as not retracted</ttcol>
+                <ttcol align="center">Network known as retracted</ttcol>
+                <ttcol align="center">Network set as retracted in a message</ttcol>
+                <ttcol align="left">Action to take</ttcol>
 
-          <c>false</c>
-          <c>false</c>
-          <c>false</c>
-          <c>Insert network in known networks and forward</c>
+                <c>false</c>
+                <c>false</c>
+                <c>false</c>
+                <c>Insert network in known networks and forward</c>
 
-          <c>false</c>
-          <c>false</c>
-          <c>true</c>
-          <c>ignore network, do not forward</c>
+                <c>false</c>
+                <c>false</c>
+                <c>true</c>
+                <c>ignore network, do not forward</c>
 
-          <c>false</c>
-          <c>true</c>
-          <c>false</c>
-          <c>forward network as retracted</c>
+                <c>false</c>
+                <c>true</c>
+                <c>false</c>
+                <c>forward network as retracted</c>
 
-          <c>false</c>
-          <c>true</c>
-          <c>true</c>
-          <c>forward network as retracted</c>
+                <c>false</c>
+                <c>true</c>
+                <c>true</c>
+                <c>forward network as retracted</c>
 
-          <c>true</c>
-          <c>false</c>
-          <c>false</c>
-          <c>just forward network</c>
+                <c>true</c>
+                <c>false</c>
+                <c>false</c>
+                <c>just forward network</c>
 
-          <c>true</c>
-          <c>false</c>
-          <c>true</c>
-          <c>set network in known networks as retracted and forward retracted
-          </c>
+                <c>true</c>
+                <c>false</c>
+                <c>true</c>
+                <c>set network in known networks as retracted and forward retracted
+                </c>
 
-          <c>true</c>
-          <c>true</c>
-          <c>false</c>
-          <c>illegal</c>
+                <c>true</c>
+                <c>true</c>
+                <c>false</c>
+                <c>illegal</c>
 
-          <c>true</c>
-          <c>true</c>
-          <c>true</c>
-          <c>illegal</c>
-        </texttable>
-      </section>
-      <section title="Other...">
-        <t>TODO: how does the network handle: different network conditions,
-          disappearing and reappearing nodes,
-        </t>
-      </section>
+                <c>true</c>
+                <c>true</c>
+                <c>true</c>
+                <c>illegal</c>
+            </texttable>
+        </section>
+        <section title="Other...">
+            <t>TODO: how does the network handle: different network conditions,
+                disappearing and reappearing nodes,
+            </t>
+        </section>
     </section>
     <section title="Message Format" anchor="messagefmt">
-      <section title="Header">
-        <t>
-          A DMPR packet consists of a preamble, followed by zero or more
-          Extension Headers followed by zero or one Payload. Each Extension
-          Header and Payload is defined by a Type.
-        </t>
-        <texttable anchor="nexttype_table" title="Possible Types">
-          <ttcol align="center">Type</ttcol>
-          <ttcol align="left">Use</ttcol>
-
-          <c>0-119</c>
-          <c>Extension Header</c>
-
-          <c>120-127</c>
-          <c>Extension Header, reserved for private use</c>
-
-          <c>128-247</c>
-          <c>Payload</c>
-
-          <c>248-255</c>
-          <c>Payload, reserved for private use</c>
-
-          <postamble>Possible Types are further defined below</postamble>
-        </texttable>
-        <section title="Preamble">
-          <t>The preamble of a DMPR packet is as follows</t>
-          <!-- Magic:3,Reserved:5,NextType:8 -->
-          <figure align="center">
-            <artwork><![CDATA[
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|Magic| Reserved|    NextType   |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-]]></artwork>
-            <postamble>The preamble of a packet</postamble>
-          </figure>
-          <t>
-            <list style="hanging">
-              <t hangText="Magic">
-                <vspace/>
-                A 3-bit Magic: 0b010
-              </t>
-              <t hangText="Reserved">
-                <vspace/>
-                Reserved for future use
-              </t>
-              <t hangText="NextType">
-                <vspace/>
-                The type of the next header or payload.
-              </t>
-            </list>
-          </t>
-        </section>
-        <section title="Extension Header">
-          <t>An Extension Header consists of the type immediately following this
-            header, a length specifier, and the Extension Header data.
-          </t>
-          <!-- NextType:8,Length:8,Data:80 -->
-          <figure align="center">
-            <artwork><![CDATA[
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|    NextType   |     Length    |                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-|                                                               |
-+                              Data                             +
-|                                                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-]]></artwork>
-          </figure>
-          <t>
-            <list style="hanging">
-              <t hangText="NextType">
-                <vspace/>
-                8-bit unsigend integer:
-                The type of the immediately following header or payload (same as
-                specified in the packet preamble description)
-              </t>
-              <t hangText="Length">
-                <vspace/>
-                8-bit unsigned integer: The length of the Data field in
-                2-octets, this does not include NextType and
-                Length itself
-              </t>
-              <t hangText="Data">
-                <vspace/>
-                The header-specific data according to length. The encoding and
-                type is specified by the header itself.
-              </t>
-            </list>
-          </t>
-        </section>
-        <section title="Payload">
-          <t>
-            The Payload consists of the data from the end of the preamble or
-            last extension header until the end of the packet. Payloads may be
-            recursive, i.e. contain a valid packet (or parts of it) in
-            themselves, payload processors therefore MUST have the ability to
-            feed their result back into the message processing chain. This
-            behavior is defined by the payload itself.
-          </t>
-          <section title="Payload: Keep-Alive">
-            <t>Type: 128</t>
-            <t>This is a keep-alive packet, the payload length is zero.
-              Implementations SHOULD reset the message hold timer for the
-              sending node upon receiving a keep-alive packet
-            </t>
-          </section>
-          <section title="Payload: Compressed JSON">
-            <t>Type: 129</t>
-            <t>LZMA-compressed standard-compliant I-JSON data as described in
-              <xref target="RFC7493"/>.
-              This is the main routing data, its structure is defined
-              <xref target="jsonpayload"/>
-            </t>
-          </section>
-          <section title="Payload: Fragmentation">
-            <t>Type: 130</t>
-            <t>A packet greater than the MTU between two nodes SHOULD be
-              fragmented using the fragmentation payload.
-            </t>
-            <!-- Identifier:8,Last:1,Packet offset:7,Payload:48 -->
-            <figure align="center">
-              <artwork><![CDATA[
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Identifier  |L|Packet offset|                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-|                            Payload                            |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-]]></artwork>
-              <postamble>The Fragmentation Payload Header</postamble>
-            </figure>
+        <section title="Header">
             <t>
-              <list style="hanging">
-                <t hangText="Identifier">
-                  <vspace/>
-                  Identifies possibly concurrent fragmented packets.
-                  Implementations SHOULD use an incrementing counter to
-                  practically eliminate the possibility of a collision.
-                </t>
-                <t hangText="L(ast)">
-                  <vspace/>
-                  Last, set to 1 if this packet has the highest packet offset
-                  in this fragmentation collection, i.e. is the last packet.
-                </t>
-                <t hangText="Packet index">
-                  <vspace/>
-                  7-bit unsigned integer. Defines the index of this packet in
-                  the list of fragments resulting in the fragmentation of the
-                  original packet. The first packet has offset zero.
-                </t>
-              </list>
+                A DMPR packet consists of a preamble, followed by zero or more
+                Extension Headers followed by zero or one Payload. Each Extension
+                Header and Payload is defined by a Type.
             </t>
-            <t>When a packet is larger than the MTU of the link between two
-              nodes it SHOULD be fragmented. For this the sending node computes
-              the maximum effective payload size for packets sent (i.e MTU less
-              preamble, possibly extension headers and the fragmentation header)
-              and splits the original packet into parts with this size. For each
-              of this parts it sends a packet with the fragmentation header set
-              to a common Identifier, an according packet offset and the LAST
-              bit set for the last fragment.
-            </t>
-            <t>The receiving node keeps track of all received fragments,
-              grouping them by source address and Identifier. As soon as a all
-              fragments of a packet have been received, the reconstructed packet
-              MUST be fed back into the message processing chain as if it were a
-              new, just received packet. Fragments MUST be regularly purged
-              based on a hold timer.
-            </t>
-          </section>
+            <texttable anchor="nexttype_table" title="Possible Types">
+                <ttcol align="center">Type</ttcol>
+                <ttcol align="left">Use</ttcol>
+
+                <c>0-119</c>
+                <c>Extension Header</c>
+
+                <c>120-127</c>
+                <c>Extension Header, reserved for private use</c>
+
+                <c>128-247</c>
+                <c>Payload</c>
+
+                <c>248-255</c>
+                <c>Payload, reserved for private use</c>
+
+                <postamble>Possible Types are further defined below</postamble>
+            </texttable>
+            <section title="Preamble">
+                <t>The preamble of a DMPR packet is as follows</t>
+                <!-- Magic:3,Reserved:5,NextType:8 -->
+                <figure align="center">
+                    <artwork><![CDATA[
+                    0                   1                   2                   3
+                    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    |Magic| Reserved|    NextType   |
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    ]]></artwork>
+                    <postamble>The preamble of a packet</postamble>
+                </figure>
+                <t>
+                    <list style="hanging">
+                        <t hangText="Magic">
+                            <vspace/>
+                            A 3-bit Magic: 0b010
+                        </t>
+                        <t hangText="Reserved">
+                            <vspace/>
+                            Reserved for future use
+                        </t>
+                        <t hangText="NextType">
+                            <vspace/>
+                            The type of the next header or payload.
+                        </t>
+                    </list>
+                </t>
+            </section>
+            <section title="Extension Header">
+                <t>An Extension Header consists of the type immediately following this
+                    header, a length specifier, and the Extension Header data.
+                </t>
+                <!-- NextType:8,Length:8,Data:80 -->
+                <figure align="center">
+                    <artwork><![CDATA[
+                    0                   1                   2                   3
+                    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    |    NextType   |     Length    |                               |
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+                    |                                                               |
+                    +                              Data                             +
+                    |                                                               |
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    ]]></artwork>
+                </figure>
+                <t>
+                    <list style="hanging">
+                        <t hangText="NextType">
+                            <vspace/>
+                            8-bit unsigend integer:
+                            The type of the immediately following header or payload (same as
+                            specified in the packet preamble description)
+                        </t>
+                        <t hangText="Length">
+                            <vspace/>
+                            8-bit unsigned integer: The length of the Data field in
+                            2-octets, this does not include NextType and
+                            Length itself
+                        </t>
+                        <t hangText="Data">
+                            <vspace/>
+                            The header-specific data according to length. The encoding and
+                            type is specified by the header itself.
+                        </t>
+                    </list>
+                </t>
+            </section>
+            <section title="Payload">
+                <t>
+                    The Payload consists of the data from the end of the preamble or
+                    last extension header until the end of the packet. Payloads may be
+                    recursive, i.e. contain a valid packet (or parts of it) in
+                    themselves, payload processors therefore MUST have the ability to
+                    feed their result back into the message processing chain. This
+                    behavior is defined by the payload itself.
+                </t>
+                <section title="Payload: Keep-Alive">
+                    <t>Type: 128</t>
+                    <t>This is a keep-alive packet, the payload length is zero.
+                        Implementations SHOULD reset the message hold timer for the
+                        sending node upon receiving a keep-alive packet
+                    </t>
+                </section>
+                <section title="Payload: Compressed JSON">
+                    <t>Type: 129</t>
+                    <t>LZMA-compressed standard-compliant I-JSON data as described in
+                        <xref target="RFC7493"/>.
+                        This is the main routing data, its structure is defined
+                        <xref target="jsonpayload"/>
+                    </t>
+                </section>
+                <section title="Payload: Fragmentation">
+                    <t>Type: 130</t>
+                    <t>A packet greater than the MTU between two nodes SHOULD be
+                        fragmented using the fragmentation payload.
+                    </t>
+                    <!-- Identifier:8,Last:1,Packet offset:7,Payload:48 -->
+                    <figure align="center">
+                        <artwork><![CDATA[
+                            0                   1                   2                   3
+                            0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+                            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                            |   Identifier  |L|Packet offset|                               |
+                            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+                            |                            Payload                            |
+                            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                            ]]></artwork>
+                        <postamble>The Fragmentation Payload Header</postamble>
+                    </figure>
+                    <t>
+                        <list style="hanging">
+                            <t hangText="Identifier">
+                                <vspace/>
+                                Identifies possibly concurrent fragmented packets.
+                                Implementations SHOULD use an incrementing counter to
+                                practically eliminate the possibility of a collision.
+                            </t>
+                            <t hangText="L(ast)">
+                                <vspace/>
+                                Last, set to 1 if this packet has the highest packet offset
+                                in this fragmentation collection, i.e. is the last packet.
+                            </t>
+                            <t hangText="Packet index">
+                                <vspace/>
+                                7-bit unsigned integer. Defines the index of this packet in
+                                the list of fragments resulting in the fragmentation of the
+                                original packet. The first packet has offset zero.
+                            </t>
+                        </list>
+                    </t>
+                    <t>When a packet is larger than the MTU of the link between two
+                        nodes it SHOULD be fragmented. For this the sending node computes
+                        the maximum effective payload size for packets sent (i.e MTU less
+                        preamble, possibly extension headers and the fragmentation header)
+                        and splits the original packet into parts with this size. For each
+                        of this parts it sends a packet with the fragmentation header set
+                        to a common Identifier, an according packet offset and the LAST
+                        bit set for the last fragment.
+                    </t>
+                    <t>The receiving node keeps track of all received fragments,
+                        grouping them by source address and Identifier. As soon as a all
+                        fragments of a packet have been received, the reconstructed packet
+                        MUST be fed back into the message processing chain as if it were a
+                        new, just received packet. Fragments MUST be regularly purged
+                        based on a hold timer.
+                    </t>
+                </section>
+            </section>
         </section>
-      </section>
-      <section title="JSON Payload" anchor="jsonpayload">
+ <section title="JSON Payload" anchor="jsonpayload">
         <t>A JSON payload is a lzma-compressed, ascii-7 encoded JSON object.
           A sending node SHOULD use ascii-encoding for the json data, a
           receiving node MUST be able to decode UTF-8 encoded data.
@@ -614,7 +639,6 @@
   "seq": <SEQUENCE_NUMBER>,
   "type": <TYPE>,
   "partial-base": <SEQUENCE_NUMBER>,
-
   "addr-v4": <IPv4_ADDRESS>,
   "addr-v6": <IPv6_ADDRESS>,
   "networks": {
@@ -645,13 +669,10 @@
       <LINK_ATTRIBUTE>: <METRIC>
     }
   },
-
   "request-full": union(true, [<NODE_ID>, ...]),
-
   "reflect": {
     <REFLECT_DATA>: <DATA>
   }
-
   "reflected": {
     <NODE_ID>: {
       <REFLECT_DATA>: <DATA>
@@ -1045,26 +1066,19 @@ link-attribute-id = *DIGIT
         </preamble>
 
         <artwork><![CDATA[
-
 /**** an example C program */
-
 #include <stdio.h>
-
 void
 main(int argc, char *argv[])
 {
    int i;
-
    printf("program arguments are:\n");
    for (i = 0; i < argc; i++) {
        printf("%d: \"%s\"\n", i, argv[i]);
    }
-
    exit(0);
 } /* main */
-
 /* end of file */
-
            ]]></artwork>
       </figure>
     </section>
@@ -1111,7 +1125,6 @@ main(int argc, char *argv[])
      1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
      2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
         (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
-
      Both are cited textually in the same manner: by using xref elements.
      If you use the PI option, xml2rfc will, by default, try to find included files in the same
      directory as the including file. You can also define the XML_LIBRARY environment variable
