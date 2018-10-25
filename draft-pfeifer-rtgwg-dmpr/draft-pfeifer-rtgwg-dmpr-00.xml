@@ -71,7 +71,7 @@
       </author>
 
 
-      <author fullname="Joshua Schueler" initials="J.S." surname="Schueler">
+      <author fullname="Sebastian Widmann" initials="S.W" surname="Widmann">
           <organization></organization>
 
           <address>
@@ -118,11 +118,11 @@
         <t>
             Dynamic MultiPath Routing (DMPR) is a loop free path vector routing
             protocol with built-in support for policy based multipath routing. 
-            It has been
-            designed from the ground up to work at both low and high bandwidths -
-            even with high packet loss. The aim was also to keep routing overhead
-            low and with a deterministic upper bound. DMPR can be used to manage
-            huge networks with a similar feature set as BGPv4 minus the concept of
+            It has been designed from scratch to work at both low and high 
+            bandwidth networks -
+            even with high packet loss. The objective was to keep routing overhead
+            low and ensure a deterministic upper limit. DMPR can be used to manage
+            huge networks with a similar feature set as BGPv4 except for the concept of
             Autonomous Systems.
         </t>
     </abstract>
@@ -191,8 +191,8 @@
             <t>
                 <xref target="datastructures"/>
                 describes the information every node has and gets and how it should
-                proceed with that. Implementations are not required to strictly
-                implement them as described here but the same functionality must be
+                handle it. Implementations are not required to strictly
+                implement them as described here, but the same functionality must be
                 provided.
                 <xref target="behaviour"/>
                 describes the behavior of the protocol in different scenarios and how
@@ -222,7 +222,7 @@
                 this router. A router receiving this message adds itself to all these
                 paths,
                 chooses the best path to each node among all it got from its neighbors
-                and itself advertises these paths via multicast messages. This is
+                and advertises these paths itself via multicast messages. This is
                 standard procedure in a Path-Vector Routing Protocol. In DMPR the
                 paths are further separated by a policy, therefore it is possible to
                 have more than one path to each node. Also included in the message are
@@ -276,10 +276,8 @@
             <t>
                 The Routing Data is computed from the Message Information Base. In
                 contrast to the Message Information Base this is data structure
-                contains
-                no conflicting information and can be seen as the single source of
-                truth
-                for the routing table and routing message generation.
+                contains no conflicting information and can be seen as the single 
+                source of truth for the routing table and routing message generation.
                 It contains the best path to each known node grouped by policy.
                 Furthermore the advertised subnets from each node are combined while
                 following the network retraction rules (see
@@ -290,13 +288,7 @@
             <t>
                 The Routing Table contains the best path to each known subnet
                 grouped by policy. This table is ment to be inserted into the underlying
-                OS's routing table.
-            </t>
-        </section>
-        <section title="Networks">
-            <t>
-                The Networks list contains all known and all known retracted networks.
-                Each network is accompanied by a hold timer. TODO!! see dmpr-core#30
+                Operating System's routing table.
             </t>
         </section>
     </section>
@@ -349,10 +341,22 @@
         <section title="Policies">
             <t>
                 To support routing different traffic types over different routes, DMPR
-                supports policies. A policy computes an arrangement over paths using
-                the available link attributes. This arrangement defines the routes the
+                supports policies. A policy computes an arrangement of the possible paths 
+                using the available link attributes. This arrangement defines the routes the
                 nodes in the network will compute. For each policy there is a section
                 in the routing data message and also a separate routing table.
+            </t>
+        </section>
+        <section title="Link Attributes">
+            <t>
+                DMPR MUST know the link attributes(for each policy) of all links 
+                to the router. These
+                attributes can either be configured staticly by the network administrator or 
+                can be dynamically gathered from the attached modem devices. This RFC does not 
+                specify how the link information has to be gained. 
+                There is no specification which attributes must be given to the protocol (e.g 
+                bandwith, loss rate, latency,...). The requirement of attributes depends on 
+                the attributes ment to be used.
             </t>
         </section>
         <section title="Route Selection">
@@ -365,9 +369,6 @@
             </t>
         </section>
         <section title="Network Retraction" anchor="retraction">
-            <t>
-                TODO SEE dmpr-core#30
-            </t>
             <t>
                 Each network advertised in a message has an optional flag called
                 "retracted". This flag is set to true when a node no longer advertises
@@ -422,11 +423,6 @@
                 <c>true</c>
                 <c>illegal</c>
             </texttable>
-        </section>
-        <section title="Other...">
-            <t>TODO: how does the network handle: different network conditions,
-                disappearing and reappearing nodes,
-            </t>
         </section>
     </section>
     <section title="Message Format" anchor="messagefmt">
@@ -556,14 +552,14 @@
                     <!-- Identifier:8,Last:1,Packet offset:7,Payload:48 -->
                     <figure align="center">
                         <artwork><![CDATA[
-                            0                   1                   2                   3
-                            0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-                            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                            |   Identifier  |L|Packet offset|                               |
-                            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-                            |                            Payload                            |
-                            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                            ]]></artwork>
+                          0                   1                   2                   3
+                          0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+                          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                          |   Identifier  |L|Packet offset|                               |
+                          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+                          |                            Payload                            |
+                          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                          ]]></artwork>
                         <postamble>The Fragmentation Payload Header</postamble>
                     </figure>
                     <t>
@@ -887,9 +883,6 @@ link-attribute-id = *DIGIT
             </list>
           </t>
         </section>
-        <section title="Keep Alive">
-          <t>keepalive</t>
-        </section>
       </section>
       <section title="Requests" anchor="requests">
         <t>
@@ -902,9 +895,9 @@ link-attribute-id = *DIGIT
           When a node receives a request-full key in a message which either has
           the value true or its id is present in the array, it MUST
           <!--TODO MUST or SHOULD?-->
-          TODO: variant1: schedule the next message it sents to be a full
+          variant1: schedule the next message it sents to be a full
           message.
-          TODO: variant2: send a full update immediately and reset its message
+          variant2: send a full update immediately and reset its message
           interval timer, except when the last message already was a out-of-band
           full message, then it MUST/SHOULD schedule the next message according
           to the message interval timer to be a full message.
@@ -938,149 +931,6 @@ link-attribute-id = *DIGIT
       <t>The original specification of xml2rfc format is in <xref
           target="RFC2629">RFC&nbsp;2629</xref>.
       </t>
-    </section>
-
-    <section anchor="simple_list" title="Simple List">
-      <t>List styles: 'empty', 'symbols', 'letters', 'numbers', 'hanging',
-        'format'.
-      </t>
-
-      <t>
-        <list style="symbols">
-          <t>First bullet</t>
-
-          <t>Second bullet</t>
-        </list>
-        You can write text here as well.
-      </t>
-    </section>
-
-    <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
-
-    <?rfc needLines="8" ?>
-
-    <section anchor="nested_lists" title="More about Lists">
-      <t>Lists with 'hanging labels': the list item is indented the amount of
-        the hangIndent:
-        <list hangIndent="8" style="hanging">
-          <t hangText="short">With a label shorter than the hangIndent.</t>
-
-          <t hangText="fantastically long label">With a label longer than the
-            hangIndent.
-          </t>
-
-          <t hangText="vspace_trick"><vspace/>Forces the new
-            item to start on a new line.
-          </t>
-        </list>
-      </t>
-
-      <!-- It would be nice to see the next piece (12 lines) all on one page. -->
-
-      <?rfc needLines="12" ?>
-
-      <t>Simulating more than one paragraph in a list item using
-        &lt;vspace&gt;:
-        <list style="letters">
-          <t>First, a short item.</t>
-
-          <t>Second, a longer list item.
-            <vspace blankLines="1"/>
-            And
-            something that looks like a separate pararaph..
-          </t>
-        </list>
-      </t>
-
-      <t>Simple indented paragraph using the "empty" style:
-        <list
-            hangIndent="10" style="empty">
-          <t>The quick, brown fox jumped over the lazy dog and lived to fool
-            many another hunter in the great wood in the west.
-          </t>
-        </list>
-      </t>
-
-      <section title="Numbering Lists across Lists and Sections">
-        <t>Numbering items continuously although they are in separate
-          &lt;list&gt; elements, maybe in separate sections using the "format"
-          style and a "counter" variable.
-        </t>
-
-        <t>First list:
-          <list counter="reqs" hangIndent="4" style="format R%d">
-            <t>#1</t>
-
-            <t>#2</t>
-
-            <t>#3</t>
-          </list>
-          Specify the indent explicitly so that all the items line up
-          nicely.
-        </t>
-
-        <t>Second list:
-          <list counter="reqs" hangIndent="4" style="format R%d">
-            <t>#4</t>
-
-            <t>#5</t>
-
-            <t>#6</t>
-          </list>
-        </t>
-      </section>
-
-      <section title="Where the List Numbering Continues">
-        <t>List continues here.</t>
-
-        <t>Third list:
-          <list counter="reqs" hangIndent="4" style="format R%d">
-            <t>#7</t>
-
-            <t>#8</t>
-
-            <t>#9</t>
-
-            <t>#10</t>
-          </list>
-          The end of the list.
-        </t>
-      </section>
-    </section>
-
-    <section anchor="codeExample"
-             title="Example of Code or MIB Module To Be Extracted">
-      <figure>
-        <preamble>The &lt;artwork&gt; element has a number of extra attributes
-          that can be used to substitute a more aesthetically pleasing rendition
-          into HTML output while continuing to use the ASCII art version in the
-          text and nroff outputs (see the xml2rfc README for details). It also
-          has a "type" attribute. This is currently ignored except in the case
-          'type="abnf"'. In this case the "artwork" is expected to contain a
-          piece of valid Augmented Backus-Naur Format (ABNF) grammar. This will
-          be syntax checked by xml2rfc and any errors will cause a fatal error
-          if the "strict" processing instruction is set to "yes". The ABNF will
-          also be colorized in HTML output to highlight the syntactic
-          components. Checking of additional "types" may be provided in future
-          versions of xml2rfc.
-        </preamble>
-
-        <artwork><![CDATA[
-/**** an example C program */
-#include <stdio.h>
-void
-main(int argc, char *argv[])
-{
-   int i;
-   printf("program arguments are:\n");
-   for (i = 0; i < argc; i++) {
-       printf("%d: \"%s\"\n", i, argv[i]);
-   }
-   exit(0);
-} /* main */
-/* end of file */
-           ]]></artwork>
-      </figure>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
