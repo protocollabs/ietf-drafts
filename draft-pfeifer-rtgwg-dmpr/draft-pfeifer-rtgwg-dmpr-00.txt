@@ -4,8 +4,8 @@
 
 Internet Engineering Task Force                          H. Pfeifer, Ed.
 Internet-Draft                                              ProtocolLabs
-Intended status: Informational                               J. Schueler
-Expires: April 30, 2018                                 October 27, 2017
+Intended status: Informational                                S. Widmann
+Expires: April 27, 2019                                 October 24, 2018
 
 
                    Dynamic MultiPath Routing Protocol
@@ -14,12 +14,12 @@ Expires: April 30, 2018                                 October 27, 2017
 Abstract
 
    Dynamic MultiPath Routing (DMPR) is a loop free path vector routing
-   protocol with built-in support for policy based routing.  It has been
-   designed from the ground up to work at both low and high bandwidths -
-   even with high packet loss.  The aim was also to keep routing
-   overhead low and with a deterministic upper bound.  DMPR can be used
-   to manage huge networks with a similar feature set as BGPv4 minus the
-   concept of Autonomous Systems.
+   protocol with built-in support for policy based multipath routing.
+   It has been designed from scratch to work at both low and high
+   bandwidth networks - even with high packet loss.  The objective was
+   to keep routing overhead low and ensure a deterministic upper limit.
+   DMPR can be used to manage huge networks with a similar feature set
+   as BGPv4 except for the concept of Autonomous Systems.
 
 Status of This Memo
 
@@ -36,11 +36,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 30, 2018.
+   This Internet-Draft will expire on April 27, 2019.
 
 Copyright Notice
 
-   Copyright (c) 2017 IETF Trust and the persons identified as the
+   Copyright (c) 2018 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Pfeifer & Schueler       Expires April 30, 2018                 [Page 1]
+Pfeifer & Widmann        Expires April 27, 2019                 [Page 1]
 
-Internet-Draft          Dynamic MultiPath Routing           October 2017
+Internet-Draft          Dynamic MultiPath Routing           October 2018
 
 
    the Trust Legal Provisions and are provided without warranty as
@@ -73,62 +73,66 @@ Table of Contents
      2.1.  Message Information Base  . . . . . . . . . . . . . . . .   5
      2.2.  Routing Data  . . . . . . . . . . . . . . . . . . . . . .   5
      2.3.  Routing Table . . . . . . . . . . . . . . . . . . . . . .   5
-     2.4.  Networks  . . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Behavior  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     3.1.  Neighbor Detection  . . . . . . . . . . . . . . . . . . .   5
+     3.1.  Neighbor Detection  . . . . . . . . . . . . . . . . . . .   6
      3.2.  Interface Handling  . . . . . . . . . . . . . . . . . . .   6
      3.3.  Message Handling  . . . . . . . . . . . . . . . . . . . .   6
      3.4.  Policies  . . . . . . . . . . . . . . . . . . . . . . . .   6
-     3.5.  Route Selection . . . . . . . . . . . . . . . . . . . . .   6
-     3.6.  Network Retraction  . . . . . . . . . . . . . . . . . . .   7
-     3.7.  Other...  . . . . . . . . . . . . . . . . . . . . . . . .   7
-   4.  Message Format  . . . . . . . . . . . . . . . . . . . . . . .   7
-     4.1.  Header  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-       4.1.1.  Preamble  . . . . . . . . . . . . . . . . . . . . . .   8
-       4.1.2.  Extension Header  . . . . . . . . . . . . . . . . . .   8
-       4.1.3.  Payload . . . . . . . . . . . . . . . . . . . . . . .   9
-         4.1.3.1.  Payload: Keep-Alive . . . . . . . . . . . . . . .   9
-         4.1.3.2.  Payload: Compressed JSON  . . . . . . . . . . . .   9
-         4.1.3.3.  Payload: Fragmentation  . . . . . . . . . . . . .   9
-     4.2.  JSON Payload  . . . . . . . . . . . . . . . . . . . . . .  10
-       4.2.1.  Full Update . . . . . . . . . . . . . . . . . . . . .  13
-       4.2.2.  Partial Update  . . . . . . . . . . . . . . . . . . .  14
-       4.2.3.  Keep Alive  . . . . . . . . . . . . . . . . . . . . .  15
-     4.3.  Requests  . . . . . . . . . . . . . . . . . . . . . . . .  15
+     3.5.  Link Attributes . . . . . . . . . . . . . . . . . . . . .   7
+     3.6.  Route Selection . . . . . . . . . . . . . . . . . . . . .   7
+     3.7.  Network Retraction  . . . . . . . . . . . . . . . . . . .   7
+   4.  Message Format  . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.1.  Header  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+       4.1.1.  Preamble  . . . . . . . . . . . . . . . . . . . . . .   9
+       4.1.2.  Extension Header  . . . . . . . . . . . . . . . . . .   9
+       4.1.3.  Payload . . . . . . . . . . . . . . . . . . . . . . .  10
+         4.1.3.1.  Payload: Keep-Alive . . . . . . . . . . . . . . .  10
+         4.1.3.2.  Payload: Compressed JSON  . . . . . . . . . . . .  10
+         4.1.3.3.  Payload: Fragmentation  . . . . . . . . . . . . .  10
+     4.2.  JSON Payload  . . . . . . . . . . . . . . . . . . . . . .  11
+       4.2.1.  Full Update . . . . . . . . . . . . . . . . . . . . .  14
+       4.2.2.  Partial Update  . . . . . . . . . . . . . . . . . . .  15
+     4.3.  Requests  . . . . . . . . . . . . . . . . . . . . . . . .  16
      4.4.  Reflections . . . . . . . . . . . . . . . . . . . . . . .  16
-   5.  Optional Features . . . . . . . . . . . . . . . . . . . . . .  16
-     5.1.  Asymmetric Link Detection . . . . . . . . . . . . . . . .  16
-     5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .  16
-   6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .  16
-   7.  Simple List . . . . . . . . . . . . . . . . . . . . . . . . .  16
-   8.  More about Lists  . . . . . . . . . . . . . . . . . . . . . .  17
-     8.1.  Numbering Lists across Lists and Sections . . . . . . . .  17
-     8.2.  Where the List Numbering Continues  . . . . . . . . . . .  18
-   9.  Example of Code or MIB Module To Be Extracted . . . . . . . .  18
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  19
+   5.  Optional Features . . . . . . . . . . . . . . . . . . . . . .  17
+     5.1.  Asymmetric Link Detection . . . . . . . . . . . . . . . .  17
+     5.2.  Full Only Mode  . . . . . . . . . . . . . . . . . . . . .  17
+   6.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .  17
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  17
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  18
+   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  18
+     A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  18
 
 
 
-Pfeifer & Schueler       Expires April 30, 2018                 [Page 2]
+Pfeifer & Widmann        Expires April 27, 2019                 [Page 2]
 
-Internet-Draft          Dynamic MultiPath Routing           October 2017
+Internet-Draft          Dynamic MultiPath Routing           October 2018
 
 
-   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
-   12. Security Considerations . . . . . . . . . . . . . . . . . . .  20
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  20
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  20
-   Appendix A.  Policies . . . . . . . . . . . . . . . . . . . . . .  21
-     A.1.  Low Loss Policy . . . . . . . . . . . . . . . . . . . . .  21
-     A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  21
-   Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  21
-   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  21
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
+     A.2.  High Bandwidth Policy . . . . . . . . . . . . . . . . . .  18
+   Appendix B.  Tuneables  . . . . . . . . . . . . . . . . . . . . .  18
+   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
-   this is dmpr, why we built it and what it can be used for
+   Todays mobile wireless networks do have a diversity of requirements
+   on the wireless links.  To meet this requirements, it is possible to
+   attach multiple network access technologies on the router and select,
+   depending on the CoS of the packet, over which wireless link the
+   packet is sent.  This is the main idea of policy based multipath
+   routing.  The established routing protocols do not support the use of
+   multiple access technologies on a single router.  To tackle this
+   issues, DMPR as been developed as a protocol for policy based
+   multipath routing in and between mobile networks, which consist of
+   multiple wireless links with different characteristics, thus
+   providing the possibility to calculate multiple routing tables and
+   maintain the best paths for multiple policies.
 
 1.1.  Requirements Language
 
@@ -158,28 +162,27 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       A Path in DMPR is one or more successive, directly connected links
       which define a loop-free path from one node to another.
 
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                 [Page 3]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
+
    Policy
       A Policy describes an order relation over a set of paths using the
       link attributes of these paths.  Note that to guarantee loop-free
-
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                 [Page 3]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
       properties this ordering function MUST be commutative and
       associative.  Policy examples can be found in Appendix A
 
 1.3.  Organization of this Document
 
    Section 2 describes the information every node has and gets and how
-   it should proceed with that.  Implementations are not required to
-   strictly implement them as described here but the same functionality
-   must be provided.  Section 3 describes the behavior of the protocol
-   in different scenarios and how it achieves particular features.
+   it should handle it.  Implementations are not required to strictly
+   implement them as described here, but the same functionality must be
+   provided.  Section 3 describes the behavior of the protocol in
+   different scenarios and how it achieves particular features.
    Section 4 describes the message format in detail.  Section 5
    describes optional features which can be implemented to improve or
    extend DMPR but are not required for the basic functionality of
@@ -196,7 +199,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    neighbors.  This message includes the best path to each node known by
    this router.  A router receiving this message adds itself to all
    these paths, chooses the best path to each node among all it got from
-   its neighbors and itself advertises these paths via multicast
+   its neighbors and advertises these paths itself via multicast
    messages.  This is standard procedure in a Path-Vector Routing
    Protocol.  In DMPR the paths are further separated by a policy,
    therefore it is possible to have more than one path to each node.
@@ -215,35 +218,39 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    bandwidth, latency or cost.  Furthermore, this metric is only known
    locally or, for example in the case of BGP-4, where external paths
    can be marked with a local preference for internal peers, to a small
-   subset of the network.  In DMPR a policy is a globally defined
-   function which provides a ordering over paths.  For this the policy
 
 
 
-
-Pfeifer & Schueler       Expires April 30, 2018                 [Page 4]
+Pfeifer & Widmann        Expires April 27, 2019                 [Page 4]
 
-Internet-Draft          Dynamic MultiPath Routing           October 2017
+Internet-Draft          Dynamic MultiPath Routing           October 2018
 
 
-   has all link attributes of each path at its disposal and has a higher
-   control over which path it chooses.
+   subset of the network.  In DMPR a policy is a globally defined
+   function which provides a ordering over paths.  For this reason, the
+   policy has all link attributes of each path at its disposal and
+   therefore has a higher control over which path it chooses.
 
 2.  Data Structures
+
+   To maintain the routing data, all data extracted from the received
+   routing messages is organized in different data structures.  These
+   data structures are used for calculation of the routes and creation
+   of the routing tables.
 
 2.1.  Message Information Base
 
    Every message received by a node is saved in the Message Information
    Base.  This data structure is the basis for all subsequently emitted
    routing messages and the routing table.  The Message Information Base
-   contains for each neighbor the latest (by sequence number) received
-   message.  Each entry is controlled by a hold time and is purged after
-   the hold time expires.  This timer is reset as soon as a new valid
-   message from this neighbor is received.  This data structure contains
-   potentially duplicate or conflicting data as many neighbors send
-   their paths and subnet information for all nodes they know of.  This
-   is intended and required as any message may be deleted at almost any
-   time when its hold timer expires.
+   contains the latest (by sequence number) received message for each
+   neighbor.  Each entry is controlled by a hold timer and is purged
+   after the hold timer expires.  This timer is reset as soon as a new
+   valid message from this neighbor is received.  This data structure
+   contains potentially duplicate or conflicting data as many neighbors
+   send their paths and subnet information for all nodes they know of.
+   This is intended and required as any message may be deleted at almost
+   any time when its hold timer expires.
 
 2.2.  Routing Data
 
@@ -253,34 +260,34 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    source of truth for the routing table and routing message generation.
    It contains the best path to each known node grouped by policy.
    Furthermore the advertised subnets from each node are combined while
-   following the network retraction rules (see Section 3.6).
+   following the network retraction rules (see Section 3.7).
 
 2.3.  Routing Table
 
-   The Routing Table finally contains the best path to each known subnet
-   grouped by policy.  This table then can be inserted into the
-   underlying OS's routing table.
-
-2.4.  Networks
-
-   The Networks list contains all known and all known retracted
-   networks.  Each network is accompanied by a hold timer.  TODO!! see
-   dmpr-core#30
+   The Routing Table contains the best path to each known subnet grouped
+   by policy.  This table is ment to be inserted into the underlying
+   Operating System's routing table.
 
 3.  Behavior
 
+
+
+
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                 [Page 5]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
+
 3.1.  Neighbor Detection
 
-   Each node listens on the multicast address TODO.  Periodically, after
-   a defined message interval + jitter, a node sends out message which
+   Each node listens to a multicast address.  This multicast address
+   SHOULD be configurable.  Periodically, after a defined message
+   interval + jitter, a node sends out its routing message, which
    includes:
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                 [Page 5]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
 
    o  All nodes it has a path to, including the networks they advertise
 
@@ -288,8 +295,8 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
    o  The attributes of the links between the paths.
 
-   When a node receives a message it deduces a connection and therefore
-   a path to the sender via the interface that message came in.  Through
+   When a node receives a message, it deduces a connection and therefore
+   a path to the sender via the interface that message came in.  With
    this mechanism the path to a node propagates through the network.  To
    detect disconnected links or nodes getting removed or out of range, a
    node assigns every received message to a hold timer and purges this
@@ -298,12 +305,12 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
 3.2.  Interface Handling
 
-   In DMPR all interfaces which are registered with the DMPR daemon are
-   treated completely separate from each other.  Routing messages are
-   sent over each one individually.  This ensures that all possibly
+   In DMPR all interfaces, which are registered with the DMPR daemon,
+   are treated completely separate from each other.  Routing messages
+   are sent over each one individually.  This ensures that all possibly
    accessible neighbors are reachable.  The Message Information Base
    (seeSection 2.1) is grouped by interface.  Therefore nodes can detect
-   links over each interface individually.
+   links on each interface individually.
 
 3.3.  Message Handling
 
@@ -318,29 +325,40 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 3.4.  Policies
 
    To support routing different traffic types over different routes,
-   DMPR supports policies.  A policy computes a ordering over paths
-   using the available link attributes.  This ordering defines the
-   routes the nodes in the network will compute.  For each policy there
-   is a section in the routing data message and also a separate routing
-   table.
-
-3.5.  Route Selection
-
-   how do we select the best route
+   DMPR supports policies.  A policy computes an arrangement of the
+   possible paths using the available link attributes.  This arrangement
+   defines the routes the nodes in the network will compute.  For each
+   policy there is a section in the routing data message and also a
+   separate routing table.
 
 
 
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                 [Page 6]
+Pfeifer & Widmann        Expires April 27, 2019                 [Page 6]
 
-Internet-Draft          Dynamic MultiPath Routing           October 2017
+Internet-Draft          Dynamic MultiPath Routing           October 2018
 
 
-3.6.  Network Retraction
+3.5.  Link Attributes
 
-   TODO SEE dmpr-core#30
+   DMPR MUST know the link attributes(for each policy) of all links to
+   the router.  These attributes can either be configured staticly by
+   the network administrator or can be dynamically gathered from the
+   attached modem devices.  This RFC does not specify how the link
+   information has to be gained.  There is no specification which
+   attributes must be given to the protocol (e.g bandwith, loss rate,
+   latency,...).  The requirement of attributes depends on the
+   attributes ment to be used.
+
+3.6.  Route Selection
+
+   The calculation of the best route MUST be defined for each policy
+   seperately.  Simple policies for example do only consider a single
+   link metric (like bandwidth or loss rate) for the calculation of the
+   best route.  Combined policies might use a combination of multiple
+   link metrics.  The route selection mechanism is part of a policies
+   definition.
+
+3.7.  Network Retraction
 
    Each network advertised in a message has an optional flag called
    "retracted".  This flag is set to true when a node no longer
@@ -348,6 +366,33 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    flag to true MUST be the originally advertising node.  A set
    retracted flag always supersedes an unset flag.  Networks are
    forwarded with this ruleset:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                 [Page 7]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
 
    +-------------+------------+---------------+------------------------+
    |   Network   |  Network   |  Network set  | Action to take         |
@@ -372,11 +417,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    |     true    |    true    |      true     | illegal                |
    +-------------+------------+---------------+------------------------+
 
-3.7.  Other...
-
-   TODO: how does the network handle: different network conditions,
-   disappearing and reappearing nodes,
-
 4.  Message Format
 
 4.1.  Header
@@ -384,15 +424,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    A DMPR packet consists of a preamble, followed by zero or more
    Extension Headers followed by zero or one Payload.  Each Extension
    Header and Payload is defined by a Type.
-
-
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                 [Page 7]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
 
          +---------+--------------------------------------------+
          |   Type  | Use                                        |
@@ -407,15 +438,27 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
                           Table 1: Possible Types
 
+
+
+
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                 [Page 8]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
+
 4.1.1.  Preamble
 
    The preamble of a DMPR packet is as follows
 
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |Magic| Reserved|    NextType   |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    0                   1                   2                   3
+                    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    |Magic| Reserved|    NextType   |
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                          The preamble of a packet
 
@@ -433,22 +476,15 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    An Extension Header consists of the type immediately following this
    header, a length specifier, and the Extension Header data.
 
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |    NextType   |     Length    |                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-   |                                                               |
-   +                              Data                             +
-   |                                                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                 [Page 8]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
+                    0                   1                   2                   3
+                    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                    |    NextType   |     Length    |                               |
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+                    |                                                               |
+                    +                              Data                             +
+                    |                                                               |
+                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    NextType
       8-bit unsigend integer: The type of the immediately following
@@ -462,6 +498,13 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    Data
       The header-specific data according to length.  The encoding and
       type is specified by the header itself.
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                 [Page 9]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
 
 4.1.3.  Payload
 
@@ -495,24 +538,13 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    A packet greater than the MTU between two nodes SHOULD be fragmented
    using the fragmentation payload.
 
-
-
-
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                 [Page 9]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Identifier  |L|Packet offset|                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-   |                            Payload                            |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                          0                   1                   2                   3
+                          0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+                          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                          |   Identifier  |L|Packet offset|                               |
+                          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+                          |                            Payload                            |
+                          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                      The Fragmentation Payload Header
 
@@ -522,6 +554,14 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       eliminate the possibility of a collision.
 
    L(ast)
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 10]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
+
       Last, set to 1 if this packet has the highest packet offset in
       this fragmentation collection, i.e. is the last packet.
 
@@ -554,14 +594,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
    Augmented requirements language for this section:
 
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 10]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
    REQUIRED
       This field is required, the sending node MUST include it.
 
@@ -574,6 +606,18 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       other functionality.  A sending node can choose to omit it and a
       receiving node MUST be able to work without this field.
 
+
+
+
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 11]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
+
    General Message Structure
 
    {
@@ -581,7 +625,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
      "seq": <SEQUENCE_NUMBER>,
      "type": <TYPE>,
      "partial-base": <SEQUENCE_NUMBER>,
-
      "addr-v4": <IPv4_ADDRESS>,
      "addr-v6": <IPv6_ADDRESS>,
      "networks": {
@@ -610,29 +653,26 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
      "link-attributes": {
        <LINK_ATTRIBUTE_ID>: {
          <LINK_ATTRIBUTE>: <METRIC>
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 11]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
        }
      },
-
      "request-full": union(true, [<NODE_ID>, ...]),
-
      "reflect": {
        <REFLECT_DATA>: <DATA>
      }
-
      "reflected": {
        <NODE_ID>: {
          <REFLECT_DATA>: <DATA>
        }
      }
    }
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 12]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
 
    Key and value description:
 
@@ -665,17 +705,8 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       object: The networks advertised by this node.  The keys are valid
       IPv4/IPv6 Network identifications with subnet prefix.  If the
       value of a network key is a object itself and the key "retracted"
-
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 12]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
       of this object is set to true, the network MUST be handled as
-      retracted, see Section 3.6
+      retracted, see Section 3.7
 
    routing-data
       object: A path to each reachable node for each policy.  POLICY is
@@ -689,6 +720,16 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    link-attribute-id = *DIGIT
 
    node-data
+
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 13]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
+
       object: a list of networks for each reachable node defined in
       "routing-data". "networks" is handled like "networks" defined
       above
@@ -721,15 +762,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
 
    A full update SHOULD replace all data from the sending node in the
    receivers Message Information Base, it MUST NOT require any previous
-
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 13]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
    knowledge of the sender by the receiver.  The following keys are
    specified:
 
@@ -746,6 +778,13 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    networks
       object, REQUIRED if not empty: The networks advertised by this
       node, see above
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 14]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
 
    routing-data
       object, REQUIRED if not empty: The paths advertised by the sender,
@@ -777,15 +816,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    The following keys are specified:
 
    addr-v4
-
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 14]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
       string, OPTIONAL: The IPv4 address of the sending node over the
       link this packet has been sent, only included if it has not
       changed.  If it became invalid, the value is null.
@@ -803,6 +833,14 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       entries replace the base message entries on a per NODE_ID basis.
       If a entry has been deleted, the value for the specific NODE_ID is
       null.
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 15]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
 
    routing-data
       object, OPTIONAL: The paths advertised by the sender, grouped by
@@ -822,10 +860,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
       per-message basis and MUST NOT replace link-attribute entries in
       the base message.
 
-4.2.3.  Keep Alive
-
-   keepalive
-
 4.3.  Requests
 
    When a node is not able to apply a partial update or just joined a
@@ -834,20 +868,12 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    NODE_IDs from which a full message is needed or may be the boolean
    value true, to indicate that a full message from every neighbor is
    required.  When a node receives a request-full key in a message which
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 15]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
    either has the value true or its id is present in the array, it MUST
-   TODO: variant1: schedule the next message it sents to be a full
-   message.  TODO: variant2: send a full update immediately and reset
-   its message interval timer, except when the last message already was
-   a out-of-band full message, then it MUST/SHOULD schedule the next
-   message according to the message interval timer to be a full message.
+   variant1: schedule the next message it sents to be a full message.
+   variant2: send a full update immediately and reset its message
+   interval timer, except when the last message already was a out-of-
+   band full message, then it MUST/SHOULD schedule the next message
+   according to the message interval timer to be a full message.
 
 4.4.  Reflections
 
@@ -861,6 +887,16 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    neighbors, every 2-hop neighbor becomes aware of the reflected data
    of a node.  This fact is not used in this RFC but may be used in
    extensions of this protocol.
+
+
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 16]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
 
 5.  Optional Features
 
@@ -877,174 +913,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    The original specification of xml2rfc format is in RFC 2629
    [RFC2629].
 
-7.  Simple List
-
-   List styles: 'empty', 'symbols', 'letters', 'numbers', 'hanging',
-   'format'.
-
-   o  First bullet
-
-   o  Second bullet
-
-   You can write text here as well.
-
-
-
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 16]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
-8.  More about Lists
-
-   Lists with 'hanging labels': the list item is indented the amount of
-   the hangIndent:
-
-   short   With a label shorter than the hangIndent.
-
-   fantastically long label  With a label longer than the hangIndent.
-
-   vspace_trick
-           Forces the new item to start on a new line.
-
-   Simulating more than one paragraph in a list item using <vspace>:
-
-   a.  First, a short item.
-
-   b.  Second, a longer list item.
-
-       And something that looks like a separate pararaph..
-
-   Simple indented paragraph using the "empty" style:
-
-      The quick, brown fox jumped over the lazy dog and lived to fool
-      many another hunter in the great wood in the west.
-
-8.1.  Numbering Lists across Lists and Sections
-
-   Numbering items continuously although they are in separate <list>
-   elements, maybe in separate sections using the "format" style and a
-   "counter" variable.
-
-   First list:
-
-   R1  #1
-
-   R2  #2
-
-   R3  #3
-
-   Specify the indent explicitly so that all the items line up nicely.
-
-   Second list:
-
-   R4  #4
-
-   R5  #5
-
-   R6  #6
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 17]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
-8.2.  Where the List Numbering Continues
-
-   List continues here.
-
-   Third list:
-
-   R7  #7
-
-   R8  #8
-
-   R9  #9
-
-   R10 #10
-
-   The end of the list.
-
-9.  Example of Code or MIB Module To Be Extracted
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 18]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
-   The <artwork> element has a number of extra attributes that can be
-   used to substitute a more aesthetically pleasing rendition into HTML
-   output while continuing to use the ASCII art version in the text and
-   nroff outputs (see the xml2rfc README for details).  It also has a
-   "type" attribute.  This is currently ignored except in the case
-   'type="abnf"'.  In this case the "artwork" is expected to contain a
-   piece of valid Augmented Backus-Naur Format (ABNF) grammar.  This
-   will be syntax checked by xml2rfc and any errors will cause a fatal
-   error if the "strict" processing instruction is set to "yes".  The
-   ABNF will also be colorized in HTML output to highlight the syntactic
-   components.  Checking of additional "types" may be provided in future
-   versions of xml2rfc.
-
-
-   /**** an example C program */
-
-   #include <stdio.h>
-
-   void
-   main(int argc, char *argv[])
-   {
-      int i;
-
-      printf("program arguments are:\n");
-      for (i = 0; i < argc; i++) {
-          printf("%d: \"%s\"\n", i, argv[i]);
-      }
-
-      exit(0);
-   } /* main */
-
-   /* end of file */
-
-
-10.  Acknowledgements
+7.  Acknowledgements
 
    This template was derived from an initial version written by Pekka
    Savola and contributed by him to the xml2rfc project.
@@ -1052,35 +921,38 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
    This document is part of a plan to make xml2rfc indispensable
    [DOMINATION].
 
-11.  IANA Considerations
+8.  IANA Considerations
 
    This memo includes no request to IANA.
 
    All drafts are required to have an IANA considerations section (see
    Guidelines for Writing an IANA Considerations Section in RFCs
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 19]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
    [RFC5226] for a guide).  If the draft does not require IANA to do
    anything, the section contains an explicit statement that this is the
    case (as above).  If there are no requirements for IANA, the section
    will be removed during conversion into an RFC by the RFC Editor.
 
-12.  Security Considerations
+9.  Security Considerations
 
    All drafts are required to have a security considerations section.
    See RFC 3552 [RFC3552] for a guide.
 
-13.  References
+10.  References
 
-13.1.  Normative References
+10.1.  Normative References
 
    [min_ref]  authSurName, authInitials., "Minimal Reference", 2006.
+
+
+
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 17]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1091,7 +963,7 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
               DOI 10.17487/RFC7493, March 2015,
               <https://www.rfc-editor.org/info/rfc7493>.
 
-13.2.  Informative References
+10.2.  Informative References
 
    [DOMINATION]
               Mad Dominators, Inc., "Ultimate Plan for Taking Over the
@@ -1111,17 +983,6 @@ Internet-Draft          Dynamic MultiPath Routing           October 2017
               DOI 10.17487/RFC5226, May 2008,
               <https://www.rfc-editor.org/info/rfc5226>.
 
-
-
-
-
-
-
-Pfeifer & Schueler       Expires April 30, 2018                [Page 20]
-
-Internet-Draft          Dynamic MultiPath Routing           October 2017
-
-
 Appendix A.  Policies
 
    many exchangeable policies
@@ -1138,6 +999,16 @@ Appendix B.  Tuneables
 
    The different magic values and what they affect, how they could/
    should be set
+
+
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 18]
+
+Internet-Draft          Dynamic MultiPath Routing           October 2018
+
 
 Appendix C.  Examples
 
@@ -1156,7 +1027,7 @@ Authors' Addresses
    URI:   http://www.jauu.net/
 
 
-   Joshua Schueler
+   Sebastian Widmann
 
 
 
@@ -1173,4 +1044,21 @@ Authors' Addresses
 
 
 
-Pfeifer & Schueler       Expires April 30, 2018                [Page 21]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pfeifer & Widmann        Expires April 27, 2019                [Page 19]
