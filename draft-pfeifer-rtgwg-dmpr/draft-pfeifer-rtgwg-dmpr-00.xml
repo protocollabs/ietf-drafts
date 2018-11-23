@@ -1023,9 +1023,6 @@ link-attribute-id = *DIGIT
         Savola and contributed by him to the xml2rfc project.
       </t>
 
-      <t>This document is part of a plan to make xml2rfc indispensable <xref
-          target="DOMINATION"></xref>.
-      </t>
     </section>
 
     <!-- Possibly a 'Contributors' section ... -->
@@ -1096,29 +1093,30 @@ link-attribute-id = *DIGIT
 
       &RFC5226;
 
-      <!-- A reference written by by an organization not a person. -->
-
-      <reference anchor="DOMINATION"
-                 target="http://www.example.com/dominator.html">
-        <front>
-          <title>Ultimate Plan for Taking Over the World</title>
-
-          <author>
-            <organization>Mad Dominators, Inc.</organization>
-          </author>
-
-          <date year="1984"/>
-        </front>
-      </reference>
     </references>
 
     <section title="Policies" anchor="appendix.policies">
       <t>many exchangeable policies</t>
       <section title="Low Loss Policy">
-        <t>use path with lowest overall loss</t>
+        <t>
+            use path with lowest overall loss. Overall loss is the accumulation of
+            the loss rates of all hops to a destination.
+            Required link attributes:
+            <list style="symbols">
+                <t> Loss rate </t>
+            </list>
+        </t>
       </section>
       <section title="High Bandwidth Policy">
-        <t>use path with highest bandwidth</t>
+        <t>
+            use path with highest bandwidth
+            In multihop topologies, the overall bandwith is the minimum of the bandwidths
+            between the hops to a destination.
+            Required link attributes:
+            <list style="symbols">
+                <t> Bandwidth </t>
+            </list>
+        </t>
       </section>
     </section>
     <section title="Tuneables" anchor="appendix.constants">
