@@ -123,7 +123,7 @@
             even with high packet loss. The objective was to keep routing overhead
             low and ensure a deterministic upper limit. DMPR can be used to manage
             huge networks with a similar feature set as BGPv4 except for the concept of
-            Autonomous Systems.
+            autonomous systems.
         </t>
     </abstract>
 </front>
@@ -131,16 +131,16 @@
 <middle>
     <section title="Introduction">
         <t>
-            Todays mobile wireless networks do have a diversity of requirements on
-            the wireless links. To meet this requirements, it is possible to attach 
+            Todays mobile wireless networks have a diversity of requirements on
+            the wireless links. To meet these requirements, it is possible to attach 
             multiple network access technologies on the router and select, depending
             on the CoS of the packet, over which wireless link the packet is sent.
             This is the main idea of policy based multipath routing. The established
             routing protocols do not support the use of multiple access technologies
             on a single router. To tackle this issues, DMPR as been developed as a 
             protocol for policy based multipath routing in and between mobile networks,
-            which consist of multiple wireless links with different characteristics,
-            thus providing the possibility to calculate multiple routing tables and 
+            which consist of multiple wireless links with different characteristics.
+            DMPR makes it possible to calculate multiple routing tables and 
             maintain the best paths for multiple policies.
         </t>
         <section title="Requirements Language">
@@ -151,23 +151,23 @@
             </t>
         </section>
         <section title="Terminology" anchor="terminology">
-            <t>The following list describes the Terminology used in this RFC</t>
+            <t>The following list describes the terminology used in this RFC</t>
             <t>
                 <list style="hanging">
                     <t hangText="Router, Node">
                         <vspace/>
-                        A Router (or a Node) are the routing entities of a network which
-                        run an implementation of DMPR, have zero or more networks attached
+                        A router (or a node) is a routing entity of a network. It
+                        runs an implementation of DMPR, has zero or more networks attached
                         and at least one link to another router.
                     </t>
                     <t hangText="Link">
                         <vspace/>
-                        A Link is the direct connection between two interfaces of two
+                        A link is the direct connection between two interfaces of two
                         distinct routers.
                     </t>
                     <t hangText="Link Attribute">
                         <vspace/>
-                        A Link Attribute is a basic attribute of a link, for example the
+                        A link attribute is a basic attribute of a link, for example the
                         maximum bandwidth, the average packet loss or the cost of the
                         link.
                     </t>
@@ -178,7 +178,7 @@
                     </t>
                     <t hangText="Policy">
                         <vspace/>
-                        A Policy describes an order relation over a set of paths using the
+                        A policy describes an order relation over a set of paths using the
                         link attributes of these paths. Note that to guarantee loop-free
                         properties this ordering function MUST be commutative and
                         associative. Policy examples can be found in
@@ -187,20 +187,18 @@
                 </list>
             </t>
         </section>
-        <section title="Organization of this Document">
+        <section title="Organization of this document">
             <t>
                 <xref target="datastructures"/>
                 describes the information every node has and gets and how it should
-                handle it. Implementations are not required to strictly
-                implement them as described here, but the same functionality must be
-                provided.
+                handle this information.
                 <xref target="behaviour"/>
                 describes the behavior of the protocol in different scenarios and how
                 it achieves particular features.
                 <xref target="messagefmt"/>
                 describes the message format in detail.
                 <xref target="optionalfeatures"/>
-                describes optional features which can be implemented to improve or
+                describes optional features that can be implemented to improve or
                 extend DMPR but are not required for the basic functionality of
                 propagating routing information.
             </t>
@@ -211,7 +209,7 @@
                 lists all constants used in this RFC where some of them are
                 configurable.
                 <xref target="appendix.examples"/>
-                shows a few simple examples of how DMPR behaves in specific network
+                shows a few simple examples of how DMPR behaves under specific network
                 conditions.
             </t>
         </section>
@@ -221,9 +219,9 @@
                 neighbors. This message includes the best path to each node known by
                 this router. A router receiving this message adds itself to all these
                 paths,
-                chooses the best path to each node among all it got from its neighbors
+                chooses the best path to each node among all those it got from its neighbors
                 and advertises these paths itself via multicast messages. This is
-                standard procedure in a Path-Vector Routing Protocol. In DMPR the
+                standard procedure in a path-vector routing protocol. In DMPR the
                 paths are further separated by a policy, therefore it is possible to
                 have more than one path to each node. Also included in the message are
                 all attributes of this path so that the receiving node can make
@@ -234,18 +232,18 @@
                 latency.
             </t>
         </section>
-        <section title="Distinction from other Routing Protocols">
+        <section title="Distinction from other routing protocols">
             <t>
                 Traditionally, routing protocols find the best path using a scalar
                 metric.
                 This metric may be a simple constant stating the preference of the
-                link or may be a computed metric using several factors like bandwidth,
+                link or may be a computed metric using several factors such as bandwidth,
                 latency or cost. Furthermore, this metric is only known locally or,
                 for example in the case of BGP-4, where external paths can be marked
                 with a local preference for internal peers, to a small subset of the
                 network.
-                In DMPR a policy is a globally defined function which provides a
-                ordering over paths. For this reason, the policy has all link attributes of
+                In DMPR a policy is a globally defined function that defines a function how to
+                determinate the best path. For this reason, the policy has all link attributes of
                 each path at its disposal and therefore has a higher control over which path it
                 chooses.
             </t>
@@ -254,8 +252,8 @@
     <section title="Data Structures" anchor="datastructures">
         <t>
             To maintain the routing data, all data extracted from the received routing messages
-            is organized in different data structures. These data structures are used for calculation
-            of the routes and creation of the routing tables.
+            is organized in different data structures. These data structures are used for calculating
+            the routes and creating of the routing tables.
         </t>
         <section title="Message Information Base" anchor="mib">
             <t>
@@ -267,8 +265,8 @@
                 timer and is purged after the hold timer expires. This timer is reset as
                 soon as a new valid message from this neighbor is received.
                 This data structure contains potentially duplicate or conflicting data
-                as many neighbors send their paths and subnet information for all
-                nodes they know of. This is intended and required as any message may
+                since many neighbors send their paths and subnet information for all
+                nodes they know of. This is intended and required because any message may
                 be deleted at almost any time when its hold timer expires.
             </t>
         </section>
@@ -286,9 +284,9 @@
         </section>
         <section title="Routing Table">
             <t>
-                The Routing Table contains the best path to each known subnet
-                grouped by policy. This table is ment to be inserted into the underlying
-                Operating System's routing table.
+                The routing table contains the best path to each known subnet
+                grouped by policy. This table is meant to be inserted into the underlying
+                operating system's routing table.
             </t>
         </section>
     </section>
@@ -313,8 +311,8 @@
                 hold timer expires, the message MUST be deleted from the Message Information
                 Base. The timeout SHOULD be a multiple of the routing message interval.
                 
-                Asymmetric links are handled with a feature called reflection, this is
-                described in
+                Asymmetric links are handled with a feature called reflection, which is 
+                described in 
                 <xref target="reflections"/>.
             </t>
         </section>
@@ -330,12 +328,12 @@
         		Message Information Base is purged due to timeouts.
         	</t>
         </section>
-        <section title="Interface Handling">
+        <section title="Interface handling">
             <t>
-                In DMPR all interfaces, which are registered with the DMPR daemon, are
+                In DMPR all interfaces that are registered with the DMPR daemon are
                 treated completely separate from each other. Routing messages are sent
                 over each one individually. This ensures that all possibly accessible
-                neighbors are reachable. The Message Information Base (see<xref
+                neighbors are reachable. The message information base (see<xref
                     target="mib"/>) is grouped by interface. Therefore nodes can detect
                 links on each interface individually.
             </t>
@@ -344,11 +342,11 @@
             <t>
                 Each message received by a neighbor is saved in the Message
                 Information Base (see<xref target="mib"/>). With this message a hold
-                timer is set which purges the messages after the given time.
+                timer is set that purges the messages after the given time.
                 To improve the message size a node can choose to only send partial
                 updates (i.e. differential, only the changes since the last full
                 update). To support this a node has to retain the a version from the
-                last full message to be able to apply the new partial message.
+                last full message so it can apply the new partial message.
             </t>
         </section>
         <section title="Policies">
@@ -368,28 +366,28 @@
                 attributes can either be configured staticly by the network administrator or 
                 can be dynamically gathered from the attached modem devices. This RFC does not 
                 specify how the link information has to be gained. 
-                There is no specification which attributes must be given to the protocol (e.g 
-                bandwith, loss rate, latency,...). The requirement of attributes depends on 
-                the policies ment to be used.
+                There is no specification defining which attributes must be given to the protocol (e.g 
+                bandwidth, loss rate, latency). The requirement of attributes depends on 
+                the policies meant to be used.
             </t>
         </section>
-        <section title="Route Selection">
+        <section title="Route selection">
             <t>
-                The calculation of the best route MUST be defined for each policy seperately.
-                Simple policies for example do only consider a single link metric (like 
+                The calculation of the best route MUST be defined for each policy separately.
+                For example simple policies only consider a single link metric (such as 
                 bandwidth or loss rate) for the calculation of the best route.
                 Combined policies might use a combination of multiple link metrics.
-                The route selection mechanism is part of a policies definition and therefore 
+                The route selection mechanism is part of a policy's definition and therefore 
                 can be individually defined.
             </t>
         </section>
         <section title="Routing Data calculation">
             <t>
             	For every reachable destination, the routing data is calculated for all
-            	defined policies, using the policies specifig Route Selection mechanism.
+            	defined policies using the policy's specific route selection mechanism.
             	As a result, there MUST be a seperate routing table for every defined policy.
             	Whenever new crucial information is received, the routing data MUST be 
-            	recalculated. Information which causes a recalculation of the routing data can
+            	recalculated. Information that causes a recalculation of the routing data can
             	be:
             	<list style="symbols">
             		<t> A destination is reachable via a new interface </t>
@@ -400,7 +398,7 @@
             	</list>
         	</t>
         </section>
-        <section title="Network Retraction" anchor="retraction">
+        <section title="Network retraction" anchor="retraction">
             <t>
                 Each network advertised in a message has an optional flag called
                 "retracted". This flag is set to true when a node no longer advertises
@@ -514,8 +512,8 @@
         <section title="Header">
             <t>
                 A DMPR packet consists of a preamble, followed by zero or more
-                Extension Headers followed by zero or one Payload. Each Extension
-                Header and Payload is defined by a Type.
+                extension headers followed by zero or one payload. Each extension
+                header and payload is defined by a type.
             </t>
             <texttable anchor="nexttype_table" title="Possible Types">
                 <ttcol align="center">Type</ttcol>
@@ -533,7 +531,7 @@
                 <c>248-255</c>
                 <c>Payload, reserved for private use</c>
 
-                <postamble>Possible Types are further defined below</postamble>
+                <postamble>Possible Types are defined in further detail below</postamble>
             </texttable>
             <section title="Preamble">
                 <t>The preamble of a DMPR packet is as follows</t>
@@ -566,7 +564,7 @@
                 </t>
             </section>
             <section title="Extension Header">
-                <t>An Extension Header consists of the type immediately following this
+                <t>An extension header consists of the type immediately following this
                     header, a length specifier, and the Extension Header data.
                 </t>
                 <!-- NextType:8,Length:8,Data:80 -->
@@ -587,7 +585,7 @@
                     <list style="hanging">
                         <t hangText="NextType">
                             <vspace/>
-                            8-bit unsigend integer:
+                            8-bit unsigned integer:
                             The type of the immediately following header or payload (same as
                             specified in the packet preamble description)
                         </t>
@@ -610,26 +608,26 @@
                     The Payload consists of the data from the end of the preamble or
                     last extension header until the end of the packet. Payloads may be
                     recursive, i.e. contain a valid packet (or parts of it) in
-                    themselves, payload processors therefore MUST have the ability to
+                    themselves. Payload processors therefore MUST have the ability to
                     feed their result back into the message processing chain. This
                     behavior is defined by the payload itself.
                 </t>
-                <section title="Payload: Keep-Alive">
+                <section title="Payload: keep-alive">
                     <t>Type: 128</t>
                     <t>This is a keep-alive packet, the payload length is zero.
                         Implementations SHOULD reset the message hold timer for the
                         sending node upon receiving a keep-alive packet
                     </t>
                 </section>
-                <section title="Payload: Compressed JSON">
+                <section title="Payload: compressed JSON">
                     <t>Type: 129</t>
                     <t>LZMA-compressed standard-compliant I-JSON data as described in
                         <xref target="RFC7493"/>.
-                        This is the main routing data, its structure is defined
+                        This is the main routing data; ts structure is defined in 
                         <xref target="jsonpayload"/>
                     </t>
                 </section>
-                <section title="Payload: Fragmentation">
+                <section title="Payload: fragmentation">
                     <t>Type: 130</t>
                     <t>A packet greater than the MTU between two nodes SHOULD be
                         fragmented using the fragmentation payload.
@@ -669,16 +667,16 @@
                         </list>
                     </t>
                     <t>When a packet is larger than the MTU of the link between two
-                        nodes it SHOULD be fragmented. For this the sending node computes
+                        nodes it SHOULD be fragmented. For this purpose, the sending node computes
                         the maximum effective payload size for packets sent (i.e MTU less
                         preamble, possibly extension headers and the fragmentation header)
                         and splits the original packet into parts with this size. For each
-                        of this parts it sends a packet with the fragmentation header set
-                        to a common Identifier, an according packet offset and the LAST
+                        of these parts, it sends a packet with the fragmentation header set
+                        to a common identifier, a corresponding packet offset and the LAST
                         bit set for the last fragment.
                     </t>
                     <t>The receiving node keeps track of all received fragments,
-                        grouping them by source address and Identifier. As soon as a all
+                        grouping them by source address and identifier. As soon as all
                         fragments of a packet have been received, the reconstructed packet
                         MUST be fed back into the message processing chain as if it were a
                         new, just received packet. Fragments MUST be regularly purged
@@ -688,8 +686,8 @@
             </section>
         </section>
  <section title="JSON Payload" anchor="jsonpayload">
-        <t>A JSON payload is a lzma-compressed, ascii-7 encoded JSON object.
-          A sending node SHOULD use ascii-encoding for the json data, a
+        <t>A JSON payload is an LZMA-compressed, ASCII-7 encoded JSON object.
+          A sending node SHOULD use ascii-encoding for the JSON data. A
           receiving node MUST be able to decode UTF-8 encoded data.
         </t>
         <t>Augmented requirements language for this section:
@@ -777,7 +775,7 @@
             </t>
             <t hangText="type">
               <vspace/>
-              string: The type of the message, further specified below
+              string: The type of the message, specified in further detail below
               <xref
                   target="jsontypes"/>
             </t>
@@ -800,10 +798,10 @@
             <t hangText="networks">
               <vspace/>
               object: The networks advertised by this node. The keys are valid
-              IPv4/IPv6 Network identifications with subnet prefix. If the value
-              of a network key is a object itself and the key "retracted" of
+              IPv4/IPv6 network identifications with subnet prefix. If the value
+              of a network key is a object itself and the "retracted" key of
               this object is set to true, the network MUST be handled as
-              retracted, see
+              retracted. See
               <xref target="retraction"/>
             </t>
             <t hangText="routing-data">
@@ -824,14 +822,14 @@ link-attribute-id = *DIGIT
               <vspace/>
               object: a list of networks for each reachable node defined in
               "routing-data". "networks" is handled like "networks" defined
-              above
+              above.
             </t>
             <t hangText="link-attributes">
               <vspace/>
               object: the set of link-attributes used in the paths of
               routing-data. Each key SHOULD be an integer and MUST NOT contain
               any of the brackets ()[]{}&lt;&gt;
-              the value of a entry is itself a object containing LINK_ATTRIBUTE:
+              The value of an entry is itself a object containing LINK_ATTRIBUTE:
               METRIC pairs where LINK_ATTRIBUTE is the name of a link attribute
               and metric is its value as defined in
               <xref target="terminology"/>
@@ -856,11 +854,11 @@ link-attribute-id = *DIGIT
         </t>
         <t anchor="jsontypes">
           Each message has a type. This RFC describes two types, namely full and
-          partial, which are further described here.
+          partial, which are described in further detail here.
         </t>
         <section title="Full Update">
           <t>A full update SHOULD replace all data from the sending node in the
-            receivers Message Information Base, it MUST NOT require any previous
+            receivers Message Information Base. It MUST NOT require any previous
             knowledge of the sender by the receiver. The following keys are
             specified:
           </t>
@@ -876,18 +874,18 @@ link-attribute-id = *DIGIT
                 string: REQUIRED: The IPv6 address of the
                 sending node over the link this packet has been sent.
               </t>
-              <t>Note: only one of addr-v4 and addr-v6 is required</t>
+              <t>Note: Only one of addr-v4 and addr-v6 is required</t>
               <t hangText="networks">
                 <vspace/>
                 object, REQUIRED if not empty: The networks
-                advertised by this node, see above
+                advertised by this node. See above
               </t>
               <t hangText="routing-data">
                 <vspace/>
                 object, REQUIRED if not empty: The paths advertised by the
                 sender, grouped by POLICY and target NODE_ID. The syntax of a
                 path is described above. A path MUST include the sender of this
-                message, all hops with their link-attribute ids and the target
+                message, all hops with their link-attribute IDs and the target
                 node.
               </t>
               <t hangText="node-data">
@@ -907,12 +905,12 @@ link-attribute-id = *DIGIT
         </section>
         <section title="Partial Update">
           <t>A partial update only replaces the changed data in the receivers
-            Message Information Base. It therefore has the additional field
+            message information base. It therefore has the additional field
             "partial-base" which describes the sequence number of the base
-            message, which MUST be a full update message, on which the changes
-            apply. NOTE: A partial update only describes changes to a previous
+            message, which MUST be a full update message, to which the changes
+            apply. Note: A partial update only describes changes to a previous
             full update, never to a previous partial update.
-            Should the receiving node be unable to apply the partial update, e.g
+            If the receiving node is unable to apply the partial update, e.g
             because it lacks the base message, then this node SHOULD use the
             "request-full" procedure to request a new full update (see<xref
                 target="requests"/>).
@@ -933,28 +931,28 @@ link-attribute-id = *DIGIT
                 changed. If it became invalid, the value is null.
               </t>
               <t>
-                NOTE: A partial update MUST NOT produce an invalid configuration
+                Note: A partial update MUST NOT produce an invalid configuration
                 by deleting the only address available for a node.
               </t>
               <t hangText="networks">
                 <vspace/>
                 object, OPTIONAL: The networks advertised by the sender. The
                 entries replace the base message entries on a per
-                NODE_ID basis. If a entry has been deleted, the value for the
+                NODE_ID basis. If an entry has been deleted, the value for the
                 specific NODE_ID is null.
               </t>
               <t hangText="routing-data">
                 <vspace/>
                 object, OPTIONAL: The paths advertised by the sender, grouped by
                 POLICY and target NODE_ID. The entries replace the base message
-                entries on a per NODE_ID basis. If a entry has been deleted, the
+                entries on a per NODE_ID basis. If an entry has been deleted, the
                 value for the specific NODE_ID is null.
               </t>
               <t hangText="node-data">
                 <vspace/>
                 object, OPTIONAL: The networks from other nodes known to the
                 sender. The entries replace the base message entries on a per
-                NODE_ID basis. If a entry has been deleted, the value for the
+                NODE_ID basis. If an entry has been deleted, the value for the
                 specific NODE_ID is null.
               </t>
               <t hangText="link-attributes">
@@ -972,19 +970,20 @@ link-attribute-id = *DIGIT
       <section title="Requests" anchor="requests">
         <t>
           When a node is not able to apply a partial update or just joined a
-          network, it can SHOULD sent out a request for a full update using the
+          network, it SHOULD send out a request for a full update using the
           request-full key in the message.
           This key may be an array containing NODE_IDs from which a full message
-          is needed or may be the boolean value true, to indicate that a full
+          is needed or may be the Boolean value true, to indicate that a full
           message from every neighbor is required.
-          When a node receives a request-full key in a message which either has
-          the value true or its id is present in the array, it MUST
+          When a node receives a request-full key in a message that either has
+          the value true or its ID present in the array, it MUST do one of the 
+          following:
           <!--TODO MUST or SHOULD?-->
           variant1: schedule the next message it sents to be a full
           message.
           variant2: send a full update immediately and reset its message
           interval timer, except when the last message already was a out-of-band
-          full message, then it MUST/SHOULD schedule the next message according
+          full message, in which case it MUST/SHOULD schedule the next message according
           to the message interval timer to be a full message.
         </t>
       </section>
@@ -1005,11 +1004,11 @@ link-attribute-id = *DIGIT
     </section>
     <section title="Optional Features" anchor="optionalfeatures">
       <section title="Asymmetric Link Detection">
-        <t>How should asymmetric link detection work/how can it be implemented
+        <t>How asymmetric link detection should work/how it can be implemented
         </t>
       </section>
       <section title="Full Only Mode">
-        <t>when/how to switch the mode</t>
+        <t>When/how to switch the mode</t>
       </section>
     </section>
     <section title="Introduction">
