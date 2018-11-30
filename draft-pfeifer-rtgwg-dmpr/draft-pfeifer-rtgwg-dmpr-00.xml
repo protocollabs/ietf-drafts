@@ -308,14 +308,27 @@
                 </list>
                 When a node receives a message, it deduces a connection and therefore a
                 path to the sender via the interface that message came in. With
-                this mechanism the path to a node propagates through the network. To
-                detect disconnected links or nodes getting removed or out of range, a
-                node assigns every received message to a hold timer and purges this
-                message after the timer expires.
+                this mechanism the path to a node propagates through the network. 
+                Every received message SHOULD be assigned to a hold timer. When this 
+                hold timer expires, the message MUST be deleted from the Message Information
+                Base. The timeout SHOULD be a multiple of the routing message interval.
+                
                 Asymmetric links are handled with a feature called reflection, this is
                 described in
                 <xref target="reflections"/>.
             </t>
+        </section>
+        <section title="Detection of lost destinations">
+        	<t>
+        		Whenever a neighbor is not reachable anymore (e.g. due to topology change),
+        		no further routing messages will be received from this neighbor. As all
+        		the received messages are assigned to a timer, no routing messages of the lost
+        		neighbor will be present in the Message Information Base, after the expiration 
+        		of this timer. This means, that the loss of the neighbor is detected after the
+        		timeout of the last received routing message of the concerned neighbor.
+        		For this reason, the routing table SHOLD be recalculated, whenever the
+        		Message Information Base is purged due to timeouts.
+        	</t>
         </section>
         <section title="Interface Handling">
             <t>
@@ -341,10 +354,11 @@
         <section title="Policies">
             <t>
                 To support routing different traffic types over different routes, DMPR
-                supports policies. A policy computes an arrangement of the possible paths 
-                using the available link attributes. This arrangement defines the routes the
-                nodes in the network will compute. For each policy there is a section
-                in the routing data message and also a separate routing table.
+                supports policies. A policy defines, how the best path to a destination
+                is computed using the available link attributes. For all the defined
+                policies, seperate routes will be calculated to every reachable destination.
+                The best path to all destinations is included in the routing message for every
+                policy. For each policy, a seperate routing table MUST be generated.
             </t>
         </section>
         <section title="Link Attributes">
@@ -356,7 +370,7 @@
                 specify how the link information has to be gained. 
                 There is no specification which attributes must be given to the protocol (e.g 
                 bandwith, loss rate, latency,...). The requirement of attributes depends on 
-                the attributes ment to be used.
+                the policies ment to be used.
             </t>
         </section>
         <section title="Route Selection">
@@ -365,8 +379,26 @@
                 Simple policies for example do only consider a single link metric (like 
                 bandwidth or loss rate) for the calculation of the best route.
                 Combined policies might use a combination of multiple link metrics.
-                The route selection mechanism is part of a policies definition.
+                The route selection mechanism is part of a policies definition and therefore 
+                can be individually defined.
             </t>
+        </section>
+        <section title="Routing Data calculation">
+            <t>
+            	For every reachable destination, the routing data is calculated for all
+            	defined policies, using the policies specifig Route Selection mechanism.
+            	As a result, there MUST be a seperate routing table for every defined policy.
+            	Whenever new crucial information is received, the routing data MUST be 
+            	recalculated. Information which causes a recalculation of the routing data can
+            	be:
+            	<list style="symbols">
+            		<t> A destination is reachable via a new interface </t>
+            		<t> The hold timer of a message in the Message Information Base is
+            			expired (a destination is not reachable anymore via a specific
+            			interface </t>
+            		<t> Link attributes have changed </t>
+            	</list>
+        	</t>
         </section>
         <section title="Network Retraction" anchor="retraction">
             <t>
@@ -424,6 +456,59 @@
                 <c>illegal</c>
             </texttable>
         </section>
+    </section>
+    <section title="Protocol Parameters">
+    	<t>
+    	The parameters described in this section SHOULD be configured at the
+    	startup of the router. This specification does not define any values
+    	for the parameters.
+    </t>
+    	<section title="Core configuration">
+	    	<t>
+	    		Core Configuration describes the fields which MUST be the same
+	    		on all routers in the neworks.
+	    		<list style="symbols">
+	    			<t> Multicast IPv4 Address: This is the address, where the routing
+	    			messages are sent to. DMPR listens to this interfaces for incoming
+	    			routing messages. </t>
+	    			<t> Multicast IPv6 Address: This is the address, where the routing
+	    			messages are sent to. DMPR listens to this interfaces for incoming
+	    			routing messages. </t>
+	    			<t> Routing message interval: The interval of sending the 
+	    				routing messages to the defined multicast address. </t>
+	    			<t> Routing message hold time: Timeout of the received routing 
+	    				messages. After expiration of this timeout, the received messages
+	    				are deleted from the Message Information Base. The hold time SHOULD
+	    				be a multiple of the Routing message interval. </t>
+	    		</list>
+	    	</t>
+    	</section>
+    	<section title="Path metric profiles">
+	    	<t>
+	    		This field describes a list with all the policies which should be considered
+	    		by the routing protocol. The policies are referenced by name. For every 
+	    		listed policy, the routing protocol MUST implement the according route selection
+	    		mechanism.
+	    	</t>
+    	</section>
+    	<section title="Interfaces">
+	    	<t>
+	    		This field describes a list with all the routers physical interfaces, 
+	    		which are used as DMPR interfaces. For all interfaces following fields 
+	    		are required:
+	    		<list style="symbols">
+	    			<t> The name of the interfaces </t>
+	    			<t> IPv4 Address of the interface </t>
+	    			<t> IPv6 Address of the interface </t>
+	    			<t> All link attributes which are available to describe the
+	    				interface. These attributes are used to calculate the best 
+	    				routes for the defined policies. All the attributes which are 
+	    				considered by at least one of the defined policies are required
+	    				for every interface. Common attribues are for example bandwith, 
+	    				loss rate and latency.</t>
+	    		</list>
+	    	</t>
+    	</section>
     </section>
     <section title="Message Format" anchor="messagefmt">
         <section title="Header">
@@ -938,9 +1023,6 @@ link-attribute-id = *DIGIT
         Savola and contributed by him to the xml2rfc project.
       </t>
 
-      <t>This document is part of a plan to make xml2rfc indispensable <xref
-          target="DOMINATION"></xref>.
-      </t>
     </section>
 
     <!-- Possibly a 'Contributors' section ... -->
@@ -1011,29 +1093,30 @@ link-attribute-id = *DIGIT
 
       &RFC5226;
 
-      <!-- A reference written by by an organization not a person. -->
-
-      <reference anchor="DOMINATION"
-                 target="http://www.example.com/dominator.html">
-        <front>
-          <title>Ultimate Plan for Taking Over the World</title>
-
-          <author>
-            <organization>Mad Dominators, Inc.</organization>
-          </author>
-
-          <date year="1984"/>
-        </front>
-      </reference>
     </references>
 
     <section title="Policies" anchor="appendix.policies">
       <t>many exchangeable policies</t>
       <section title="Low Loss Policy">
-        <t>use path with lowest overall loss</t>
+        <t>
+            use path with lowest overall loss. Overall loss is the accumulation of
+            the loss rates of all hops to a destination.
+            Required link attributes:
+            <list style="symbols">
+                <t> Loss rate </t>
+            </list>
+        </t>
       </section>
       <section title="High Bandwidth Policy">
-        <t>use path with highest bandwidth</t>
+        <t>
+            use path with highest bandwidth
+            In multihop topologies, the overall bandwith is the minimum of the bandwidths
+            between the hops to a destination.
+            Required link attributes:
+            <list style="symbols">
+                <t> Bandwidth </t>
+            </list>
+        </t>
       </section>
     </section>
     <section title="Tuneables" anchor="appendix.constants">
