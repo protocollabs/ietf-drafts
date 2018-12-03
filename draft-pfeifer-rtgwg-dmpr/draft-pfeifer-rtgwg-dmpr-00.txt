@@ -5,7 +5,7 @@
 Internet Engineering Task Force                          H. Pfeifer, Ed.
 Internet-Draft                                              ProtocolLabs
 Intended status: Informational                                S. Widmann
-Expires: June 2, 2019                                  November 29, 2018
+Expires: June 6, 2019                                   December 3, 2018
 
 
                    Dynamic MultiPath Routing Protocol
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 2, 2019.
+   This Internet-Draft will expire on June 6, 2019.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                  [Page 1]
+Pfeifer & Widmann         Expires June 6, 2019                  [Page 1]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
    the Trust Legal Provisions and are provided without warranty as
@@ -66,26 +66,26 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
-     1.3.  Organization of this document . . . . . . . . . . . . . .   4
+     1.3.  Organization of this Document . . . . . . . . . . . . . .   4
      1.4.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .   4
-     1.5.  Distinction from other routing protocols  . . . . . . . .   5
+     1.5.  Distinction from other Routing Protocols  . . . . . . . .   5
    2.  Data Structures . . . . . . . . . . . . . . . . . . . . . . .   5
      2.1.  Message Information Base  . . . . . . . . . . . . . . . .   5
      2.2.  Routing Data  . . . . . . . . . . . . . . . . . . . . . .   5
      2.3.  Routing Table . . . . . . . . . . . . . . . . . . . . . .   6
    3.  Behavior  . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      3.1.  Neighbor Detection  . . . . . . . . . . . . . . . . . . .   6
-     3.2.  Detection of lost destinations  . . . . . . . . . . . . .   6
-     3.3.  Interface handling  . . . . . . . . . . . . . . . . . . .   6
+     3.2.  Detection of a Lost Neighbor  . . . . . . . . . . . . . .   6
+     3.3.  Interface Handling  . . . . . . . . . . . . . . . . . . .   6
      3.4.  Message Handling  . . . . . . . . . . . . . . . . . . . .   7
      3.5.  Policies  . . . . . . . . . . . . . . . . . . . . . . . .   7
      3.6.  Link Attributes . . . . . . . . . . . . . . . . . . . . .   7
-     3.7.  Route selection . . . . . . . . . . . . . . . . . . . . .   7
-     3.8.  Routing Data calculation  . . . . . . . . . . . . . . . .   7
-     3.9.  Network retraction  . . . . . . . . . . . . . . . . . . .   8
+     3.7.  Route Selection . . . . . . . . . . . . . . . . . . . . .   7
+     3.8.  Routing Data Calculation  . . . . . . . . . . . . . . . .   8
+     3.9.  Network Retraction  . . . . . . . . . . . . . . . . . . .   8
    4.  Protocol Parameters . . . . . . . . . . . . . . . . . . . . .   9
-     4.1.  Core configuration  . . . . . . . . . . . . . . . . . . .   9
-     4.2.  Path metric profiles  . . . . . . . . . . . . . . . . . .   9
+     4.1.  Core Configuration  . . . . . . . . . . . . . . . . . . .   9
+     4.2.  Path Metric Profiles  . . . . . . . . . . . . . . . . . .   9
      4.3.  Interfaces  . . . . . . . . . . . . . . . . . . . . . . .   9
    5.  Message Format  . . . . . . . . . . . . . . . . . . . . . . .  10
      5.1.  Header  . . . . . . . . . . . . . . . . . . . . . . . . .  10
@@ -94,7 +94,7 @@ Table of Contents
        5.1.3.  Payload . . . . . . . . . . . . . . . . . . . . . . .  11
          5.1.3.1.  Payload: keep-alive . . . . . . . . . . . . . . .  11
          5.1.3.2.  Payload: compressed JSON  . . . . . . . . . . . .  12
-         5.1.3.3.  Payload: fragmentation  . . . . . . . . . . . . .  12
+         5.1.3.3.  Payload: Fragmentation  . . . . . . . . . . . . .  12
      5.2.  JSON Payload  . . . . . . . . . . . . . . . . . . . . . .  13
        5.2.1.  Full Update . . . . . . . . . . . . . . . . . . . . .  16
        5.2.2.  Partial Update  . . . . . . . . . . . . . . . . . . .  17
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                  [Page 2]
+Pfeifer & Widmann         Expires June 6, 2019                  [Page 2]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  19
@@ -165,9 +165,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                  [Page 3]
+Pfeifer & Widmann         Expires June 6, 2019                  [Page 3]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
       A link attribute is a basic attribute of a link, for example the
@@ -179,12 +179,12 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
       which define a loop-free path from one node to another.
 
    Policy
-      A policy describes an order relation over a set of paths using the
-      link attributes of these paths.  Note that to guarantee loop-free
-      properties this ordering function MUST be commutative and
-      associative.  Policy examples can be found in Appendix A
+      A policy describes an arrangement relation over a set of paths
+      using the link attributes of these paths.  Note that to guarantee
+      loop-free properties this arranging function MUST be commutative
+      and associative.  Policy examples can be found in Appendix A
 
-1.3.  Organization of this document
+1.3.  Organization of this Document
 
    Section 2 describes the information every node has and gets and how
    it should handle this information.  Section 3 describes the behavior
@@ -221,12 +221,12 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                  [Page 4]
+Pfeifer & Widmann         Expires June 6, 2019                  [Page 4]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
-1.5.  Distinction from other routing protocols
+1.5.  Distinction from other Routing Protocols
 
    Traditionally, routing protocols find the best path using a scalar
    metric.  This metric may be a simple constant stating the preference
@@ -277,9 +277,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                  [Page 5]
+Pfeifer & Widmann         Expires June 6, 2019                  [Page 5]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 2.3.  Routing Table
@@ -312,7 +312,7 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
    message interval.  Asymmetric links are handled with a feature called
    reflection, which is described in Section 5.4.
 
-3.2.  Detection of lost destinations
+3.2.  Detection of a Lost Neighbor
 
    Whenever a neighbor is not reachable anymore (e.g. due to topology
    change), no further routing messages will be received from this
@@ -324,7 +324,7 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
    reason, the routing table SHOLD be recalculated, whenever the Message
    Information Base is purged due to timeouts.
 
-3.3.  Interface handling
+3.3.  Interface Handling
 
    In DMPR all interfaces that are registered with the DMPR daemon are
    treated completely separate from each other.  Routing messages are
@@ -333,9 +333,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                  [Page 6]
+Pfeifer & Widmann         Expires June 6, 2019                  [Page 6]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
    (seeSection 2.1) is grouped by interface.  Therefore nodes can detect
@@ -354,25 +354,31 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 3.5.  Policies
 
    To support routing different traffic types over different routes,
-   DMPR supports policies.  A policy defines, how the best path to a
-   destination is computed using the available link attributes.  For all
-   the defined policies, seperate routes will be calculated to every
-   reachable destination.  The best path to all destinations is included
-   in the routing message for every policy.  For each policy, a seperate
-   routing table MUST be generated.
+   DMPR supports multiple policies.  A policy defines, how the best path
+   to a destination is computed using the available link attributes.
+   For all the defined policies, seperate routes will be calculated to
+   every reachable destination.  The best path to all destinations is
+   included in the routing message for every policy.  For each policy, a
+   seperate routing table MUST be generated.  In large networks, this
+   results in a multi topology routing.  When different parts of the
+   network have different attributes (e.g. one path has a low loss rate,
+   another path in contrast has a higher bandwidth), different subsets
+   of the topology will be used to forward packets that require
+   different policies (Class of Service).
 
 3.6.  Link Attributes
 
-   DMPR MUST know the link attributes(for each policy) of all links to
-   the router.  These attributes can either be configured staticly by
-   the network administrator or can be dynamically gathered from the
-   attached modem devices.  This RFC does not specify how the link
-   information has to be gained.  There is no specification defining
-   which attributes must be given to the protocol (e.g bandwidth, loss
-   rate, latency).  The requirement of attributes depends on the
-   policies meant to be used.
+   DMPR MUST know the link attributes that are required to determinate
+   the best path for all the registered policies on all links
+   (interfaces) to the router.  These attributes can either be
+   configured staticly by the network administrator or can be
+   dynamically gathered from the attached modem devices.  This RFC does
+   not specify how the link information has to be gained.  There is no
+   specification defining which attributes must be given to the protocol
+   (e.g bandwidth, loss rate, latency).  The requirement of attributes
+   depends on the policies meant to be used.
 
-3.7.  Route selection
+3.7.  Route Selection
 
    The calculation of the best route MUST be defined for each policy
    separately.  For example simple policies only consider a single link
@@ -381,19 +387,18 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
    link metrics.  The route selection mechanism is part of a policy's
    definition and therefore can be individually defined.
 
-3.8.  Routing Data calculation
+
+
+Pfeifer & Widmann         Expires June 6, 2019                  [Page 7]
+
+Internet-Draft          Dynamic MultiPath Routing          December 2018
+
+
+3.8.  Routing Data Calculation
 
    For every reachable destination, the routing data is calculated for
    all defined policies using the policy's specific route selection
    mechanism.  As a result, there MUST be a seperate routing table for
-
-
-
-Pfeifer & Widmann         Expires June 2, 2019                  [Page 7]
-
-Internet-Draft          Dynamic MultiPath Routing          November 2018
-
-
    every defined policy.  Whenever new crucial information is received,
    the routing data MUST be recalculated.  Information that causes a
    recalculation of the routing data can be:
@@ -406,7 +411,7 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
    o  Link attributes have changed
 
-3.9.  Network retraction
+3.9.  Network Retraction
 
    Each network advertised in a message has an optional flag called
    "retracted".  This flag is set to true when a node no longer
@@ -440,14 +445,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-
-
-
-
-
-Pfeifer & Widmann         Expires June 2, 2019                  [Page 8]
+Pfeifer & Widmann         Expires June 6, 2019                  [Page 8]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 4.  Protocol Parameters
@@ -456,7 +456,7 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
    startup of the router.  This specification does not define any values
    for the parameters.
 
-4.1.  Core configuration
+4.1.  Core Configuration
 
    Core Configuration describes the fields which MUST be the same on all
    routers in the neworks.
@@ -477,7 +477,7 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
       are deleted from the Message Information Base.  The hold time
       SHOULD be a multiple of the Routing message interval.
 
-4.2.  Path metric profiles
+4.2.  Path Metric Profiles
 
    This field describes a list with all the policies which should be
    considered by the routing protocol.  The policies are referenced by
@@ -501,9 +501,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                  [Page 9]
+Pfeifer & Widmann         Expires June 6, 2019                  [Page 9]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
       defined policies.  All the attributes which are considered by at
@@ -557,9 +557,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 10]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 10]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 5.1.2.  Extension Header
@@ -613,9 +613,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 11]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 11]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 5.1.3.2.  Payload: compressed JSON
@@ -626,7 +626,7 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
    [RFC7493].  This is the main routing data; ts structure is defined in
    Section 5.2
 
-5.1.3.3.  Payload: fragmentation
+5.1.3.3.  Payload: Fragmentation
 
    Type: 130
 
@@ -669,9 +669,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 12]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 12]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
    The receiving node keeps track of all received fragments, grouping
@@ -725,9 +725,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 13]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 13]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
    General Message Structure
@@ -781,9 +781,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 14]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 14]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
    Key and value description:
@@ -837,9 +837,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 15]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 15]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
       object: a list of networks for each reachable node defined in
@@ -893,9 +893,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 16]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 16]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
    routing-data
@@ -949,9 +949,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 17]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 17]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
    routing-data
@@ -1005,9 +1005,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 18]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 18]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 6.  Optional Features
@@ -1061,9 +1061,9 @@ Internet-Draft          Dynamic MultiPath Routing          November 2018
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 19]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 19]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
    [RFC7493]  Bray, T., Ed., "The I-JSON Message Format", RFC 7493,
@@ -1117,9 +1117,9 @@ Appendix B.  Tuneables
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 20]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 20]
 
-Internet-Draft          Dynamic MultiPath Routing          November 2018
+Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 Appendix C.  Examples
@@ -1173,4 +1173,4 @@ Authors' Addresses
 
 
 
-Pfeifer & Widmann         Expires June 2, 2019                 [Page 21]
+Pfeifer & Widmann         Expires June 6, 2019                 [Page 21]

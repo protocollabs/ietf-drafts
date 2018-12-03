@@ -178,16 +178,16 @@
                     </t>
                     <t hangText="Policy">
                         <vspace/>
-                        A policy describes an order relation over a set of paths using the
+                        A policy describes an arrangement relation over a set of paths using the
                         link attributes of these paths. Note that to guarantee loop-free
-                        properties this ordering function MUST be commutative and
+                        properties this arranging function MUST be commutative and
                         associative. Policy examples can be found in
                         <xref target="appendix.policies"/>
                     </t>
                 </list>
             </t>
         </section>
-        <section title="Organization of this document">
+        <section title="Organization of this Document">
             <t>
                 <xref target="datastructures"/>
                 describes the information every node has and gets and how it should
@@ -232,7 +232,7 @@
                 latency.
             </t>
         </section>
-        <section title="Distinction from other routing protocols">
+        <section title="Distinction from other Routing Protocols">
             <t>
                 Traditionally, routing protocols find the best path using a scalar
                 metric.
@@ -316,7 +316,7 @@
                 <xref target="reflections"/>.
             </t>
         </section>
-        <section title="Detection of lost destinations">
+        <section title="Detection of a Lost Neighbor">
         	<t>
         		Whenever a neighbor is not reachable anymore (e.g. due to topology change),
         		no further routing messages will be received from this neighbor. As all
@@ -328,7 +328,7 @@
         		Message Information Base is purged due to timeouts.
         	</t>
         </section>
-        <section title="Interface handling">
+        <section title="Interface Handling">
             <t>
                 In DMPR all interfaces that are registered with the DMPR daemon are
                 treated completely separate from each other. Routing messages are sent
@@ -352,17 +352,22 @@
         <section title="Policies">
             <t>
                 To support routing different traffic types over different routes, DMPR
-                supports policies. A policy defines, how the best path to a destination
+                supports multiple policies. A policy defines, how the best path to a destination
                 is computed using the available link attributes. For all the defined
                 policies, seperate routes will be calculated to every reachable destination.
                 The best path to all destinations is included in the routing message for every
-                policy. For each policy, a seperate routing table MUST be generated.
+                policy. For each policy, a seperate routing table MUST be generated. In large 
+                networks, this results in a multi topology routing. When different parts of the
+                network have different attributes (e.g. one path has a low loss rate, another path
+                in contrast has a higher bandwidth), different subsets of the topology will be used
+                to forward packets that require different policies (Class of Service).
+
             </t>
         </section>
         <section title="Link Attributes">
             <t>
-                DMPR MUST know the link attributes(for each policy) of all links 
-                to the router. These
+                DMPR MUST know the link attributes that are required to determinate the best path for
+                all the registered policies on all links (interfaces) to the router. These
                 attributes can either be configured staticly by the network administrator or 
                 can be dynamically gathered from the attached modem devices. This RFC does not 
                 specify how the link information has to be gained. 
@@ -371,7 +376,7 @@
                 the policies meant to be used.
             </t>
         </section>
-        <section title="Route selection">
+        <section title="Route Selection">
             <t>
                 The calculation of the best route MUST be defined for each policy separately.
                 For example simple policies only consider a single link metric (such as 
@@ -381,7 +386,7 @@
                 can be individually defined.
             </t>
         </section>
-        <section title="Routing Data calculation">
+        <section title="Routing Data Calculation">
             <t>
             	For every reachable destination, the routing data is calculated for all
             	defined policies using the policy's specific route selection mechanism.
@@ -398,7 +403,7 @@
             	</list>
         	</t>
         </section>
-        <section title="Network retraction" anchor="retraction">
+        <section title="Network Retraction" anchor="retraction">
             <t>
                 Each network advertised in a message has an optional flag called
                 "retracted". This flag is set to true when a node no longer advertises
@@ -461,7 +466,7 @@
     	startup of the router. This specification does not define any values
     	for the parameters.
     </t>
-    	<section title="Core configuration">
+    	<section title="Core Configuration">
 	    	<t>
 	    		Core Configuration describes the fields which MUST be the same
 	    		on all routers in the neworks.
@@ -481,7 +486,7 @@
 	    		</list>
 	    	</t>
     	</section>
-    	<section title="Path metric profiles">
+    	<section title="Path Metric Profiles">
 	    	<t>
 	    		This field describes a list with all the policies which should be considered
 	    		by the routing protocol. The policies are referenced by name. For every 
@@ -627,7 +632,7 @@
                         <xref target="jsonpayload"/>
                     </t>
                 </section>
-                <section title="Payload: fragmentation">
+                <section title="Payload: Fragmentation">
                     <t>Type: 130</t>
                     <t>A packet greater than the MTU between two nodes SHOULD be
                         fragmented using the fragmentation payload.
