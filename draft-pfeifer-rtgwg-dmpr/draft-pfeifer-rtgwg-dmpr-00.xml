@@ -558,10 +558,16 @@
                             A 3-bit Magic: 0b010
                         </t>
                         <t hangText="Payload Type">
-                            <vspace/>
-                            1: Plain Payload; unencrypted and uncompressed
-                            2: zip compressed payload
-                            3: payload encrypted (for future use)
+                            
+                            <list style="hanging">
+                            <t hangText="1: Plain">
+                                Payload; uncompressed and unencrypted
+                            </t>
+                            <t hangText="2: zip compressed payload">
+                            </t>
+                            <t hangText="3: encrypted (for future use)">
+                            </t>
+                            </list>
                         </t>
                         <t hangText="NextType">
                             <vspace/>

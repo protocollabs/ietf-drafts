@@ -548,12 +548,12 @@ Internet-Draft          Dynamic MultiPath Routing           January 2018
       A 3-bit Magic: 0b010
 
    Payload Type
-      1: Plain Payload; unencrypted and uncompressed 2: zip compressed
-      payload 3: payload encrypted (for future use)
 
-   NextType
-      The type of the next header or payload.
+      1: Plain  Payload; uncompressed and unencrypted
 
+      2: zip compressed payload
+
+      3: encrypted (for future use)
 
 
 
@@ -561,6 +561,9 @@ Pfeifer & Widmann         Expires July 22, 2019                [Page 10]
 
 Internet-Draft          Dynamic MultiPath Routing           January 2018
 
+
+   NextType
+      The type of the next header or payload.
 
 5.1.2.  Extension Header
 
@@ -606,9 +609,6 @@ Internet-Draft          Dynamic MultiPath Routing           January 2018
    This is a keep-alive packet, the payload length is zero.
    Implementations SHOULD reset the message hold timer for the sending
    node upon receiving a keep-alive packet
-
-
-
 
 
 
