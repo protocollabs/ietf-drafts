@@ -5,7 +5,7 @@
 Internet Engineering Task Force                          H. Pfeifer, Ed.
 Internet-Draft                                              ProtocolLabs
 Intended status: Informational                                S. Widmann
-Expires: June 6, 2019                                   December 3, 2018
+Expires: July 22, 2019                                  January 18, 2018
 
 
                    Dynamic MultiPath Routing Protocol
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 6, 2019.
+   This Internet-Draft will expire on July 22, 2019.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                  [Page 1]
+Pfeifer & Widmann         Expires July 22, 2019                 [Page 1]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
    the Trust Legal Provisions and are provided without warranty as
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                  [Page 2]
+Pfeifer & Widmann         Expires July 22, 2019                 [Page 2]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  19
@@ -165,9 +165,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                  [Page 3]
+Pfeifer & Widmann         Expires July 22, 2019                 [Page 3]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
       A link attribute is a basic attribute of a link, for example the
@@ -221,9 +221,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                  [Page 4]
+Pfeifer & Widmann         Expires July 22, 2019                 [Page 4]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
 1.5.  Distinction from other Routing Protocols
@@ -277,9 +277,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                  [Page 5]
+Pfeifer & Widmann         Expires July 22, 2019                 [Page 5]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
 2.3.  Routing Table
@@ -333,9 +333,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                  [Page 6]
+Pfeifer & Widmann         Expires July 22, 2019                 [Page 6]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
    (seeSection 2.1) is grouped by interface.  Therefore nodes can detect
@@ -389,9 +389,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                  [Page 7]
+Pfeifer & Widmann         Expires July 22, 2019                 [Page 7]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
 3.8.  Routing Data Calculation
@@ -445,9 +445,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                  [Page 8]
+Pfeifer & Widmann         Expires July 22, 2019                 [Page 8]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
 4.  Protocol Parameters
@@ -501,9 +501,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                  [Page 9]
+Pfeifer & Widmann         Expires July 22, 2019                 [Page 9]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
       defined policies.  All the attributes which are considered by at
@@ -539,7 +539,7 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
                     0                   1                   2                   3
                     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
                     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    |Magic| Reserved|    NextType   |
+                    |Magic|  Type   |    NextType   |
                     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                          The preamble of a packet
@@ -547,8 +547,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
    Magic
       A 3-bit Magic: 0b010
 
-   Reserved
-      Reserved for future use
+   Payload Type
+      1: Plain Payload; unencrypted and uncompressed 2: zip compressed
+      payload 3: payload encrypted (for future use)
 
    NextType
       The type of the next header or payload.
@@ -556,10 +557,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 10]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 10]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
 5.1.2.  Extension Header
@@ -613,9 +613,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 11]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 11]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
 5.1.3.2.  Payload: compressed JSON
@@ -669,9 +669,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 12]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 12]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
    The receiving node keeps track of all received fragments, grouping
@@ -682,9 +682,10 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 5.2.  JSON Payload
 
-   A JSON payload is an LZMA-compressed, ASCII-7 encoded JSON object.  A
-   sending node SHOULD use ascii-encoding for the JSON data.  A
-   receiving node MUST be able to decode UTF-8 encoded data.
+   A JSON payload is an ASCII-7 encoded JSON object.  A sending node
+   SHOULD use ascii-encoding for the JSON data.  A receiving node MUST
+   be able to decode UTF-8 encoded data.  The payload can be zip
+   compressed.  A compressed payload has to be announced in the header.
 
    Augmented requirements language for this section:
 
@@ -724,10 +725,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 13]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 13]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
    General Message Structure
@@ -781,9 +781,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 14]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 14]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
    Key and value description:
@@ -837,9 +837,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 15]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 15]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
       object: a list of networks for each reachable node defined in
@@ -893,9 +893,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 16]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 16]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
    routing-data
@@ -949,9 +949,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 17]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 17]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
    routing-data
@@ -1005,9 +1005,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 18]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 18]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
 6.  Optional Features
@@ -1044,7 +1044,8 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 10.  Security Considerations
 
    All drafts are required to have a security considerations section.
-   See RFC 3552 [RFC3552] for a guide.
+   See RFC 3552 [RFC3552] for a guide.  Due to the Multicast
+   Transmission, the routing message's payload data is unencrypted.
 
 11.  References
 
@@ -1060,10 +1061,9 @@ Internet-Draft          Dynamic MultiPath Routing          December 2018
 
 
 
-
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 19]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 19]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
    [RFC7493]  Bray, T., Ed., "The I-JSON Message Format", RFC 7493,
@@ -1117,9 +1117,9 @@ Appendix B.  Tuneables
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 20]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 20]
 
-Internet-Draft          Dynamic MultiPath Routing          December 2018
+Internet-Draft          Dynamic MultiPath Routing           January 2018
 
 
 Appendix C.  Examples
@@ -1173,4 +1173,4 @@ Authors' Addresses
 
 
 
-Pfeifer & Widmann         Expires June 6, 2019                 [Page 21]
+Pfeifer & Widmann         Expires July 22, 2019                [Page 21]

@@ -546,7 +546,7 @@
                     0                   1                   2                   3
                     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
                     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    |Magic| Reserved|    NextType   |
+                    |Magic|  Type   |    NextType   |
                     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                     ]]></artwork>
                     <postamble>The preamble of a packet</postamble>
@@ -557,9 +557,11 @@
                             <vspace/>
                             A 3-bit Magic: 0b010
                         </t>
-                        <t hangText="Reserved">
+                        <t hangText="Payload Type">
                             <vspace/>
-                            Reserved for future use
+                            1: Plain Payload; unencrypted and uncompressed
+                            2: zip compressed payload
+                            3: payload encrypted (for future use)
                         </t>
                         <t hangText="NextType">
                             <vspace/>
@@ -691,9 +693,11 @@
             </section>
         </section>
  <section title="JSON Payload" anchor="jsonpayload">
-        <t>A JSON payload is an LZMA-compressed, ASCII-7 encoded JSON object.
+        <t>A JSON payload is an ASCII-7 encoded JSON object.
           A sending node SHOULD use ascii-encoding for the JSON data. A
           receiving node MUST be able to decode UTF-8 encoded data.
+          The payload can be zip compressed. A compressed payload has to 
+          be announced in the header.
         </t>
         <t>Augmented requirements language for this section:
           <list style="hanging">
@@ -1048,6 +1052,7 @@ link-attribute-id = *DIGIT
     <section anchor="Security" title="Security Considerations">
       <t>All drafts are required to have a security considerations section.
         See <xref target="RFC3552">RFC 3552</xref> for a guide.
+        Due to the Multicast Transmission, the routing message's payload data is unencrypted.
       </t>
     </section>
   </middle>
