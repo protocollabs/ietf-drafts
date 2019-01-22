@@ -546,7 +546,7 @@
                     0                   1                   2                   3
                     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
                     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    |Magic|  Type   |    NextType   |
+                    |Magic| Reserved|    NextType   |
                     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                     ]]></artwork>
                     <postamble>The preamble of a packet</postamble>
@@ -557,17 +557,9 @@
                             <vspace/>
                             A 3-bit Magic: 0b010
                         </t>
-                        <t hangText="Payload Type">
-                            
-                            <list style="hanging">
-                            <t hangText="1: Plain">
-                                Payload; uncompressed and unencrypted
-                            </t>
-                            <t hangText="2: zip compressed payload">
-                            </t>
-                            <t hangText="3: encrypted (for future use)">
-                            </t>
-                            </list>
+                        <t hangText="Reserved">
+                            <vspace/>
+                            Reserved for future use
                         </t>
                         <t hangText="NextType">
                             <vspace/>
@@ -626,17 +618,25 @@
                     behavior is defined by the payload itself.
                 </t>
                 <section title="Payload: keep-alive">
-                    <t>Type: 128</t>
+                    <t>Type: 127</t>
                     <t>This is a keep-alive packet, the payload length is zero.
                         Implementations SHOULD reset the message hold timer for the
                         sending node upon receiving a keep-alive packet
+                    </t>
+                </section>
+                <section title="Payload: uncompressed JSON">
+                    <t>Type: 128</t>
+                    <t> Unkompressed, plain, standard-compliant I-JSON data as described in 
+                        <xref target="RFC7493"/>.
+                        This is the main routing data; its structure is defined in 
+                        <xref target="jsonpayload"/>
                     </t>
                 </section>
                 <section title="Payload: compressed JSON">
                     <t>Type: 129</t>
                     <t>LZMA-compressed standard-compliant I-JSON data as described in
                         <xref target="RFC7493"/>.
-                        This is the main routing data; ts structure is defined in 
+                        This is the main routing data; its structure is defined in 
                         <xref target="jsonpayload"/>
                     </t>
                 </section>
