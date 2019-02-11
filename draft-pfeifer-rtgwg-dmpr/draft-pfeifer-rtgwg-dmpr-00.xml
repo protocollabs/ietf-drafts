@@ -542,13 +542,13 @@
                 <t>The preamble of a DMPR packet is as follows</t>
                 <!-- Magic:3,Reserved:5,NextType:8 -->
                 <figure align="center">
-                    <artwork><![CDATA[
-                    0                   1                   2                   3
-                    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    |Magic| Reserved|    NextType   |
-                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    ]]></artwork>
+<artwork><![CDATA[
+0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|Magic| Reserved|    NextType   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
                     <postamble>The preamble of a packet</postamble>
                 </figure>
                 <t>
@@ -574,17 +574,17 @@
                 </t>
                 <!-- NextType:8,Length:8,Data:80 -->
                 <figure align="center">
-                    <artwork><![CDATA[
-                    0                   1                   2                   3
-                    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    |    NextType   |     Length    |                               |
-                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-                    |                                                               |
-                    +                              Data                             +
-                    |                                                               |
-                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                    ]]></artwork>
+<artwork><![CDATA[
+0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    NextType   |     Length    |                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+|                                                               |
++                              Data                             +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
                 </figure>
                 <t>
                     <list style="hanging">
@@ -647,15 +647,15 @@
                     </t>
                     <!-- Identifier:8,Last:1,Packet offset:7,Payload:48 -->
                     <figure align="center">
-                        <artwork><![CDATA[
-                          0                   1                   2                   3
-                          0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-                          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                          |   Identifier  |L|Packet offset|                               |
-                          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
-                          |                            Payload                            |
-                          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                          ]]></artwork>
+<artwork><![CDATA[
+0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   Identifier  |L|Packet offset|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+|                            Payload                            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
                         <postamble>The Fragmentation Payload Header</postamble>
                     </figure>
                     <t>
@@ -727,7 +727,7 @@
         <t>
           <figure>
             <preamble>General Message Structure</preamble>
-            <artwork><![CDATA[
+<artwork><![CDATA[
 {
   "id": <NODE_ID>,
   "seq": <SEQUENCE_NUMBER>,
@@ -773,7 +773,7 @@
     }
   }
 }
-            ]]></artwork>
+]]></artwork>
           </figure>
         </t>
         <t>Key and value description:
@@ -826,11 +826,11 @@
               node does not understand this policy the entry MUST be ignored.
               PATH: a path to a node described according to this syntax:
               <figure>
-                <artwork type="abnf"><![CDATA[
+<artwork type="abnf"><![CDATA[
 path = node [node-id ">[" link-attribute-id "]>" path]
 node-id = *ALPHA
 link-attribute-id = *DIGIT
-              ]]></artwork>
+]]></artwork>
               </figure>
             </t>
             <t hangText="node-data">
