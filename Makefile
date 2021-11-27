@@ -1,6 +1,6 @@
 
 all:
-	xml2rfc draft-pfeifer-rtgwg-dmpr/draft-pfeifer-rtgwg-dmpr-00.xml
+	xml2rfc draft-pfeifer-rtgwg-dmpr/draft-pfeifer-rtgwg-dmpr-01.xml
 
 clean:
 	rm -rf draft-pfeifer-rtgwg-dmpr/*.txt
